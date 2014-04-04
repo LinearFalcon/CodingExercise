@@ -19,7 +19,7 @@ public class MergeTwoSortedLists {
 		} else if (l2 == null) {
 			return l1;
 		} else {
-			if (l1.val >= l2.val) {
+			if (l1.val >= l2.val) {			//make sure for head
 				head = l2;
 			} else {
 				head = l1;

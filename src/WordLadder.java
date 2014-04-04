@@ -24,7 +24,7 @@ public class WordLadder {
 			if (canTransform(s, end))			// if end is not in dict, then need this helper function to determine if can transform
 				return layer + 1;
 			
-			for (int i = 0; i < s.length(); i++) {				// do not use iterator to iterate whole dict, since dict could be large
+			for (int i = 0; i < s.length(); i++) {				// do not use iterator to iterate whole dict, since dict could be very large
 				for (char temp = 'a'; temp <= 'z'; temp++) {
 					char[] sArr = s.toCharArray();
 					sArr[i] = temp;

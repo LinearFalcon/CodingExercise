@@ -78,7 +78,7 @@ public class TwoSumThreeSum {
 		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
 		if (num.length < 3)
 			return result;	
-		Arrays.sort(num);
+		Arrays.sort(num);				// must sort first
 		for (int i = 0; i < num.length - 2; i++) {
 			if (i > 0 && num[i] == num[i -1])
 				continue;

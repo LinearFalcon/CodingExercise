@@ -26,7 +26,7 @@ public class Panlindrome {
 			stack.push(arr.get(count));
 		}
 		count = length/2;
-		if (length % 2 != 0)
+		if (length % 2 != 0)		// if lenght is prime, then length/2 point to the middle one now, need to increment
 			count++;
 		while(!stack.empty()) {
 			char c = stack.pop();

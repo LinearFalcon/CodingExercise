@@ -1,3 +1,4 @@
+package edu.nyu.liangfang.leetcode;
 
 public class ClimbingStairs {
 	public int climbStairs(int n) {

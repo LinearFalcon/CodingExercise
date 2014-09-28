@@ -1,3 +1,4 @@
+package edu.nyu.liangfang.leetcode;
 
 /*
  * CTCI Chap 9 9.8

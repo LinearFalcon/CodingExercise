@@ -1,3 +1,4 @@
+package edu.nyu.liangfang.leetcode;
 class TreeNode {
 	int val;
     TreeNode left;

@@ -1,3 +1,4 @@
+package edu.nyu.liangfang.leetcode;
 
 /*
  * CTCI Chap 11  11.6  all rows and columns of matrix is sorted in ascending order

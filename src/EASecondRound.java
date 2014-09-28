@@ -1,16 +1,17 @@
+package edu.nyu.liangfang.leetcode;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
-class Point {
+class PointEA {
 	public int x;
 	public int y;
 	public int value;
 	public int sum;
-	Point parent;		// last point in shortest path
+	PointEA parent;		// last PointEA in shortest path
 	
-	public Point(int x, int y, int value) {
+	public PointEA(int x, int y, int value) {
 		this.x = x;
 		this.y = y;
 		this.value = value;
@@ -26,7 +27,7 @@ class Point {
 public class EASecondRound {
 	public void printPath() {
 		
-		Point[][] matrix = readMatrix();
+		PointEA[][] matrix = readMatrix();
 		matrix[0][0].setSum(matrix[0][0].value);
 		if (matrix[0][1].value < 0)
 			matrix[0][0].sum += matrix[0][1].value;
@@ -36,7 +37,7 @@ public class EASecondRound {
 		
 		int row  = matrix.length;
 		int col = matrix[0].length;
-		Point p = matrix[row - 1][col - 1];
+		PointEA p = matrix[row - 1][col - 1];
 		int sum = p.sum;					// sum of shortest path
 		ArrayList<Integer> info = new ArrayList<Integer>();
 		while (p != null) {
@@ -53,9 +54,9 @@ public class EASecondRound {
 		}
 	}
 	
-	public void relax(Point[][] matrix, Point p) {
+	public void relax(PointEA[][] matrix, PointEA p) {
 		if (p.y < matrix[0].length - 1 && matrix[p.x][p.y + 1].value >= 0) {
-			Point right = matrix[p.x][p.y + 1];
+			PointEA right = matrix[p.x][p.y + 1];
 			
 			int temp = p.sum + right.value;
 			if (right.x > 0 && matrix[right.x - 1][right.y].value < 0) {
@@ -77,7 +78,7 @@ public class EASecondRound {
 		}
 	
 		if (p.x < matrix.length - 1 && matrix[p.x + 1][p.y].value >= 0) {
-			Point down = matrix[p.x + 1][p.y];
+			PointEA down = matrix[p.x + 1][p.y];
 			
 			int temp = p.sum + down.value;
 			if (down.y > 0 && matrix[down.x][down.y - 1].value < 0) {
@@ -100,9 +101,9 @@ public class EASecondRound {
 		
 	}
 	
-	public Point[][] readMatrix() {
+	public PointEA[][] readMatrix() {
 		BufferedReader br = null;
-		Point[][] result = null;
+		PointEA[][] result = null;
 		ArrayList<int[]> matrixInfo = new ArrayList<int[]>();
 		try {
 			String currentLine;
@@ -116,10 +117,10 @@ public class EASecondRound {
 				}
 				matrixInfo.add(arr);
 				
-				result = new Point[matrixInfo.size()][arr.length];
+				result = new PointEA[matrixInfo.size()][arr.length];
 				for (int i = 0; i < matrixInfo.size(); i++) {
 					for (int j = 0; j < arr.length; j++) {
-						result[i][j] = new Point(i, j, matrixInfo.get(i)[j]);
+						result[i][j] = new PointEA(i, j, matrixInfo.get(i)[j]);
 					}
 				}
 			}

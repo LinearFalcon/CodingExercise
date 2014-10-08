@@ -1,8 +1,8 @@
 package edu.nyu.liangfang.leetcode;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.io.FileReader;
-import java.io.BufferedReader;
 
 class PointEA {
 	public int x;

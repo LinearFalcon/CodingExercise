@@ -5,8 +5,32 @@ import java.util.Stack;
 
 
 public class generateParentheses {
-
+	// faster DFS solution without check parentheses
 	public List<String> generateParenthesis(int n) {
+		List<String> result = new LinkedList<String>();
+		findParen(n, 0, 0, "", result);
+		return result;
+	}
+	
+	public void findParen(int n, int leftNum, int rightNum, String curr, List<String> result) {
+	    if (leftNum <= n && rightNum <= n) {	// must make sure this to avoid infinite loop
+	        if (rightNum > leftNum) {		// this condition avoid invalid parentheses
+	            return;
+	        }
+	        if (leftNum == n && rightNum == n) {
+	            result.add(curr);
+	            return;
+	        }
+	        
+	        findParen(n, leftNum + 1, rightNum, curr + "(", result);
+	        findParen(n, leftNum, rightNum + 1, curr + ")", result);
+	    }
+	}
+	
+	
+	// -------------------- complicated solution -----------------------
+	
+	public List<String> generateParenthesis_slow(int n) {
 		List<String> result = new LinkedList<String>();
 		String currentStr = "";							// initial empty string
 		generate(result, n, n, currentStr);

@@ -7,12 +7,12 @@ public class palindromePartitioning2 {
 		if (s.length() == 0)		// corner condition
 			return 0;
 		Hashtable<String, Integer> minCuts = new Hashtable<String, Integer>();
-		computeMinCut(s, 0, minCuts);
+		computeMinCut(s, minCuts);
 		return minCuts.get(s);
 	}
 	
 	
-	private void computeMinCut(String remaining, int count, Hashtable<String, Integer> minCuts) {
+	private void computeMinCut(String remaining, Hashtable<String, Integer> minCuts) {
 //		if (minCuts.containsKey(remaining))			don't need, since only when remaining not contains in minCuts will computeMinCut be called
 //			return;
 
@@ -26,7 +26,7 @@ public class palindromePartitioning2 {
 			String leftStr = remaining.substring(i);
 			if (isPalindrome(partition)) {
 				if (!minCuts.containsKey(leftStr)) {	// for each nodes after one cut, only call recursion function when don't know min cut num
-					computeMinCut(leftStr, count + 1, minCuts);	
+					computeMinCut(leftStr, minCuts);	
 				}
 					
 				// if new minCut number is smaller, then remove old minCut number first, then add new one

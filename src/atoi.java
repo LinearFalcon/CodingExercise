@@ -1,9 +1,55 @@
 package edu.nyu.liangfang.leetcode;
-import java.util.Queue;
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class atoi {
+	// 2nd time
 	public int atoi(String str) {
+        if (str == null || str.length() == 0) {
+            return 0;
+        }
+        
+        String s = str.trim();
+        int n = s.length();
+        boolean isPositive = true;
+        long res = 0;
+        int i;	
+        for (i = 0; i < n; i++) {
+            if (i == 0) {
+                if ((s.charAt(i) < '0' || s.charAt(i) > '9') && s.charAt(i) != '+' 
+                        && s.charAt(i) != '-') {
+                    break;            
+                } else if (s.charAt(i) == '-') {
+                    isPositive = false;
+                } else if (s.charAt(i) == '+') {
+                    isPositive = true;
+                } else {
+                    res += (s.charAt(i) - '0') * Math.pow(10, n - i - 1);
+                }
+            } else {
+                if (s.charAt(i) < '0' || s.charAt(i) > '9') {
+                    break;
+                } else {
+                    res += (s.charAt(i) - '0') * Math.pow(10, n - i - 1);
+                }
+            }
+        }
+        
+        if (!isPositive) {
+            res = -res;
+        }
+        res /= Math.pow(10, n - i);		// '-0012a42' -> '-12', need to cut tailing 0 if loop end early
+        
+        if (res > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        } else if (res < Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
+        } else {
+            return (int)res;
+        }
+    }
+	
+	public int atoi_toomuchspace(String str) {
 		boolean valid = false;
 		boolean isNegative = false;
 		int count = 0;

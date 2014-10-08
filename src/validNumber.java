@@ -1,12 +1,13 @@
 package edu.nyu.liangfang.leetcode;
 
 public class validNumber {
+	
 	public boolean isNumber(String s) {
         String str = s.trim();
         if (str.isEmpty()) {    // trim leading and tailing whitespace
             return false;
         }
-        if (str.charAt(0) == '+' || str.charAt(0) == '-') {  // ignore sign bit
+        if (str.charAt(0) == '+' || str.charAt(0) == '-') {  // ignore leading sign bit 
             str = str.substring(1);
         }
         
@@ -18,7 +19,7 @@ public class validNumber {
                 dot = i;
             } else if (ee == -1 && str.charAt(i) == 'e') {
                 ee = i;
-                if (i + 1 < str.length() && (str.charAt(i + 1) == '+' || str.charAt(i + 1) == '-')) {
+                if (i + 1 < str.length() && (str.charAt(i + 1) == '+' || str.charAt(i + 1) == '-')) {	// ignore possible sign bit behind 'e'
                     i++;
                 }
             } else {

@@ -1,8 +1,8 @@
 package edu.nyu.liangfang.leetcode;
 import java.util.Arrays;
-import java.util.List;
-import java.util.LinkedList;
 import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
 
 public class combinationSum2 {
 	public List<List<Integer>> solution(int[] num, int target) {

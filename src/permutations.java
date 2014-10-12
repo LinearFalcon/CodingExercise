@@ -4,7 +4,32 @@ import java.util.List;
 
 
 public class permutations {
+	// V1
 	public List<List<Integer>> permute(int[] num) {
+        return createPerm(num, num.length - 1);
+    }
+    
+    public List<List<Integer>> createPerm(int[] num, int index) {
+        List<List<Integer>> result = new LinkedList<List<Integer>>();
+        if (index < 0) {
+            result.add(new LinkedList<Integer>());
+            return result;
+        }
+        
+        List<List<Integer>> prev = createPerm(num, index - 1);
+        int curr = num[index];
+        for (List<Integer> subList : prev) {
+            for (int i = 0; i <= subList.size(); i++) {
+                List<Integer> tmp = new LinkedList<Integer>(subList);
+                tmp.add(i, curr);
+                result.add(tmp);
+            }
+        }
+        return result;
+    }
+	
+    // V2
+	public List<List<Integer>> permute_v2(int[] num) {
         int[] isChosen = new int[num.length];
         List<List<Integer>> result = new LinkedList<List<Integer>>();
         getPerm(num, result, isChosen, new LinkedList<Integer>());

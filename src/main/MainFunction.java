@@ -1,21 +1,18 @@
 package edu.nyu.liangfang.leetcode.main;
 
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import edu.nyu.liangfang.leetcode.validNumber;
+import edu.nyu.liangfang.leetcode.wildcardMatching;
+import edu.nyu.liangfang.leetcode.wordLadder2;
 
 
 // Main class - Entrance
 public class MainFunction {	
 	public static void main(String[] args) {
 		
-		validNumber obj = new validNumber();
+		wildcardMatching obj = new wildcardMatching();
 		
 		int[] num = {0};
 	
@@ -40,22 +37,37 @@ public class MainFunction {
 				          {'1','0'}};
 		String s = "aSD , FE ,21 ,43#%%&";
 		s.toLowerCase();
+		
 
-		Writer writer = null; 
-	    try {
-	      writer = new BufferedWriter(new OutputStreamWriter(
-	          new FileOutputStream("test.txt"), "utf-8"));
-	      writer.write("sss");
-	    } catch (IOException ex) {
-	      ex.printStackTrace();
-	    } finally {
-	      // Close the file writer
-	      try {
-	        writer.close();
-	      } catch (Exception ex) {
-	        ex.printStackTrace();
-	      }
-	    }
+/*		Thread t1 = new Thread() {
+			public void run() {
+				try {
+					Thread.sleep(1000);
+					System.out.println("t1");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		Thread t2 = new Thread() {
+			public void run() {
+				try {
+					Thread.sleep(100);
+					System.out.println("t2");
+					Thread.sleep(1000);
+					System.out.println("t2");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		t1.start();
+		t2.start();
+		*/
+		
+		System.out.println(obj.isMatch("aaabbbaabaaaaababaabaaabbabbbbbbbbaabababbabbbaaaaba", "a*******b"));
 	}
 	
 }

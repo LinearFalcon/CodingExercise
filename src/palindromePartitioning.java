@@ -5,7 +5,33 @@ import java.util.List;
 
 
 public class palindromePartitioning {
+	// AC solution - just simple DFS
 	public List<List<String>> partition(String s) {
+	    List<List<String>> result = new LinkedList<List<String>>();
+	    List<String> curr = new LinkedList<String>();
+	    getPartition(s, result, curr);
+	    return result;
+	}
+	
+	public void getPartition(String s, List<List<String>> result, List<String> curr) {
+	    if (s.length() == 0) {
+	        result.add(curr);
+	        return;
+	    }            
+	    
+	    for (int i = 1; i <= s.length(); i++) {
+	        String sub = s.substring(0, i);
+	        List<String> tmp = new LinkedList<String>(curr);
+	        if (isPalindrome(sub)) {
+	            tmp.add(sub);
+	            getPartition(s.substring(i), result, tmp);
+	        } 
+	    }
+	}
+	
+	
+	// TLE solution - Takes more time !!!
+	public List<List<String>> partition_DP(String s) {
 		List<List<String>> result = new LinkedList<List<String>>();
 		if (s.length() == 0) {
 			return result;
@@ -22,7 +48,7 @@ public class palindromePartitioning {
 			return;
 		}
 		
-		for (int i = 1; i <= remaining.length(); i++) {
+		for (int i = 1; i <= remaining.length(); i++) {			// must start from 1 !
 			LinkedList<String> clone = new LinkedList<String>(tmp);		// must not pass tmp itself, because it will be modified during recursion
 			String partition = remaining.substring(0, i);
 			if (palindromeTable.containsKey(partition)) {				// check if already checked this situation

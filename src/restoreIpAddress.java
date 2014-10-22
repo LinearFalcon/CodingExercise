@@ -38,41 +38,27 @@ public class restoreIpAddress {
     }
 	
 	// Recursion method
-	public List<String> restoreIpAddresses_sol2(String s) {
+	public List<String> restoreIpAddresses_recursion(String s) {
         List<String> result = new ArrayList<String>();
-        restore(s, result, 0, "", 0);
+        findIPAddress(result, s, "", 0);
         return result;
     }
     
-    private void restore(String s, List<String> result, int start, String curr, int level) {
+    public void findIPAddress(List<String> result, String s, String curr, int level) {
         if (level == 4) {
-            result.add(curr);
+            if (s.length() == 0) {
+                result.add(curr.substring(0, curr.length() - 1));
+            }
             return;
         }
-        
-        if (level > 0) {
-            curr += ".";
-        }  
-        
-        if (level == 3) {	// last section must be the whole string last
-            String tmp = s.substring(start);
-            if ((tmp.length() > 1 && tmp.charAt(0) == '0') || (tmp.length() > 3)) {
-                return;
-            } 
-            if (Integer.valueOf(tmp) < 256) {
-                restore(s, result, s.length(), curr + tmp, level + 1);
-            }
-        } else {
-            // 3 possible lengths of this section
-            for (int len = 1; len <= 3; len++) {
-                if (start + len < s.length()) {
-                    String tmp = s.substring(start, start + len);
-                    if (len > 1 && tmp.charAt(0) == '0') {
-                        continue;
-                    }
-                    if (Integer.valueOf(tmp) < 256) {
-                        restore(s, result, start + len, curr + tmp, level + 1);
-                    }
+
+
+        for (int i = 1; i <= 3; i++) {
+            if (s.length() >= i) {				// must make sure !!!!!!
+                String sub = s.substring(0, i);
+                int num = Integer.valueOf(sub);
+                if (!((i > 1 && sub.charAt(0) == '0') || num >= 256)) {		// cannot have string like "020"
+                    findIPAddress(result, s.substring(i), curr + sub + ".", level + 1);
                 }
             }
         }

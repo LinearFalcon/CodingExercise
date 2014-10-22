@@ -3,7 +3,37 @@ import java.util.Hashtable;
 
 
 public class palindromePartitioning2 {
+	// Better solution
 	public int minCut(String s) {
+		if (s == null || s.length() == 0) {
+		    return 0;
+		}
+		
+		int len = s.length();
+		int[] minCutFrom = new int[len + 1];        // min cut number of substring [i, len] (including last dummy tail)
+		boolean[][] matrix = new boolean[len][len]; // means whether substring [i,j] is palindrome
+		
+		// initialize minCutFrom as worst situation
+		for (int i = 0; i <= len; i++) {
+		    minCutFrom[i] = len - i;
+		}
+		
+		// 针对substring [i, len]，计算当[i,j]是palindrome时的min cut
+		for (int i = len - 1; i >= 0; i--) {
+		    for (int j = i; j < len; j++) {
+		        if (s.charAt(i) == s.charAt(j) && (j - i < 2 || matrix[i + 1][j - 1])) {
+		            matrix[i][j] = true;
+		            minCutFrom[i] = Math.min(minCutFrom[i], 1 + minCutFrom[j + 1]);
+		        }
+		    }
+		}
+		return minCutFrom[0] - 1;
+	}
+	
+	
+	
+	// ----------- space consume and slow ---------------
+	public int minCut_v2(String s) {
 		if (s.length() == 0)		// corner condition
 			return 0;
 		Hashtable<String, Integer> minCuts = new Hashtable<String, Integer>();

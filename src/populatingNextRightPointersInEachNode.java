@@ -8,26 +8,19 @@ class TreeLinkNode {
 
 public class populatingNextRightPointersInEachNode {
 	public void connect(TreeLinkNode root) {
-        DFSConnect(root);
-    }
-    
-    private TreeLinkNode DFSConnect(TreeLinkNode root) {
         if (root == null) {
-            return root;
+            return;
         }
         
-        root.next = null;
-        TreeLinkNode left = DFSConnect(root.left);
-        TreeLinkNode right = DFSConnect(root.right);
+        TreeLinkNode left = root.left;
+        TreeLinkNode right = root.right;
+        connect(left);
+        connect(right);
         
-        // always keep right nodes of left subtree and left nodes of right
-        // subtree connected
-        while (left != null) {
+        while (left != null && right != null) {
             left.next = right;
             left = left.right;
             right = right.left;
         }
-        
-        return root;
     }
 }

@@ -4,7 +4,7 @@ public class divideTwoIntegers {
 
 	/*
 	 * Shift can be used to solve this problem. We shift the divisor left until it just smaller 
-	 * than dividend but if we keep shifting one more bit, it’s larger than dividend. Than we can 
+	 * than dividend but if we keep shifting one more bit, it’s larger than dividend. Then we can 
 	 * add the shifted value to the result and subtract the shifted value from dividend. Keep doing 
 	 * this until dividend is smaller than divisor. In fact, every integer can be represented by a 
 	 * set of base 2 so that shifting can be used.
@@ -18,7 +18,7 @@ public class divideTwoIntegers {
         long q = Math.abs((long)divisor);
         
         int result = 0;
-        while (p >= q) {
+        while (p >= q) {		// when p == q, we still need to proceed this loop
             int count = 0;
             while (p >= (q << count)) {
                 count++;
@@ -32,5 +32,4 @@ public class divideTwoIntegers {
         else
             return result;
     }
-
 }

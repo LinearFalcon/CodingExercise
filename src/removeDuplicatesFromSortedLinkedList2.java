@@ -8,6 +8,7 @@ package edu.nyu.liangfang.leetcode;
  */
 
 public class removeDuplicatesFromSortedLinkedList2 {
+	// best short method
 	public ListNode deleteDuplicates(ListNode head) {
 //      ListNode dummy = null;			cannot assign a int variable to null; also do not assign a object to null and then call its members
       ListNode dummy = new ListNode(Integer.MAX_VALUE);		// use max int value as dummy head value
@@ -26,5 +27,38 @@ public class removeDuplicatesFromSortedLinkedList2 {
       }
       tail.next = null;
       return dummy.next;
-  }
+	}
+	
+	// method 2: Always has two pointer points to the two new nodes that need to be checked 
+	public ListNode deleteDuplicates_v2(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        
+        ListNode pre = dummy;
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (slow != null) {
+            if (fast == null || fast.val != slow.val) {
+                pre.next = slow;
+                pre = slow;
+                slow = fast;
+                if (fast != null) {
+                    fast = fast.next;
+                }
+            } else {
+                while (fast != null && fast.val == slow.val) {
+                    fast = fast.next;
+                }
+                slow = fast;
+                if (fast != null) {
+                    fast = fast.next;
+                }
+            }
+        }
+        pre.next = slow;
+        return dummy.next;
+    }
 }

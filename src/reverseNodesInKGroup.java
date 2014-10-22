@@ -29,4 +29,38 @@ public class reverseNodesInKGroup {
         head.next = reverse(nextGroupStart, k);
         return prev;
     }
+    
+    
+    // version 2
+    public ListNode reverseKGroup_V2(ListNode head, int k) {
+        if (k <= 1) {
+            return head;
+        }
+        
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        
+        ListNode tail = dummy;
+        int count = 0;
+        while (tail.next != null && count < k) {
+            tail = tail.next;
+            count++;
+        }
+        if (count < k) {
+            return head;
+        }
+        
+        ListNode remain = reverseKGroup(tail.next, k);
+        tail.next = null;
+        ListNode left = head;
+        ListNode right = head.next;
+        while (right != null) {
+            ListNode tmp = right;
+            right = right.next;
+            tmp.next = left;
+            left = tmp;
+        }
+        dummy.next.next = remain;
+        return tail;
+    }
 }

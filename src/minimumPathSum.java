@@ -1,6 +1,28 @@
 package edu.nyu.liangfang.leetcode;
 
+import java.util.Arrays;
+
 public class minimumPathSum {
+	// #3 one dimension DP array method - each time use one dimension array to indicate this row
+		public int minPathSum3(int[][] grid) {
+			if (grid == null || grid.length == 0) {
+	            return 0;
+	        }
+	        int m = grid.length;
+	        int n = grid[0].length;
+	        int[] minPathSum = new int[n];
+	        Arrays.fill(minPathSum, Integer.MAX_VALUE);		// must initialize every element as MAX_VALUE
+	        minPathSum[0] = 0;
+	        
+	        for (int i = 0; i < m; i++) {
+	        	minPathSum[0] = grid[i][0] + minPathSum[0];
+	        	for (int j = 1; j < n; j++) {
+	        		minPathSum[j] = grid[i][j] + Math.min(minPathSum[j], minPathSum[j - 1]);
+	        	}
+	        }
+	     
+	        return minPathSum[n - 1];
+		}
 	
 	// #1 use relax method of Dijkstra's Algorithm
 	public int minPathSum(int[][] grid) {

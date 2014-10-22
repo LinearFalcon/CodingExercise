@@ -29,7 +29,7 @@ public class combinations {
         }
     }
     
-	// another one
+	// --------------------- another one -------------------------
 	public List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> result = new LinkedList<List<Integer>>();
         if (k > n || n < 1) {
@@ -55,3 +55,6 @@ public class combinations {
         return list;
     }
 }
+
+
+

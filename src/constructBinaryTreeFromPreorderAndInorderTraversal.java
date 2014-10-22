@@ -20,6 +20,8 @@ public class constructBinaryTreeFromPreorderAndInorderTraversal {
             }
         }
         
+        // When compute start and end point of preorder array, you must use 'prestart + rootIndex - instart' rather
+        // than 'index'
         root.left = build(preorder, prestart + 1, prestart + rootIndex - instart, inorder, instart, rootIndex - 1);
         root.right = build(preorder, prestart + rootIndex - instart + 1, preend, inorder, rootIndex + 1, inend);
         return root;

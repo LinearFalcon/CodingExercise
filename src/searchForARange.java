@@ -1,7 +1,67 @@
 package edu.nyu.liangfang.leetcode;
 
 public class searchForARange {
+	// O(lgn) method
 	public int[] searchRange(int[] A, int target) {
+        int[] res = {-1, -1};
+        if (A == null || A.length == 0) {
+            return res;
+        }
+        
+        int low = 0;
+        int high = A.length - 1;
+        int pos = 0;
+        // find a target, do not care where it is
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (A[mid] < target) {
+                low = mid + 1;
+            } else if (A[mid] > target) {
+                high = mid - 1;
+            } else {
+                res[0] = mid;
+                res[1] = mid;
+                pos = mid;
+                break;
+            }
+        }
+        // if no such target
+        if (res[0] == -1) {
+            return res;
+        }
+        
+        // find the right boundary
+        low = pos; 
+        high = A.length - 1;
+        while (low <= high) {       // to finally put high at right boundary, we need equals condition
+            int mid2 = (low + high) / 2;
+            if (A[mid2] == target) {
+                low = mid2 + 1;
+            } else {            // since it's only possible that A[mid2] >= target, because we initialize low as pos
+                high = mid2 - 1;
+            }
+        }
+        res[1] = high;
+        
+        // find the left boundary, same as right
+        low = 0;
+        high = pos;
+        while (low <= high) {
+            int mid3 = (low + high) / 2;
+            if (A[mid3] == target) {
+                high = mid3 - 1;
+            } else {
+                low = mid3 + 1;
+            }
+        }
+        res[0] = low;
+        
+        return res;
+    }
+	
+	
+	// Actually it costs O(n) time because of a linear search after we find one target
+	public int[] searchRange_On(int[] A, int target) {
         int[] result = {-1, -1};
         compute(A, 0, A.length - 1, target, result);
         return result;

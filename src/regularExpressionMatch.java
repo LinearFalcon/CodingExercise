@@ -22,16 +22,17 @@ public class regularExpressionMatch {
                 return (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.')
                         && isMatch(s.substring(1), p.substring(1));
             }
-        }
-        // next char is *
-        while (s.length() > 0
-               && (p.charAt(0) == s.charAt(0) || p.charAt(0) == '.')) {
-            if (isMatch(s, p.substring(2))) {
-                return true;
+        } else {
+            // check if p[0-1] matches 0 or more leading characters of s
+            while (s.length() > 0 && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.')) {
+                if (isMatch(s, p.substring(2))) {
+                    return true;
+                }
+                s = s.substring(1);
             }
-            s = s.substring(1);
+            
+            // if next char is * and s.charAt(0) != p.charAt(0) and p.charAt(0) != ‘.' or s is empty now
+            return isMatch(s, p.substring(2));  
         }
-        // if next char is * and s.charAt(0) != p.charAt(0) and p.charAt(0) != ‘.'
-        return isMatch(s, p.substring(2));  
-    }
+	}
 }

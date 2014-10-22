@@ -2,52 +2,33 @@ package edu.nyu.liangfang.leetcode;
 
 public class longestPalindromeSubstring {
 	/*
-	 *  table[i][j]: whether substring start from i and end at j is palindrome
-	 	1, table[i][j] = table[i+1][j-1] if s.charAt(i) == s.charAt(j)
-	 	2, table[i][j] = 0 if s.charAt(i) != s.charAt(j)
+	 *  isPalindrome[i][j]: whether substring start from i and end at j is palindrome
+	 	isPalindrome[i][j] =  true if:
+	 		s.charAt(i) == s.charAt(j) and ( isPalindrome[i+1][j-1] is true or j - i < 2) 
+	 	
 	 	Complexity: O(n^2) time and O(n^2) space
 	 */
-	public String longestPalindrome1(String s) {
-        if (s.length() <= 1)
-            return s;
-
-        int length = s.length();
-        // table[i][j] == 1 means substring start from i and end at j is palindrome
-        int[][] table = new int[length][length];
-        int maxLen = 0;
-        String longestStr = null;
+	public String longestPalindrome(String s) {
+        int len = s.length();
+        boolean[][] isPalindrome = new boolean[len][len];
+        int max = Integer.MIN_VALUE;
+        int left = 0;
+        int right = -1;
         
-        // all single char string is palindrome
-        for (int i = 0; i < length; i++) {
-            table[i][i] = 1;
-        }
-        
-        // all string that is formed of consecutive 2 same chars is palindrome
-        for (int i = 0; i < length - 1; i++) {
-            if (s.charAt(i) == s.charAt(i + 1)) {
-                table[i][i + 1] = 1;
-                longestStr = s.substring(i, i + 2);
-            }
-        }
-        maxLen = 2; // may not need since we can assume there must be a unique palindrome
-        
-        for (int strLen = 3; strLen <= length; strLen++) {
-            // i is start position
-            for (int i = 0; i <= length - strLen; i++) {
-                int j = i + strLen - 1;     // j is end position
-                if (s.charAt(i) == s.charAt(j)) {
-                    table[i][j] = table[i + 1][j - 1];
-                    if (table[i][j] == 1 && strLen > maxLen) {
-                        maxLen = strLen;
-                        longestStr = s.substring(i, j + 1);
+        for (int i = len - 1; i >= 0; i--) {
+            for (int j = i; j < len; j++) {
+                if (s.charAt(i) == s.charAt(j) && (j - i < 2 || isPalindrome[i + 1][j - 1])) {
+                    isPalindrome[i][j] = true;
+                    if (j - i + 1 > max) {
+                        max = j - i + 1;
+                        left = i;
+                        right = j;
                     }
-                } else {
-                    table[i][j] = 0;
                 }
             }
         }
         
-        return longestStr;
+        return s.substring(left, right + 1);
     }
 	
 	/*

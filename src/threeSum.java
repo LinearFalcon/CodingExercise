@@ -12,7 +12,7 @@ public class threeSum {
 			return result;	
 		Arrays.sort(num);				// must sort first
 		for (int i = 0; i < num.length - 2; i++) {
-			if (i > 0 && num[i] == num[i -1])							// 必须比较
+			if (i > 0 && num[i] == num[i -1])							// 必须比较!!!!!! ignore same number after compute once
 				continue;
 			int left = i + 1;
 			int right = num.length - 1;

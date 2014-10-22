@@ -13,7 +13,7 @@ public class fourSum {
         
         Arrays.sort(num);
         for (int i = 0; i < num.length - 3; i++) {
-            if (i > 0 && num[i] == num[i - 1]) {
+            if (i > 0 && num[i] == num[i - 1]) {		
                 continue;
             }
             for (int j = i + 1; j < num.length - 2; j++) {

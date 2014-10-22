@@ -1,6 +1,34 @@
 package edu.nyu.liangfang.leetcode;
 
 public class longestCommonPrefix {
+	// compact version
+	public String longestCommonPrefix(String[] strs) {
+        if (strs.length == 0) {
+            return "";
+        }
+        int index = 0;
+        boolean flag = false;
+        while (true) {
+            char pre = '\0';
+            for (String s : strs) {
+                if ((index >= s.length()) || (pre != '\0' && s.charAt(index) != pre)) {
+                    flag = true;
+                    break;
+                }
+                pre = s.charAt(index);
+            }
+            
+            if (flag) {
+                break;
+            }
+            index++;
+        }
+        
+        return strs[0].substring(0, index);
+    }
+	
+	
+	
 	public String fun(String[] strs) {
 		int index = 0;					// initial position
 		boolean endFlag = false;

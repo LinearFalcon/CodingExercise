@@ -6,8 +6,74 @@ import java.util.Queue;
 
 public class surroundedRegions {
 	
-	// BFS:  time O(n^2)  space O(n^2)
+	// DFS and iterate over, space O(1), time O(m*n)
 	public void solve(char[][] board) {
+        int row = board.length;
+        if (row < 2) {
+            return;
+        }
+        int col = board[0].length;
+        if (col < 2) {
+            return;
+        }
+        
+        // search first column and last column
+        for (int i = 0; i < row; i++) {
+            if (board[i][0] == 'O') {
+                board[i][0] = '#';
+                dfs(board, i, 0);
+            }
+            if (board[i][col - 1] == 'O') {
+                board[i][col - 1] = '#';
+                dfs(board, i, col - 1);
+            }
+        }
+        
+        // search first and last row
+        for (int j = 0; j < col; j++) {
+            if (board[0][j] == 'O') {
+                board[0][j] = '#';
+                dfs(board, 0, j);
+            }
+            if (board[row - 1][j] == 'O') {
+                board[row - 1][j] = '#';
+                dfs(board, row - 1, j);
+            }
+        }
+        
+        // change all 'O' into 'X' and all '#' into 'O'
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (board[i][j] == 'O') {
+                    board[i][j] = 'X';
+                } else if (board[i][j] == '#') {
+                    board[i][j] = 'O';
+                }
+            }
+        }
+    }
+    
+    public void dfs(char[][] board, int row, int col) {
+        if (row > 1 && board[row - 1][col] == 'O') {
+            board[row - 1][col] = '#';
+            dfs(board, row - 1, col);
+        }
+        if (row < board.length - 1 && board[row + 1][col] == 'O') {
+            board[row + 1][col] = '#';
+            dfs(board, row + 1, col);
+        }
+        if (col > 1 && board[row][col - 1] == 'O') {
+            board[row][col - 1] = '#';
+            dfs(board, row, col - 1);
+        }
+        if (col < board[0].length - 1 && board[row][col + 1] == 'O') {
+            board[row][col + 1] = '#';
+            dfs(board, row, col + 1);
+        }
+    }
+	
+	// BFS:  time O(n^2)  space O(n^2)
+	public void solve_BFS(char[][] board) {
         if (board.length == 0) 
             return;
         

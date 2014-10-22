@@ -1,9 +1,43 @@
 package edu.nyu.liangfang.leetcode;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class longgestSubstringWithoutRepeat {
-	public int lengthOfLongestSubstring(String s) {
+	public int lengthOfLongestSubstring_v2(String s) {
+        if (s.length() < 2) {
+            return s.length();
+        }
+        
+        int p = 0; 
+        int q = 1;
+        int[] pos = new int[256];
+        Arrays.fill(pos, -1);
+        pos[s.charAt(0)] = 0;
+        int max = Integer.MIN_VALUE;
+        
+        while (q < s.length()) {
+//            char pchar = s.charAt(p); 	// never used pchar
+            char qchar = s.charAt(q);
+            if (pos[qchar] != -1) {
+                max = Math.max(max, q - p);
+                int repeatIndex = pos[qchar];
+                for (int i = p; i <= repeatIndex; i++) {
+                    pos[s.charAt(i)] = -1;
+                }
+                p = repeatIndex + 1;
+            }
+            
+            pos[qchar] = q;
+            q++;
+        }
+        max = Math.max(max, q - p);
+        
+        return max;
+    }
+	
+	// algorithm is same as v2
+	public int lengthOfLongestSubstring_v1(String s) {
 		List<Character> subList = new ArrayList<Character>();
 		int biggestLength = 0;
 

@@ -36,4 +36,32 @@ public class searchInRotatedSortedArray {
         }
         return 0;
     }
+    
+    // version 2
+    public int search_v2(int[] A, int target) {
+        return search(A, target, 0, A.length - 1);
+    }
+    
+    public int search_v2(int[] A, int target, int start, int end) {
+        if (start > end) {
+            return -1;
+        }
+        
+        int mid = (start + end) / 2;
+        if (A[mid] == target) {
+            return mid;
+        } else if (A[start] <= A[mid]) {			// must have equals to deal with {3, 1} situation
+            if (target < A[mid] && target >= A[start]) {
+                return search_v2(A, target, start, mid - 1);
+            } else {
+                return search_v2(A, target, mid + 1, end);
+            }
+        } else {
+            if (target <= A[end] && target > A[mid]) {
+                return search_v2(A, target, mid + 1, end);
+            } else {
+                return search_v2(A, target, start, mid - 1);
+            }
+        }
+    }
 }

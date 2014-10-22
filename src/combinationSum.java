@@ -29,4 +29,41 @@ public class combinationSum {
 			}
 		}
 	}
+	
+	
+	// ------------------ version 2 --------------------
+	public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> result = new LinkedList<List<Integer>>();
+        List<Integer> curr = new LinkedList<Integer>();
+        Arrays.sort(candidates);
+        findComb(candidates, target, result, curr, 0 ,0);
+        return result;
+    }
+    
+    public void findComb(int[] candidates, int target, List<List<Integer>> result, 
+            List<Integer> curr, int index, int sum) {
+        if (sum == target) {
+                result.add(curr);
+                return;
+        } 
+        if (index >= candidates.length) {		// avoid index out of bound
+            return;
+        }
+        
+        int num = candidates[index];
+        int remain = target - sum;
+        
+        for (int i = 0; i <= remain / num; i++) {
+            List<Integer> tmp = new LinkedList<Integer>(curr);
+            for (int j = 0; j < i; j++) {
+                tmp.add(num);
+            }
+            
+            int newIndex = index + 1;
+            int newSum = sum + i * num;
+            if (newSum <= target) {
+                findComb(candidates, target, result, tmp, newIndex, newSum);
+            }
+        }
+    }
 }

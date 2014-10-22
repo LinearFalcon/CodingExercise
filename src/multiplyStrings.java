@@ -7,7 +7,7 @@ public class multiplyStrings {
         String n1 = new StringBuilder(num1).reverse().toString();
         String n2 = new StringBuilder(num2).reverse().toString();
         
-        int[] products = new int[n1.length() + n2.length()];		// 构建数组存放乘积  
+        int[] products = new int[n1.length() + n2.length()];		// 构建数组存放乘积，最多需要n1.length()+n2.length()这么长
         for (int i = 0; i < n1.length(); i++) {
             for (int j = 0; j < n2.length(); j++) {
                 products[i + j] += (n1.charAt(i) - '0') * (n2.charAt(j) - '0');	 // 在正确位置累加乘积，利用的就是乘法的运算习惯
@@ -26,7 +26,8 @@ public class multiplyStrings {
             sb.insert(0, carry);
         }
         
-      // trim starting zeros
+        // trim starting zeros, becuase we define products has size of n1.length() + n2.length(),
+        // it's possible that tailing element is zero, e.g: multiply("0", "0")
         while (sb.charAt(0) == '0' && sb.length() > 1) {
         	sb.deleteCharAt(0);
         }

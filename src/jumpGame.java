@@ -4,9 +4,22 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class jumpGame {
+	// most simple method
+	public boolean canJump(int[] A) {
+        int index = 0;
+        int maxReach = 0;
+        while (index <= maxReach && index < A.length) {
+            if (A[index] + index > maxReach) {
+                maxReach = A[index] + index;
+            }
+            index++;
+        }
+        return maxReach >= A.length - 1;
+    }
+	
 	// O(n) solution, just scan from head and judge if we can jump to 
 	// index (>= A.length-1) from currently 'can reach' index 
-	public boolean canJump(int[] A) {
+	public boolean canJump_v2(int[] A) {
         int point = 0;			// current farthest index we can reach
         for (int i = 0; i < A.length; i++) {
             if (i <= point) {			

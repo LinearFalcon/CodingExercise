@@ -1,7 +1,42 @@
 package edu.nyu.liangfang.leetcode;
 
 public class reverseLinkedList2 {
+	// recent version
 	public ListNode reverseBetween(ListNode head, int m, int n) {
+        ListNode dummy = new ListNode(0);	// usually there is a dummy head 
+        dummy.next = head;
+        ListNode pre = dummy;
+        ListNode point = head;
+        
+        int count = 1;
+        while (count < m) {
+            pre = pre.next;
+            point = point.next;
+            count++;
+        }
+        
+        ListNode before = pre;
+        pre = point;
+        point = point.next;
+        count = m + 1;  // now count means position of point
+        
+        while (count <= n) {
+            ListNode mid = point;
+            point = point.next;
+            mid.next = pre;
+            pre = mid;
+            count++;
+        }
+        before.next.next = point;
+        before.next = pre;
+        
+        return dummy.next;
+    }
+	
+	
+	
+	// first version
+	public ListNode reverseBetween2(ListNode head, int m, int n) {
         if (head == null || head.next == null)
             return head;
         

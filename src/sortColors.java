@@ -5,35 +5,22 @@ public class sortColors {
 	public void sortColors(int[] A) {
         int left = 0;
         int right = A.length - 1;
-        
-        // left means first non zero number index from left
-        while (left < right && A[left] == 0) {
-            left++;
-        }
-     // right means first non 2 number index from right
-        while (left < right && A[right] == 2) {
-            right--;
-        }
-        
-        if (left < right) {
-            int index = left;
-            while (index <= right) {
-                if (A[index] == 1) {
-                    index++;
-                } else if (A[index] == 2) {
-                    swap(A, index, right);
-                    right--;
-                } else if (A[index] == 0) {
-                    swap(A, index, left);
-                    left++;
-                    index++;	// must! because previous has been processed, 
-                    			// 2 is impossible here
-                }
+        int index = 0;
+        while (index <= right) {		// must equals !!! or [1, 0] will fail
+            if (A[index] == 0) {
+                swap(A, index, left);
+                index++;
+                left++;
+            } else if (A[index] == 2) {
+                swap(A, index, right);
+                right--;
+            } else {
+                index++;
             }
         }
     }
     
-    private void swap(int[] A, int i, int j) {
+    public void swap(int[] A, int i, int j) {
         int tmp = A[i];
         A[i] = A[j];
         A[j] = tmp;

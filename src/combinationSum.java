@@ -5,7 +5,37 @@ import java.util.List;
 
 
 public class combinationSum {
-	public List<List<Integer>> solution(int[] candidates, int target) {  
+	// v1: most simple method
+	public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new LinkedList<List<Integer>>();
+        List<Integer> curr = new LinkedList<Integer>();
+        Arrays.sort(candidates);
+        findComb(candidates, target, result, curr, 0 ,0);
+        return result;
+    }
+    
+    public void findComb(int[] candidates, int target, List<List<Integer>> result, 
+            List<Integer> curr, int start, int sum) {
+        
+        if (sum == target) {
+            result.add(curr);
+            return;
+        }    
+        
+        for (int i = start; i < candidates.length; i++) {
+            if (sum + candidates[i] > target) {
+                break;
+            }
+            List<Integer> tmp = new LinkedList<Integer>(curr);
+            tmp.add(candidates[i]);
+            
+            findComb(candidates, target, result, tmp, i, sum + candidates[i]);
+        }
+    }
+	
+	
+	// -------------- version 2 ----------------
+	public List<List<Integer>> solution_v2(int[] candidates, int target) {  
 		Arrays.sort(candidates);  								// sort candidates array first
 		List<List<Integer>> result = new LinkedList<List<Integer>>();
 		List<Integer> currentList = new LinkedList<Integer>();
@@ -31,16 +61,16 @@ public class combinationSum {
 	}
 	
 	
-	// ------------------ version 2 --------------------
-	public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+	// ------------------ version 3 --------------------
+	public List<List<Integer>> combinationSum_v3(int[] candidates, int target) {
         List<List<Integer>> result = new LinkedList<List<Integer>>();
         List<Integer> curr = new LinkedList<Integer>();
         Arrays.sort(candidates);
-        findComb(candidates, target, result, curr, 0 ,0);
+        find(candidates, target, result, curr, 0 ,0);
         return result;
     }
     
-    public void findComb(int[] candidates, int target, List<List<Integer>> result, 
+    public void find(int[] candidates, int target, List<List<Integer>> result, 
             List<Integer> curr, int index, int sum) {
         if (sum == target) {
                 result.add(curr);
@@ -62,7 +92,7 @@ public class combinationSum {
             int newIndex = index + 1;
             int newSum = sum + i * num;
             if (newSum <= target) {
-                findComb(candidates, target, result, tmp, newIndex, newSum);
+            	find(candidates, target, result, tmp, newIndex, newSum);
             }
         }
     }

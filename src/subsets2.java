@@ -7,7 +7,31 @@ import java.util.List;
 
 
 public class subsets2 {
+	// simple method - DFS
 	public List<List<Integer>> subsetsWithDup(int[] num) {
+        List<List<Integer>> result = new LinkedList<List<Integer>>();
+        List<Integer> curr = new LinkedList<Integer>();
+        Arrays.sort(num);
+        getSubsets(num, result, curr, 0);
+        return result;
+    }
+    
+    public void getSubsets(int[] num, List<List<Integer>> result, List<Integer> curr, int pos) {
+        // add subset of this layer
+        result.add(new LinkedList<Integer>(curr));
+        
+        for (int i = pos; i < num.length; i++) {
+            if (i == pos || num[i] != num[i - 1]) {	 	// avoid duplicate
+                curr.add(num[i]);
+                getSubsets(num, result, curr, i + 1);
+                curr.remove(curr.size() - 1);
+            }
+        }
+    }
+	
+	
+    // method with hashmap
+	public List<List<Integer>> subsetsWithDup_table(int[] num) {
         Arrays.sort(num);
         Hashtable<Integer, Integer> map = new Hashtable<Integer, Integer>();
         ArrayList<Integer> keys = new ArrayList<Integer>();

@@ -45,7 +45,7 @@ public class sudokuSolver {
 				return false;
 			}
 		}
-		// each 3x3 box contains the same number only once !!!!!!!!!!!!!!
+		// each 3x3 box contains the same number only once - only check the box that (i,j) is in !!!
 		for (int row = i/3*3; row < i/3*3 + 3; row++) {
 			for (int col = j/3*3; col < j/3*3 + 3; col++) {
 				if (board[row][col] == numStr) {

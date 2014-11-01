@@ -20,18 +20,23 @@ public class minimumWindowSubstring {
             char character = S.charAt(i);
             
             if (srcTable[character] != 0) {
-                foundTable[character]++;
-                if (foundTable[character] <= srcTable[character])
+                foundTable[character]++;	
+                if (foundTable[character] <= srcTable[character])	// ignore redundant char!!!!!!只记录有效found
                     foundNum++;
                 // find the window that satisfied this condition,
                 // next step is to shrink the window by moving start forward
                 if (foundNum == T.length()) {
                     while (start < i) {
                         char ch = S.charAt(start);
-                        if (srcTable[ch] == 0 || (--foundTable[ch] >= srcTable[ch])) {
+                        if (srcTable[ch] == 0) {
                             start++;
                         } else {
-                            break;
+                            foundTable[ch]--;		// 只要不是0，就减少一个found
+                            if (foundTable[ch] >= srcTable[ch]) { 
+                                start++;
+                            } else {    // 缩减到当start前进一位后substring[start, i]没有包含所有T中char
+                                break;
+                            }
                         }
                     }
                     

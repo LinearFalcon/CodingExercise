@@ -1,15 +1,18 @@
 package edu.nyu.liangfang.leetcode.main;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
 
-import edu.nyu.liangfang.leetcode.palindromePartitioning2;
+import edu.nyu.liangfang.leetcode.amazonCoding;
+import edu.nyu.liangfang.leetcode.primeNumberGenerator;
 
 
 // Main class - Entrance
 public class MainFunction {	
 	public static void main(String[] args) {
 		
-		palindromePartitioning2 obj = new palindromePartitioning2();
+		amazonCoding obj = new amazonCoding();
 		
 		int[] num = {0};
 	
@@ -36,39 +39,21 @@ public class MainFunction {
 		s.toLowerCase();
 		
 
-/*		Thread t1 = new Thread() {
-			public void run() {
-				try {
-					Thread.sleep(1000);
-					System.out.println("t1");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		};
-		
-		Thread t2 = new Thread() {
-			public void run() {
-				try {
-					Thread.sleep(100);
-					System.out.println("t2");
-					Thread.sleep(1000);
-					System.out.println("t2");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		};
-		
-		t1.start();
-		t2.start();
-		*/
 		long a = new Date().getTime();
 		long b = new Date().getTime();
 		int ss = 1; 
 		int[] pre = {1,2,3};
-		int[] in = {2,3,1};
-		System.out.println(obj.minCut("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+		int[] in = {1,1,0,0,1,-1,-1,1};
+		
+		Queue<String> Q = new LinkedList<String>();
+        Q.add(null);
+        
+        byte bb = 0;
+        
+        String s1 = "abc";
+        String s2 = "cba";
+        System.out.println(obj.isRotation(s1, s2));
+        
 	}
 	
 }

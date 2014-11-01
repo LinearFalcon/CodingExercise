@@ -38,14 +38,14 @@ public class nQueens {
         
         for (int j = 0; j < n; j++) {
             colPos[currRow] = j;
-            if (isValid(colPos, currRow, j, n)) {
+            if (isValid(colPos, currRow, j)) {
                 findSolutions(n, result, currRow + 1, colPos);
             }
             colPos[currRow] = -1;
         }
     }
     // 已经保证了每行一个皇后，只需要判断列是否合法以及对角线是否合法。
-    private boolean isValid(int[] colPos, int row, int col, int n) {
+    private boolean isValid(int[] colPos, int row, int col) {
         
         for (int i = 0; i < row; i++) {
         	// 如果两个Queen在同一个对角线上，则他们的row之差肯定等于column之差

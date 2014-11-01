@@ -5,6 +5,36 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class combinationSum2 {
+	// DFS + avoid adding same list
+	public List<List<Integer>> combinationSum2(int[] num, int target) {
+        List<List<Integer>> result = new LinkedList<List<Integer>>();
+        List<Integer> currList = new LinkedList<Integer>();
+        Arrays.sort(num);
+        find(num, target, result, currList, 0, 0);
+        return result;
+    }
+    
+    public void find(int[] num, int target, List<List<Integer>> result, List<Integer> currList, int sum, int start) {
+        if (sum == target) {
+            result.add(currList);
+            return;
+        }
+        
+        for (int i = start; i < num.length; i++) {
+            if (i == start || num[i] != num[i - 1]) {
+                if (sum + num[i] > target) {
+                    break;
+                }
+                
+                List<Integer> tmp = new LinkedList<Integer>(currList);
+                tmp.add(num[i]);
+                find(num, target, result, tmp, sum + num[i], i + 1);
+            }
+        }
+    }
+	
+	
+	// ------------ slow complicated method -------------
 	public List<List<Integer>> solution(int[] num, int target) {
         Arrays.sort(num);  								// needed?
 		List<List<Integer>> result = new LinkedList<List<Integer>>();

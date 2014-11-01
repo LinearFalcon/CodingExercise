@@ -4,7 +4,7 @@ public class bestTimeToBuyAndSellStock3 {
 	public int maxProfit(int[] prices) {
         int min = Integer.MAX_VALUE;
         int maxVal = 0;
-        int[] firstMaxProfit = new int[prices.length];
+        int[] firstMaxProfit = new int[prices.length];	//firstMaxProfit[i]: max profit for one transaction in prices[0, i] 
         for (int i = 0; i < prices.length; i++) {
             if (prices[i] < min)
                 min = prices[i];

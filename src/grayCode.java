@@ -5,25 +5,19 @@ import java.util.List;
 
 public class grayCode {
 	public List<Integer> grayCode(int n) {
-        if (n < 0) {
-            return new LinkedList<Integer>();
-        }
-        if (n == 0) {
-            List<Integer> list = new LinkedList<Integer>();
-            list.add(0);
-            return list;
-        }
-        
-        List<Integer> result = new LinkedList<Integer>();
-        List<Integer> prevList = grayCode(n - 1);
-        
-        // except for first digit, remainings are symmetrical
-        for (int i = 0; i < prevList.size(); i++) {
-            result.add(prevList.get(i));
-        }
-        for (int i = prevList.size() - 1; i >= 0; i--) {
-            result.add(prevList.get(i) + (int)Math.pow(2, n - 1));
-        }
+		List<Integer> result = new LinkedList<Integer>();
+    if (n < 0) {
         return result;
+    } else if (n == 0) {		// when n == 0, list should be [0]!!!!!
+        result.add(0);
+        return result;
+    }
+    
+    List<Integer> prev = grayCode(n - 1);
+    result.addAll(prev);
+    for (int i = prev.size() - 1; i >= 0; i--) {		// must iterate in reverse order, because second half is symmetric
+        result.add(prev.get(i) + (int)Math.pow(2, n - 1));
+    }
+    return result;
     }
 }

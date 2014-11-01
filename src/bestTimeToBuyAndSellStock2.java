@@ -1,25 +1,24 @@
 package edu.nyu.liangfang.leetcode;
 
 public class bestTimeToBuyAndSellStock2 {
+	// 只计算上升子序列差值
 	public int maxProfit(int[] prices) {
-        if (prices.length <= 1)
+        if (prices.length == 0) {
             return 0;
-        
-        // max profit you can get until each day
-        int[] maxProfit = new int[prices.length];
-        maxProfit[0] = 0;
-        
-        for (int i = 1; i < prices.length; i++) {
-            
-            // if price go up, max profit is max profit get by yesterday plus new profit
-            if (prices[i] > prices[i - 1])
-                maxProfit[i] = maxProfit[i - 1] + prices[i] - prices[i - 1];
-            // if price go down, max profit can get by today should be equal to yesterday    
-            else
-                maxProfit[i] = maxProfit[i - 1];
         }
         
-        return maxProfit[prices.length - 1];
+        int profit = 0;
+        int min = prices[0];
+        for (int i = 0; i < prices.length; i++) {
+            if (i != 0 && prices[i] < prices[i - 1]) {
+                profit += prices[i - 1] - min;
+                min = prices[i];
+            }
+        }
+        if (prices[prices.length - 1] > min) {
+            profit += prices[prices.length - 1] - min;
+        }
+        return profit;
     }
 	
 	

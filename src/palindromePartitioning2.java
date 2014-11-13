@@ -23,7 +23,7 @@ public class palindromePartitioning2 {
 		    for (int j = i; j < len; j++) {
 		        if (s.charAt(i) == s.charAt(j) && (j - i < 2 || matrix[i + 1][j - 1])) {
 		            matrix[i][j] = true;
-		            minCutFrom[i] = Math.min(minCutFrom[i], 1 + minCutFrom[j + 1]);
+		            minCutFrom[i] = Math.min(minCutFrom[i], 1 + minCutFrom[j + 1]);	// Because we parse from end to head, so minCutFrom[j+1] must already be computed
 		        }
 		    }
 		}

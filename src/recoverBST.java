@@ -3,7 +3,42 @@ import java.util.ArrayList;
 
 
 public class recoverBST {
+	// constant space method
 	public void recoverTree(TreeNode root) {
+        TreeNode[] nodes = new TreeNode[2];		// must use array rather than pass TreeNode first and second !!!!!!!
+        TreeNode[] pre = {new TreeNode(Integer.MIN_VALUE)};
+        int[] count = {0};				// count to find two swapped nodes
+        traversal(root, nodes, pre, count);	// in-order traversal
+        
+        int tmp = nodes[0].val;
+        nodes[0].val = nodes[1].val;
+        nodes[1].val = tmp;
+   }
+   
+   public void traversal(TreeNode root, TreeNode[] nodes, TreeNode[] pre, int[] count) {
+       if (root == null) {
+           return;
+       }
+       
+       traversal(root.left, nodes, pre, count);
+       if (root.val < pre[0].val) {
+           if (count[0] == 0) {
+               nodes[0] = pre[0];
+               nodes[1] = root;
+               count[0]++;
+           } else {
+               nodes[1] = root;
+           }
+       }
+       pre[0] = root;
+       traversal(root.right, nodes, pre, count);
+   }
+	
+	
+	
+	
+	// O(n) space
+	public void recoverTree1(TreeNode root) {
         ArrayList<TreeNode> arr = new ArrayList<TreeNode>();
         BST2Arr(root, arr);
         TreeNode first = null; 
@@ -40,47 +75,4 @@ public class recoverBST {
         BST2Arr(root.right, arr);
     }
     
-    /*
-     * Method 2: constant space solution
-     */
-    public void recoverTree2(TreeNode root) {
-        
-        TreeNode[] arr = new TreeNode[3];
-        TreeNode[] previous = new TreeNode[1];
-        inorderTraversal(root, previous, arr);
-
-        if (arr[1] == null)
-            arr[1] = arr[2];
-        int tmp = arr[0].val;
-        arr[0].val = arr[1].val;
-        arr[1].val = tmp;
-        
-    }
-    
-    private void inorderTraversal(TreeNode root, TreeNode[] previous, TreeNode[] arr) {
-        if (root == null)
-            return;
-        
-        inorderTraversal(root.left, previous, arr);
-        
-        if (previous[0] == null) {  
-            previous[0] = root;
-        } else if (root.val < previous[0].val) {
-            if (arr[0] == null) {
-            	arr[0] = previous[0];
-            	arr[2] = root;
-            } else {
-            	arr[1] = root;
-            }
-        }
-        previous[0] = root;
-        
-        inorderTraversal(root.right, previous, arr);
-    }
-    
-    public void test(TreeNode[] arr) {
-    	TreeNode root = new TreeNode(100);
-    	root.left = new TreeNode(1200);
-    	arr[0] = root;
-    }
 }

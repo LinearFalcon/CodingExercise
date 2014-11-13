@@ -12,18 +12,20 @@ public class largestRectangleInHistogram {
         // copy original array and pad one 0 at the end
         int[] newArr = new int[height.length + 1];
         newArr = Arrays.copyOf(height, height.length + 1); // last bit will be 0 (default)
-        // stack always keep index of histogram whose height is in increasing order
-        Stack<Integer> stack = new Stack<Integer>();
+        // st always keep index of histogram whose height is in increasing order
+        Stack<Integer> st = new Stack<Integer>();
         int maxArea = 0;
         
         int index = 0;
         
         while (index < newArr.length) {
-            if (stack.isEmpty() || newArr[index] >= newArr[stack.peek()]) {
-                stack.push(index++);
+            if (st.isEmpty() || newArr[index] >= newArr[st.peek()]) {
+                st.push(index);
+                index++;
             } else {
-                int pos = stack.pop();
-                maxArea = Math.max(maxArea, newArr[pos] * (stack.isEmpty() ? index : index - stack.peek() - 1));
+                int pos = st.pop();
+                int width = st.isEmpty() ? index : index - st.peek() - 1;
+                maxArea = Math.max(maxArea, newArr[pos] * width);
             }
         }
         return maxArea;

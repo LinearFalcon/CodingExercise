@@ -29,6 +29,7 @@ public class removeDuplicatesFromSortedLinkedList2 {
       return dummy.next;
 	}
 	
+	
 	// method 2: Always has two pointer points to the two new nodes that need to be checked 
 	public ListNode deleteDuplicates_v2(ListNode head) {
         if (head == null) {

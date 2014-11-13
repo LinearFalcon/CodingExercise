@@ -25,10 +25,10 @@ public class regularExpressionMatch {
         } else {
             // check if p[0-1] matches 0 or more leading characters of s
             while (s.length() > 0 && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.')) {
-                if (isMatch(s, p.substring(2))) {
+                if (isMatch(s, p.substring(2))) {	// p[0-1] is ".*" situation
                     return true;
                 }
-                s = s.substring(1);
+                s = s.substring(1);		// match one leading char of s
             }
             
             // if next char is * and s.charAt(0) != p.charAt(0) and p.charAt(0) != ‘.' or s is empty now

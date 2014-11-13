@@ -1,9 +1,37 @@
 package edu.nyu.liangfang.leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class longgestSubstringWithoutRepeat {
+	// simple method
+	public int lengthOfLongestSubstring(String s) {
+        if (s.length() < 2) {
+            return s.length();
+        }
+        
+        HashSet<Character> set = new HashSet<Character>();
+        int max = Integer.MIN_VALUE;
+        int leftbound = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char curr = s.charAt(i);
+            if (set.contains(curr)) {
+                while (leftbound < i && s.charAt(leftbound) != curr) {  // roll set back
+                    set.remove(s.charAt(leftbound));    // remove chars that doesn't appear in current substring yet
+                    leftbound++;
+                }
+                leftbound++;    // move over the repeated index, start from repeated index + 1
+            } else {
+                max = Math.max(max, i - leftbound + 1);
+                set.add(curr);
+            }
+        }
+        
+        return max;
+    }
+	
+	
 	public int lengthOfLongestSubstring_v2(String s) {
         if (s.length() < 2) {
             return s.length();

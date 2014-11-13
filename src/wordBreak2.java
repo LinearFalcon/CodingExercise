@@ -8,43 +8,33 @@ import java.util.Set;
 public class wordBreak2 {
 	// DP solution
 	public List<String> wordBreak(String s, Set<String> dict) {
-		// store all possible string combinations of substring [i, s.length-1]
-        Hashtable<Integer, List<String>> table = new Hashtable<Integer, List<String>>();	
-        return getList(s, dict, 0, table);
+        if (s == null || s.length() == 0) {
+            return new ArrayList<String>();
+        }
+        return findList(s, dict);
     }
-	
-	private List<String> getList(String s, Set<String> dict, int start, Hashtable<Integer, List<String>> table) {
-		if (start >= s.length()) {
-			ArrayList<String> list = new ArrayList<String>();
-			list.add("");
-			return list;
-		} else if (table.containsKey(start)) {	// reduce repeated recursion
-			return table.get(start);
-		}
-		
-		List<String> result = new ArrayList<String>();
-		for (int i = start + 1; i <= s.length(); i++) {
-			String sub = s.substring(start, i);		// substring [start, i)
-			// from start to find a string that exited in dict
-			if (dict.contains(sub)) {
-				for (String possible : getList(s, dict, i, table)) {
-					String newStr;
-					// avoid redundant whitespace at the end of a string
-					if (possible.equals("")) {
-						newStr = sub + possible;
-					} else {
-						newStr = sub + " " + possible;
-					}
-					result.add(newStr);
-					
-				}
-				
-			}
-		}
-		
-		table.put(start, result);
-		return result;
-	}
+    
+    public List<String> findList(String s, Set<String> dict) {
+        List<String> result = new ArrayList<String>();
+        if (s.length() == 0) {
+            result.add("");
+            return result;
+        }
+        
+        for (int i = s.length() - 1; i >= 0; i--) {
+            String sub = s.substring(i);
+            if (dict.contains(sub)) {
+                List<String> prev = findList(s.substring(0, i), dict);
+                for (String preStr : prev) {
+                	// if preStr.length() is 0, means we compute it by findList(s.substring(0,0), dict), so
+                	// we need to make sure middle char will not be " ", or we will have string start with 
+                	// an empty char like " a";
+                    result.add(preStr + (preStr.length() == 0 ? "" : " ") + sub);	
+                }
+            }
+        }
+        return result;
+    }
 	
 	
 	

@@ -3,7 +3,7 @@ package edu.nyu.liangfang.leetcode;
 /*
 Given a binary tree, find the maximum path sum.
 
-The path may start and end at any node in the tree.
+The path may start and end at any root in the tree.
 
 For example:
 Given the below binary tree,
@@ -22,16 +22,16 @@ public class binaryTreeMaximumPathSum {
         return max[0];
     }
     
-	// maxPath return the biggest sum of path end at node
-    private int maxPath(TreeNode node, int[] max) {
-        if (node == null)
+	// maxPath return the biggest sum of path end at root
+    private int maxPath(TreeNode root, int[] max) {
+        if (root == null)
             return 0;
         
-        int left = maxPath(node.left, max);
-        int right = maxPath(node.right, max);
-        int sumAcrossRoot = node.val + left + right;	// sum of path across current root node
-        int single = Math.max(node.val, node.val + Math.max(left, right));	// biggest sum of path end at node
-        max[0] = Math.max(max[0], Math.max(sumAcrossRoot, single));
-        return single;
+        int left = maxPath(root.left, max);
+        int right = maxPath(root.right, max);
+        int sumAcrossRoot = root.val + left + right;	// sum of path across current root root
+        int sumEndAtRoot = Math.max(root.val, root.val + Math.max(left, right));	// biggest sum of path end at root
+        max[0] = Math.max(max[0], Math.max(sumAcrossRoot, sumEndAtRoot));
+        return sumEndAtRoot;
     }
 }

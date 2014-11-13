@@ -28,28 +28,35 @@ public class wordBreak {
     }
 	
 	
-	// my TLE solution
+	// Hashtable solution
 	public boolean wordBreak_Sol2(String s, Set<String> dict) {
+		if (s== null || s.length() == 0) {
+            return false;
+        }
+        
         Hashtable<String, Boolean> table = new Hashtable<String, Boolean>();
         return canBreak(s, dict, table);
     }
     
-    private boolean canBreak(String s, Set<String> dict, Hashtable<String, Boolean> table) {
-        if (dict.contains(s)) {
+    public boolean canBreak(String s, Set<String> dict, Hashtable<String, Boolean> table) {
+        if (s.length() == 0) {
             return true;
-        } else if (table.containsKey(s)) {
+        } else if (table.containsKey(s)) {	// tuning the tree and save time
             return table.get(s);
         }
         
-        for (int i = 1; i < s.length(); i++) {
-            String s1 = s.substring(0, i);
-            String s2 = s.substring(i);
-            if (canBreak(s1, dict, table) && canBreak(s2, dict, table)) {
-                table.put(s, true);
-                return true;
+        for (int i = 1; i <= s.length(); i++) {
+            String sub = s.substring(0, i);
+            if (dict.contains(sub)) {
+                if (canBreak(s.substring(i), dict, table)) {
+                    table.put(s, true);			// Attention, Hashtable stores the return value of entire recursion function
+                    return true;
+                } else {
+                    table.put(s, false);		// same here
+                }
             }
         }
-        table.put(s, false);
-        return false;
+        table.put(s, false);	// same here too!
+        return false;	
     }
 }

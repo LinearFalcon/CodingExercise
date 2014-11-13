@@ -11,10 +11,10 @@ public class wildcardMatching {
 			if (j < p.length() && (p.charAt(j) == '?' || p.charAt(j) == s.charAt(i))) {	// ignore normal match
 				++i;
 				++j;
-			} else if (j < p.length() && p.charAt(j) == '*') {
+			} else if (j < p.length() && p.charAt(j) == '*') {	// if p's head is '*'
 				star = j++;
 				mark = i;
-			} else if (star != -1) {
+			} else if (star != -1) {		// if p's head is not '*' and also does not match s's current head, but we have previous star
 				j = star + 1;
 				i = ++mark;
 			} else {
@@ -27,19 +27,23 @@ public class wildcardMatching {
 		return j == p.length();
     }
 	
-	// totally TLE solution
+	
+	// Correct but TLE solution
 	public boolean isMatch_TLE(String s, String p) {
-        if (s.length() == 0) {
-            return p.length() == 0 || (p.length() == 1 && p.charAt(0) == '*');
-        } else if (p.length() == 0) {
-            return false;
+		
+		if (p.length() == 0) {
+            return s.length() == 0;
         }
         
         if (p.charAt(0) != '*') {
-            return (s.charAt(0) == p.charAt(0) || p.charAt(0) == '?') &&
-                    isMatch(s.substring(1), p.substring(1));
+            if (s.length() < 1) {
+                return false;
+            } else {
+                return (s.charAt(0) == p.charAt(0) || p.charAt(0) == '?') &&
+                        isMatch(s.substring(1), p.substring(1));
+            }
         } else {
-            while (s.length() > 0) {
+            while (s.length() > 0) {	// check if p's leading "*" matches some leading substring of s
                 if (isMatch(s, p.substring(1))) {
                     return true;
                 }

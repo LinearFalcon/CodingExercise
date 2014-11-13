@@ -13,18 +13,15 @@ public class binaryTreeInorderTraversal {
         List<Integer> list = new LinkedList<Integer>();
         
         TreeNode node = root;
-        while (true) {
-            while (node != null) {
+        while (!st.isEmpty() || node != null) {
+            if (node != null) {
                 st.push(node);
                 node = node.left;
+            } else {
+                TreeNode peek = st.pop();
+                list.add(peek.val);
+                node = peek.right;
             }
-            
-            if (st.isEmpty())
-                break;
-            
-            node = st.pop();
-            list.add(node.val);
-            node = node.right;
         }
         return list;
     }

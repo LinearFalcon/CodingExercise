@@ -26,6 +26,7 @@ public class binaryTreeLevelOrderTraversal {
         traversal(root.right, result, level + 1);
     }
 	
+    
 	// BFS method
 	public List<List<Integer>> levelOrder_BFS(TreeNode root) {
         List<List<Integer>> list = new LinkedList<List<Integer>>();

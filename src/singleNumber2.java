@@ -12,17 +12,22 @@ public class singleNumber2 {
 	 * track of the total count of ith bit.
 	 */
 	public int singleNumber2(int[] A) {
-        int[] count = new int[32];  // each int has 32 bits
-        int result = 0;
+        
+        int[] bitNum = new int[32];   // each int has 32 bits
         // count number of appearance of each bit in all numbers
-        for (int i = 0; i < 32; i++) {
-            for (int j = 0; j < A.length; j++) {
-                if (((A[j] >> i) & 1) == 1) {   // check if this bit of number is 1
-                    count[i]++;
-                }
+        for (int i = 0; i < A.length; i++) {
+            int num = A[i];
+            for (int j = 0; j < 32; j++) {
+                bitNum[j] += (num & 1);		// count number of 1 in this bit
+                num = num >> 1;
             }
-            result |= ((count[i] % 3) << i);    // set this bit to 1 if it is 1
         }
-        return result;
+        
+        int res = 0;
+        for (int i = 0; i < 32; i++) {
+            res |= ((bitNum[i] % 3) << i);	// set this bit to 1 if the number of 1 in this bit is not multiply of 3
+        }
+
+        return res;
     }
 }

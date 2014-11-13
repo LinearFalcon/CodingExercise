@@ -1,15 +1,5 @@
 package edu.nyu.liangfang.leetcode;
 
-class ListNode {
-      int val;
-      ListNode next;
-      ListNode(int x) {
-          val = x;
-          next = null;
-      }
- }
-
-
 public class MergeTwoSortedLists {
 	public ListNode mergeTwoSortedLists(ListNode l1, ListNode l2) {
 		ListNode head;

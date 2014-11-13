@@ -31,11 +31,11 @@ public class minimumWindowSubstring {
                         if (srcTable[ch] == 0) {
                             start++;
                         } else {
-                            foundTable[ch]--;		// 只要不是0，就减少一个found
+                            foundTable[ch]--;		// 只要不是0，就减少一个found然后跟srcTable[ch]比较
                             if (foundTable[ch] >= srcTable[ch]) { 
                                 start++;
                             } else {    // 缩减到当start前进一位后substring[start, i]没有包含所有T中char
-                                break;
+                                break;	// 此时start仍然为能使得substring[start, i]包含所有T中char的最大index
                             }
                         }
                     }

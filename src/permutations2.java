@@ -36,9 +36,10 @@ public class permutations2 {
         }
     }
 	
-    // AC method - DFS
+    // AC method - DFS   -  easy to understand
 	// Hashtable to store <number, appear times> pair, then just like construct
-	// trees, each time pick a key to add to list until this branch finish, so we avoid duplicate and sort
+	// trees, each time pick a key to add to list and decrement value of this key in Hashtable
+    // until this branch finish (table becomes empty), so we avoid duplicate and sort
 	public List<List<Integer>> permuteUnique_2(int[] num) {
         Hashtable<Integer, Integer> table = new Hashtable<Integer, Integer>();
         List<List<Integer>> result = new LinkedList<List<Integer>>();

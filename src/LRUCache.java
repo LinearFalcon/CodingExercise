@@ -1,95 +1,84 @@
 package edu.nyu.liangfang.leetcode;
 
-import java.util.Hashtable;
-
-class Node {	
+import java.util.HashMap;
+ 
+class Node {
     int key;
-    int value;
-    Node pre;
+    int val;
     Node next;
-    public Node(int key, int value) {
+    Node prev;
+    Node(int key, int val) {
         this.key = key;
-        this.value = value;
-        pre = null;
-        next = null;
+        this.val = val;
     }
 }
 
-// If use linkedlist to store access order, it takes O(n) time to update 
-// when access one node, so we must declare a double linked list
+//If use linkedlist to store access order, it takes O(n) time to update 
+//when access one node, so we must declare a double linked list
 public class LRUCache {
-    private int num;
+    private HashMap<Integer, Node> map;		// use map to implement O(1) get
     private int capacity;
-    private Node head;		
-    private Node tail;		// use tail to achieve O(1) update when access one node
-    private Hashtable<Integer, Node> table;
+    private Node tail;	// use tail to achieve O(1) update when access one node
+    private Node head;
     
     public LRUCache(int capacity) {
-        this.num = 0;    
         this.capacity = capacity;
-        this.table = new Hashtable<Integer, Node>();
-        head = null;
-        tail = null;
+        map = new HashMap<Integer, Node>();
     }
     
     public int get(int key) {
-        if (table.containsKey(key)) {
-            Node curr = table.get(key);
-            update(curr);
-            return curr.value;
-        }
-        return -1;
-    }
-    
-    private void update(Node node) {
-        if (head != tail) {         // more than one node
-            if (node != tail) {
-                if (node == head) {
-                    head = head.next;
-                    head.pre = null;
-                    
-                } else {
-                    node.pre.next = node.next;
-                    node.next.pre = node.pre;
-                }
-                
-                tail.next = node;
-                node.pre = tail;
-                node.next = null;
-                tail = tail.next;
-            }
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
+            moveToTail(node);
+            return node.val;
+        } else {
+            return -1;
         }
     }
     
     public void set(int key, int value) {
-        if (table.containsKey(key)) {
-            Node curr = table.get(key);
-            curr.value = value;
-            update(curr);
-            
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
+            node.val = value;
+            moveToTail(node);
         } else {
-            if (num == capacity) {
-                table.remove(head.key);
-                Node newNode = head;
-
-                newNode.key = key;
-                newNode.value = value;
-                update(newNode);
-                table.put(key, newNode);
-            } else {
+            if (map.size() < capacity) {
                 Node newNode = new Node(key, value);
-                if (head == null) {
+                if (map.size() == 0) {          // must consider empty condition
                     head = newNode;
-                    tail = head;
                 } else {
+                    newNode.prev = tail;
                     tail.next = newNode;
-                    newNode.pre = tail;
-                    tail = newNode;
                 }
-                
-                table.put(key, newNode);
-                num++;  
+                tail = newNode;
+                map.put(key, newNode);
+            } else {
+                map.remove(head.key);
+                Node node = head;
+                node.val = value;
+                node.key = key;
+                moveToTail(node);
+                map.put(key, node);
+            }
+        }
+    }
+    
+    // move node to the tail of the list
+    public void moveToTail(Node node) {
+        if (node != tail) {			// if node is tail, don't need to update
+            node.next.prev = node.prev;
+
+            if (node.prev != null) {	// if current head is node
+                node.prev.next = node.next;
             } 
+            
+            if (node.prev == null) { // if current head is node
+                head = head.next;
+            }
+            node.prev = tail;
+            node.next = null;
+            tail.next = node;
+            tail = node;
         }
     }
 }

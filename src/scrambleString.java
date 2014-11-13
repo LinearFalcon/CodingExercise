@@ -41,6 +41,37 @@ public class scrambleString {
     return false;
 	}
 	
+	// 2nd method - sort first
+		public boolean isScramble2(String s1, String s2) {
+		    if (s1.length() != s2.length()) {
+		        return false;
+		    }
+		    if (s1.equals(s2)) {
+		        return true;
+		    }
+		    
+		    char[] ss1 = s1.toCharArray();
+		    char[] ss2 = s2.toCharArray();
+		    Arrays.sort(ss1);
+		    Arrays.sort(ss2);
+		    String sort1 = String.valueOf(ss1);
+		    String sort2 = String.valueOf(ss2);
+		    if (!sort1.equals(sort2)) {
+		        return false;
+		    }
+		    
+		    int len = s1.length();
+		    for (int i = 1; i < len; i++) {
+		        if ((isScramble(s1.substring(0, i), s2.substring(0, i)) && 
+		             isScramble(s1.substring(i), s2.substring(i))) || 
+		             (isScramble(s1.substring(0, i), s2.substring(len - i)) && 
+		             isScramble(s1.substring(i), s2.substring(0, len - i))))  {
+		            return true;         
+		        }
+		    }
+		    return false;
+		}
+	
 	
 	// DP solution - O(n^4)
 	/*
@@ -128,35 +159,4 @@ public class scrambleString {
         return false;
     }
 	
-	
-	// 2nd time
-	public boolean isScramble2(String s1, String s2) {
-    if (s1.length() != s2.length()) {
-        return false;
-    }
-    if (s1.equals(s2)) {
-        return true;
-    }
-    
-    char[] ss1 = s1.toCharArray();
-    char[] ss2 = s2.toCharArray();
-    Arrays.sort(ss1);
-    Arrays.sort(ss2);
-    String sort1 = String.valueOf(ss1);
-    String sort2 = String.valueOf(ss2);
-    if (!sort1.equals(sort2)) {
-        return false;
-    }
-    
-    int len = s1.length();
-    for (int i = 1; i < len; i++) {
-        if ((isScramble(s1.substring(0, i), s2.substring(0, i)) && 
-             isScramble(s1.substring(i), s2.substring(i))) || 
-             (isScramble(s1.substring(0, i), s2.substring(len - i)) && 
-             isScramble(s1.substring(i), s2.substring(0, len - i))))  {
-            return true;         
-        }
-    }
-    return false;
-}
 }

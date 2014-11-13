@@ -36,6 +36,7 @@ public class multiplyStrings {
     }
 	
 	
+	
 	// my solution
 	public String multiply_Solution2(String num1, String num2) {
 //		if (num1 == "0" || num2 == "0") {

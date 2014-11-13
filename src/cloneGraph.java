@@ -20,7 +20,37 @@ class UndirectedGraphNode {
  */
 
 public class cloneGraph {
-	
+	// clean solution - Remember how to use!!!
+	public UndirectedGraphNode cloneGraph2(UndirectedGraphNode node) {
+        if (node == null)
+            return null;
+        
+        Queue<UndirectedGraphNode> Q = new LinkedList<UndirectedGraphNode>();
+        HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+        UndirectedGraphNode newStart = new UndirectedGraphNode(node.label);
+        Q.add(node);
+        map.put(node, newStart);
+
+        while (!Q.isEmpty()) {
+            UndirectedGraphNode old = Q.poll();
+            UndirectedGraphNode newNode = map.get(old);
+
+            for (UndirectedGraphNode n : old.neighbors) {
+                if (!map.containsKey(n)) {
+                    UndirectedGraphNode copy = new UndirectedGraphNode(n.label);
+                    newNode.neighbors.add(copy);
+                    map.put(n, copy);
+                    Q.add(n);
+                } else {								// Attention!!!!!! Here although we do not add negihbor node to Queue, but we do 
+                    newNode.neighbors.add(map.get(n));	// need to add created nodes to newNode's neighbor list
+                }
+            }
+        }
+        
+        return newStart;
+    }
+		
+		
 	// my solution
 	public UndirectedGraphNode cloneGraphSol(UndirectedGraphNode node) {
         if (node == null)
@@ -59,33 +89,6 @@ public class cloneGraph {
                     newNeighbor = hashtable.get(oldNeighbor.label);		// if visited, means we already created the node, so just get from hashtable
                 } 
                 newNode.neighbors.add(newNeighbor);
-            }
-        }
-        return start;
-    }
-	
-	// clean solution
-	public UndirectedGraphNode cloneGraph2(UndirectedGraphNode node) {
-        if (node == null)
-            return null;
-        
-        Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
-        HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
-        queue.add(node);
-        UndirectedGraphNode start = new UndirectedGraphNode(node.label);
-        map.put(node, start);
-        
-        while (!queue.isEmpty()) {
-            UndirectedGraphNode old = queue.poll();
-            for (UndirectedGraphNode oldNeighbor : old.neighbors) {
-                if (!map.containsKey(oldNeighbor)) {
-                    UndirectedGraphNode copy = new UndirectedGraphNode(oldNeighbor.label);
-                    queue.add(oldNeighbor);
-                    map.put(oldNeighbor, copy);
-                    map.get(old).neighbors.add(copy);
-                } else {
-                    map.get(old).neighbors.add(map.get(oldNeighbor));
-                } 
             }
         }
         return start;

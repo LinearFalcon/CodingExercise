@@ -4,7 +4,7 @@ import java.util.Hashtable;
 
 public class jumpGame2 {
 	public int jump(int[] A) {
-		// maxIndexOfStep[2] means farthest index can reach by 2 step
+		// maxIndexOfStep.get(2) means farthest index can reach by 2 step
         Hashtable<Integer, Integer> maxIndexOfStep = new Hashtable<Integer, Integer>();
         maxIndexOfStep.put(0, 0);
         

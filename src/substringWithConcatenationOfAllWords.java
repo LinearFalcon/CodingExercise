@@ -11,51 +11,52 @@ public class substringWithConcatenationOfAllWords {
 	
 	// Brutal Force: 算法的时间复杂度是O（n*(l*k)）n是字符串的长度，l是单词的个数，k是单词的长度
 	public List<Integer> findSubstring(String S, String[] L) {
-        if (L.length == 0)
-            return null;
-        Hashtable<String, Integer> table = new Hashtable<String, Integer>();
-        for (String s : L) {
-            if (table.containsKey(s)) {
-                table.put(s, table.get(s) + 1);
+        List<Integer> list = new ArrayList<Integer>();
+        int len = L.length;
+        if (len == 0) {
+            return list;
+        }
+        int wordLen = L[0].length();
+        
+        Hashtable<String, Integer> srcTable = new Hashtable<String, Integer>();
+        Hashtable<String, Integer> foundTable = new Hashtable<String, Integer>();
+        // store the frequency of each word in L array
+        for (int i = 0; i < len; i++) {             
+            if (!srcTable.containsKey(L[i])) {
+                srcTable.put(L[i], 1);
             } else {
-                table.put(s, 1);
+                srcTable.put(L[i], srcTable.get(L[i]) + 1);
             }
         }
-        List<Integer> result = new LinkedList<Integer>();
-        
-        int start = 0;
-        int wordLen = L[0].length();
-        int leastLen = L.length * L[0].length();
-        while (S.length() - start >= leastLen) {
-            Hashtable<String, Integer> cloneTable = new Hashtable<String, Integer>(table);
-            int index = start;
-            boolean isMatch = true;   
-                        
-            for (int i = 0; i < L.length; i++) {
-                String tmp = S.substring(index, index + wordLen);	// get a string by word length
-                index += wordLen;
+        // check each substring of S that starts from i
+        for (int i = 0; i <= S.length() - len * wordLen; i++) {
+            foundTable.clear();         // Must firstly clear foundTable
+            int j;
+            for (j = 0; j < len; j++) {
+                int k = i + j * wordLen;
+                String sub = S.substring(k, k + wordLen);
                 
-                if (!cloneTable.containsKey(tmp)) {
-                    isMatch = false;
-                    break;
+                if (!srcTable.containsKey(sub)) break;   // not in L array, break and see rest of S
+
+                // update fonudTable
+                if (!foundTable.containsKey(sub)) {
+                    foundTable.put(sub, 1);
                 } else {
-                    if (cloneTable.get(tmp) > 1) {
-                        cloneTable.put(tmp, cloneTable.get(tmp) - 1);
-                    } else {
-                        cloneTable.remove(tmp);
-                    }
+                    foundTable.put(sub, foundTable.get(sub) + 1);
                 }
                 
+                if (foundTable.get(sub) > srcTable.get(sub)) break;  // if found more words than L, break
             }
             
-            if (isMatch) {
-                result.add(start);
-            } 
-            
-            start++;
+            if (j == len) {     // only when for j loop executes properly is this i a valid start
+                list.add(i);    // position of substring formed by all words from L
+            }
         }
-        return result;
+        
+        return list;
     }
+	
+	
 	
 	// Don't understand yet!!!!!!!!!
 	

@@ -9,36 +9,36 @@ class RandomListNode {
 
 public class copyListWithRandomPointer {
 	public RandomListNode copyRandomList(RandomListNode head) {
-        if (head == null)
-            return head;
-        HashMap<RandomListNode, RandomListNode> map = new HashMap<RandomListNode, RandomListNode>();
+		HashMap<RandomListNode, RandomListNode> map = new HashMap<RandomListNode, RandomListNode>();
+        if (head == null) return null;
+        
         RandomListNode newHead = new RandomListNode(head.label);
-        
-        RandomListNode p = head;
-        RandomListNode q = newHead;
         map.put(head, newHead);
-        
-        // firstly process 'next' relationship
-        p = p.next;
-        while (p != null) {
-            RandomListNode tmp = new RandomListNode(p.label);
-            map.put(p, tmp);
-            q.next = tmp;
-            q = q.next;
-            p = p.next;
-        }
-        
-        // then process 'random' relationship, all nodes have been created now
-        p = head;
-        q = newHead;
-        while (p != null) {
-            if (p.random != null) {
-                q.random = map.get(p.random);
-            } else {
-                q.random = null;
+        RandomListNode point = head;
+        while (point != null) {
+            RandomListNode newNode = map.get(point);    // map will always have <point, newNode> since we process next first
+            
+            // firstly process 'next' relationship, and add next to map
+            if (point.next != null) {
+                if (map.containsKey(point.next)) {
+                    newNode.next = map.get(point.next);
+                } else {
+                    RandomListNode next = new RandomListNode(point.next.label);
+                    newNode.next = next;
+                    map.put(point.next, next);
+                }
             }
-            p = p.next;
-            q = q.next;
+            // then process 'random' relationship
+            if (point.random != null) {
+                if (map.containsKey(point.random)) {
+                    newNode.random = map.get(point.random);
+                } else {
+                    RandomListNode tmp = new RandomListNode(point.random.label);
+                    newNode.random = tmp;
+                    map.put(point.random, tmp);
+                }
+            }
+            point = point.next;
         }
         return newHead;
     }

@@ -14,7 +14,7 @@ public class palindromeSubstringNumber {
 		boolean[][] isPalindrome = new boolean[len][len];
 		
 		int res = 0;
-		for (int i = len - 1; i >= 0; i--) {
+		for (int i = len - 1; i >= 0; i--) {	// check if there is palindrome starting from index i
 			for (int j = i; j < len; j++) {
 				if (s.charAt(i) == s.charAt(j) &&
 						(j - i < 2 || isPalindrome[i + 1][j - 1])) {

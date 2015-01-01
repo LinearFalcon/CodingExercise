@@ -15,7 +15,7 @@ public class findMinimumInRotatedSortedArray2 {
             int mid = (left + right) / 2;
             if (num[mid] > num[right]) {		// left part is in increasing order, so we check right part for min value
                 left = mid + 1;
-            } else if (num[mid] < num[left]) {	// right part is in increasing order, so we check left part for min value
+            } else if (num[mid] < num[left]) {	// right part is in increasing order, so we check left part for min value, mind mid might be min index, so right = mid not mid - 1;
                 right = mid;
             } else {    // num[left] == num[mid] == num[right], cannot determine
                 left++;

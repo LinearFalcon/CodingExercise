@@ -1,8 +1,30 @@
 package edu.nyu.liangfang.leetcode;
 import java.util.LinkedList;
 
+/*
+
+Have you considered these scenarios?
+
+1, needle or haystack is empty. If needle is empty, always return 0. If haystack is empty, then there will always be no match (return –1) 
+   unless needle is also empty which 0 is returned.
+2, needle’s length is greater than haystack’s length. Should always return –1. 
+3, needle is located at the end of haystack. For example, “aaaba” and “ba”. Catch possible off-by-one errors.
+4, needle occur multiple times in haystack. For example, “mississippi” and “issi”. It should return index 2 as the first match of “issi”.
+ 
+*/
 
 public class implementStrStr {
+	// Best clean solution
+	public int strStr_clean(String haystack, String needle) {
+        for (int i = 0; ; i++) {
+            for (int j = 0; ; j++) {
+                if (j == needle.length()) return i;
+                if (i + j == haystack.length()) return -1;
+                if (needle.charAt(j) != haystack.charAt(i + j)) break;
+            }
+        }
+    }
+	
 	// O(1) space solution
 	public String strStr(String haystack, String needle) {
         if (needle == null || needle.length() == 0) {
@@ -28,6 +50,7 @@ public class implementStrStr {
         return null;
     }
 	
+	// too complicated!
 	public String strStr_linkedlist(String haystack, String needle) {
 		LinkedList<Integer> positions = new LinkedList<Integer>();
 

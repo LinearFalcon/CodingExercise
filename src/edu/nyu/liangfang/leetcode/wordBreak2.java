@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.Set;
 
 public class wordBreak2 {
-	// DP solution
+	// DP - Backtracking solution
 	public List<String> wordBreak(String s, Set<String> dict) {
         if (s == null || s.length() == 0) {
             return new ArrayList<String>();
         }
-        return findList(s, dict);
-    }
+        return findList(s, dict);		// if we want to do more pruning, we can pass a Map<String, List<String>> map to function
+    }									// to store intermediate result
     
     public List<String> findList(String s, Set<String> dict) {
         List<String> result = new ArrayList<String>();
         if (s.length() == 0) {
             result.add("");
-            return result;
+            return result;		// can move this line
         }
         
         for (int i = s.length() - 1; i >= 0; i--) {

@@ -19,6 +19,7 @@ public class binaryTreePostorderTraversal {
                 node = node.left;
             } else {            // if already pushed all left nodes, then check peeknode
                 TreeNode peek = st.peek();
+                // Attention!!! Here we only check peek.right, not peek!!!
                 if (peek.right != null && peek.right != lastVisited) { // we haven't visit peek.right, 
                     node = peek.right;                                 // but peek.left has been visited
                 } else {                

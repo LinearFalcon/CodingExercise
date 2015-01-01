@@ -22,10 +22,10 @@ public class permutationSequence {
         // change k to index
         k--;
         String result = "";
-        // from left to right, compute the very first bit
-        for (int i = 0; i < n; i++) {
+        // from left to right, compute the very first bit, n bits so loop n times
+        for (int i = n; i > 0; i--) {
             // mod should be (n - 1) factorial
-            mod = mod / (n - i);
+            mod = mod / i;
             int currBitIndex = k / mod;
             k = k % mod;
             result += num.get(currBitIndex);

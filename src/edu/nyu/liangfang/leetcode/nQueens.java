@@ -12,7 +12,7 @@ public class nQueens {
             return result;
         }
         int[] colPos = new int[n];
-        Arrays.fill(colPos, -1);    // must initialize to -1 !
+        Arrays.fill(colPos, -1);    // must initialize to -1 ! Because it's position, and 0 is a valid position.
         findSolutions(n, result, 0, colPos);
         return result;
     }

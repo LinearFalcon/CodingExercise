@@ -23,13 +23,13 @@ public class wordLadder2 {
         bfs(start, end, dict, backMap, distance);
         // dfs backtrace, starting from end
         List<String> list = new ArrayList<String>();
-        backtrace(start, end, result, backMap, distance, list);
+        backtrack(start, end, result, backMap, distance, list);
         
         return result;
     }
     
 	// Backtrace and get all path from backMap
-    public void backtrace(String start, String curr, List<List<String>> result,
+    public void backtrack(String start, String curr, List<List<String>> result,
             Map<String, List<String>> backMap, Map<String, Integer> distance, List<String> list) {
         
         list.add(0, curr);
@@ -41,7 +41,7 @@ public class wordLadder2 {
         for (String next : backMap.get(curr)) {
             if (distance.containsKey(next) && distance.get(curr) == distance.get(next) + 1) {	// assure it is shortest path
                 List<String> clone = new ArrayList<String>(list);
-                backtrace(start, next, result, backMap, distance, clone);
+                backtrack(start, next, result, backMap, distance, clone);
             }
         }
     }

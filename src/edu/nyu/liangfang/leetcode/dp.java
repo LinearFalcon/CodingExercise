@@ -6,33 +6,28 @@ import java.util.Hashtable;
  *  For "1234", after computing branch 1234-234-34-4-"", we get 1 and table.get(4) == table.get(34) == 1;
  *  Then in later compute, we don't need to recursion to compute other half of the tree, just retrieve value from hashtable.
  */
-public class decodeWays {
+public class dp {
 	// DP - Iterative, most efficient
 	public int numDecodings(String s) {
         if (s == null || s.length() == 0) {
             return 0;
         }
-        if (s.charAt(0) == '0') {	
+        if (s.charAt(0) == '0') {		// Must Check if first digit is 0 !!!!!!!!!!
             return 0;
         }
         int[] dp = new int[s.length() + 1]; // 前n个digit的decode种类数
         
         dp[0] = 1;  // indicate succeed when no left char
         dp[1] = 1;  // because s.charAt(0) is not '0'
-        int num;
         
         for (int i = 2; i <= s.length(); i++) {
-            
-            num = Integer.valueOf(s.substring(i - 1, i));
-            if (num != 0) {     // if single digit is not zero, it must be valid
+        	if (s.charAt(i - 1) != '0') {
                 dp[i] = dp[i - 1];
             }
             
-            if (s.charAt(i - 2) != '0') {   // 如果当前digit的前一个不是0，就可以看看它们俩组成的数字是否大于26
-                num = Integer.valueOf(s.substring(i - 2, i));
-                if (num <= 26) {
-                    dp[i] += dp[i - 2];
-                }
+            int num = Integer.valueOf(s.substring(i - 2, i));
+            if (num <= 26 && num >= 10) {		// num >= 10 means s.charAt(i - 2) is not '0'
+                dp[i] += dp[i - 2];
             }
         }
         

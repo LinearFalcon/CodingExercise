@@ -1,5 +1,6 @@
 package edu.nyu.liangfang.leetcode;
 import java.util.ArrayList;
+import java.util.List;
 
 class Interval {
      int start;
@@ -9,9 +10,9 @@ class Interval {
 }
 
 public class InsertInterval {
-	public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
+	public List<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
 		int length = intervals.size();
-		ArrayList<Interval> result = new ArrayList<Interval>();
+		List<Interval> result = new ArrayList<Interval>();
 		int i = 0;
 		// Insert intervals before overlap
 	    while(i < length && newInterval.start > intervals.get(i).end) {		

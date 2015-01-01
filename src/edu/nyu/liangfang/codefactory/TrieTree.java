@@ -74,7 +74,10 @@ public class TrieTree {
     	}
     	
     	List<String> postfixList = new LinkedList<String>();
-    	getAllStringFromNode(curNode, postfixList, "");
+    	
+    	for (int i = 0; i < 26; i++)
+    		getAllStringFromNode(curNode.links[i], postfixList, "");
+    	
     	for (String postfix : postfixList) {
     		result.add(prefix + postfix);
     	}
@@ -82,19 +85,15 @@ public class TrieTree {
     }
     
     // Helper function for getAllStringWithPrefix() method
-    // give list of string under this current node (exclusive)
+    // give list of valid string from this current node (inclusive)
     private static void getAllStringFromNode(TrieNode curNode, List<String> list, String curr) {
     	if (curNode != null) {
+    		curr += curNode.letter;
+    		if (curNode.fullWord) {
+    			list.add(curr);
+    		}
     		for (int i = 0; i < 26; i++) {
-    			TrieNode next = curNode.links[i];
-    			if (next != null) {
-    				String newStr = curr + next.letter;
-    				if (next.fullWord) {
-    					list.add(newStr);
-    				}
-    			
-    				getAllStringFromNode(next, list, newStr);
-    			}
+    			getAllStringFromNode(curNode.links[i], list, curr);
     		}
     	}
     }
@@ -138,6 +137,6 @@ public class TrieTree {
 //            System.out.println("The word was NOT found");
 //        }
         
-        System.out.println(getAllStringWithPrefix(tree, "all"));
+        System.out.println(getAllStringWithPrefix(tree, ""));
     }
 }

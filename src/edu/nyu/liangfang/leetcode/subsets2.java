@@ -1,9 +1,11 @@
 package edu.nyu.liangfang.leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 public class subsets2 {
@@ -33,8 +35,8 @@ public class subsets2 {
     // method with hashmap
 	public List<List<Integer>> subsetsWithDup_table(int[] num) {
         Arrays.sort(num);
-        Hashtable<Integer, Integer> map = new Hashtable<Integer, Integer>();
-        ArrayList<Integer> keys = new ArrayList<Integer>();
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        List<Integer> keys = new ArrayList<Integer>();
         // count frequency of each number
         for (int i = 0; i < num.length; i++) {
             if (map.containsKey(num[i])) {
@@ -50,7 +52,7 @@ public class subsets2 {
         return result;
     }
     
-    private void getSubSets(ArrayList<Integer> keys, Hashtable<Integer, Integer> map, int curr, List<Integer> temp, List<List<Integer>> result) {
+    private void getSubSets(List<Integer> keys, Map<Integer, Integer> map, int curr, List<Integer> temp, List<List<Integer>> result) {
         if (curr == keys.size()) {
             result.add(temp);
             return;

@@ -25,7 +25,7 @@ public class removeDuplicatesFromSortedLinkedList2 {
           point = point.next;
           prev = prev.next;
       }
-      tail.next = null;
+      tail.next = null;			// important!!!!!!
       return dummy.next;
 	}
 	

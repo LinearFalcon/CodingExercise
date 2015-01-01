@@ -22,7 +22,7 @@ public class findPeakElement {
                 high = mid - 1; // if both is downhill or num[mid] is less than both side, choose left,
             }                   // because we must can find a peak on left even if less than both
         }
-        return low;
+        return -1;
     }
 	
 	// my O(lgn) solution

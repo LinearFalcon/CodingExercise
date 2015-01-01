@@ -2,6 +2,8 @@ package edu.nyu.liangfang.leetcode;
 
 public class wildcardMatching {
 	// AC solution - Greedy Algorithm
+	// 贪心的策略，能匹配就一直往后遍历，匹配不上了就看看前面有没有'*'来救救场，再从'*'后面接着试。
+	// 因为*匹配any sequence of characters，所以我们只关心最后一个*
 	public boolean isMatch(String s, String p) {
         int i = 0;
 		int j = 0;
@@ -11,12 +13,13 @@ public class wildcardMatching {
 			if (j < p.length() && (p.charAt(j) == '?' || p.charAt(j) == s.charAt(i))) {	// ignore normal match
 				++i;
 				++j;
-			} else if (j < p.length() && p.charAt(j) == '*') {	// if p's head is '*'
-				star = j++;
+			} else if (j < p.length() && p.charAt(j) == '*') {	// if p's head is '*', assign star and mark
+				star = j++;					// must increment j here, but not i, since we try to firstly ignore the star, if not work, then come back
 				mark = i;
 			} else if (star != -1) {		// if p's head is not '*' and also does not match s's current head, but we have previous star
+				mark++;
+				i = mark;					// 每次无法匹配且前面有星的时候，就用star从mark的地方匹配一个（所以先++mark），然后接着while loop
 				j = star + 1;
-				i = ++mark;
 			} else {
 				return false;
 			}

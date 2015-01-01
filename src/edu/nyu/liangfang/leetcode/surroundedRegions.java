@@ -5,9 +5,54 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class surroundedRegions {
-	
-	// DFS and iterate over, space O(1), time O(m*n)
+	// my compact version - Leetcode OJ sucks, stack over flow due to DFS
 	public void solve(char[][] board) {
+        if (board.length == 0) return;
+        int m = board.length;
+        int n = board[0].length;
+        
+        for (int i = 0; i < m; i++) {
+            dfs(board, i, 0);
+            dfs(board, i, n - 1);
+        }
+        for (int j = 0; j < n; j++) {
+            dfs(board, 0, j);
+            dfs(board, m - 1, j);
+        }
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == 'O')
+                    board[i][j] = 'X';
+                else if (board[i][j] == '#')
+                    board[i][j] = 'O';
+            }
+        }
+    }
+    
+	// dfs - cause stack overflow
+    public void dfs(char[][] board, int row, int col) {
+        if (board[row][col] == 'O') {
+            board[row][col] = '#';
+            if (row > 0) {
+                dfs(board, row - 1, col);
+            }
+            if (row < board.length - 1) {
+                dfs(board, row + 1, col);
+            }
+            if (col > 0) {
+                dfs(board, row, col - 1);
+            }
+            if (col < board[0].length - 1) {
+                dfs(board, row, col + 1);
+            }
+        }
+    }
+	
+	
+	
+	/* AC version - look ahead one step */
+	public void solve2(char[][] board) {
         int row = board.length;
         if (row < 2) {
             return;
@@ -21,11 +66,11 @@ public class surroundedRegions {
         for (int i = 0; i < row; i++) {
             if (board[i][0] == 'O') {
                 board[i][0] = '#';
-                dfs(board, i, 0);
+                dfs2(board, i, 0);
             }
             if (board[i][col - 1] == 'O') {
                 board[i][col - 1] = '#';
-                dfs(board, i, col - 1);
+                dfs2(board, i, col - 1);
             }
         }
         
@@ -33,11 +78,11 @@ public class surroundedRegions {
         for (int j = 0; j < col; j++) {
             if (board[0][j] == 'O') {
                 board[0][j] = '#';
-                dfs(board, 0, j);
+                dfs2(board, 0, j);
             }
             if (board[row - 1][j] == 'O') {
                 board[row - 1][j] = '#';
-                dfs(board, row - 1, j);
+                dfs2(board, row - 1, j);
             }
         }
         
@@ -53,27 +98,27 @@ public class surroundedRegions {
         }
     }
     
-    public void dfs(char[][] board, int row, int col) {
+    public void dfs2(char[][] board, int row, int col) {
         if (row > 1 && board[row - 1][col] == 'O') {
             board[row - 1][col] = '#';
-            dfs(board, row - 1, col);
+            dfs2(board, row - 1, col);
         }
         if (row < board.length - 1 && board[row + 1][col] == 'O') {
             board[row + 1][col] = '#';
-            dfs(board, row + 1, col);
+            dfs2(board, row + 1, col);
         }
         if (col > 1 && board[row][col - 1] == 'O') {
             board[row][col - 1] = '#';
-            dfs(board, row, col - 1);
+            dfs2(board, row, col - 1);
         }
         if (col < board[0].length - 1 && board[row][col + 1] == 'O') {
             board[row][col + 1] = '#';
-            dfs(board, row, col + 1);
+            dfs2(board, row, col + 1);
         }
     }
 	
     
-	// BFS:  time O(n^2)  space O(n^2)
+	/* BFS:  time O(n^2)  space O(n^2) */
 	public void solve_BFS(char[][] board) {
         if (board.length == 0) 
             return;

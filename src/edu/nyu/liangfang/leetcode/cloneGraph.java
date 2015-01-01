@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 // definition of graph
@@ -26,14 +27,14 @@ public class cloneGraph {
             return null;
         
         Queue<UndirectedGraphNode> Q = new LinkedList<UndirectedGraphNode>();
-        HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+        Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
         UndirectedGraphNode newStart = new UndirectedGraphNode(node.label);
         Q.add(node);
         map.put(node, newStart);
 
         while (!Q.isEmpty()) {
             UndirectedGraphNode old = Q.poll();
-            UndirectedGraphNode newNode = map.get(old);
+            UndirectedGraphNode newNode = map.get(old);			// we always make sure here we already put <oldNode, newNode> pair in map
 
             for (UndirectedGraphNode n : old.neighbors) {
                 if (!map.containsKey(n)) {

@@ -19,7 +19,7 @@ public class validNumber {
                 dot = i;
             } else if (ee == -1 && str.charAt(i) == 'e') {
                 ee = i;
-                if (i + 1 < str.length() && (str.charAt(i + 1) == '+' || str.charAt(i + 1) == '-')) {	// ignore possible sign bit behind 'e'
+                if (i + 1 < str.length() && (str.charAt(i + 1) == '+' || str.charAt(i + 1) == '-')) {	// ignore possible sign bit after 'e'
                     i++;
                 }
             } else {

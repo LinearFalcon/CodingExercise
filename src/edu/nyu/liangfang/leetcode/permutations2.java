@@ -25,7 +25,7 @@ public class permutations2 {
         
         for (int i = 0; i < num.length; i++) {
             List<Integer> tmp = new LinkedList<Integer>(curr);
-            // 只有当当前数字没有访问过且它的前一个数字不相同或者相同但是访问过了，才能添加这个数字
+            // 只有当当前数字没有被访问过且它的前一个数字不相同或者相同但是访问过了，才能添加这个数字
             if (visited[i] || (i > 0 && num[i] == num[i - 1] && !visited[i - 1])) {
                 continue;
             }

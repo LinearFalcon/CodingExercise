@@ -1,5 +1,12 @@
 package edu.nyu.liangfang.leetcode;
 
+/*
+
+This matrix has the following properties:
+1, Integers in each row are sorted from left to right.
+2, The first integer of each row is greater than the last integer of the previous row !!! (Attention)
+
+*/
 public class searchA2DMatrix {
 	// method 1: treat as a sorted one dimension array, time: O(lg(m*n))
 	public boolean searchMatrix(int[][] matrix, int target) {

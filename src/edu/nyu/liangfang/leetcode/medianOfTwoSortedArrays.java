@@ -13,7 +13,7 @@ public class medianOfTwoSortedArrays {
 	    }
 	}
 	    
-	// k is index of the kth element
+	// k is index of the element - pass k means find (k + 1)th element
 	private double findIndexK(int[] A, int[] B, int k, int aStart, int aEnd, int bStart, int bEnd) {	
 
 		int aLen = aEnd - aStart + 1;

@@ -29,34 +29,22 @@ public class interleavingString {
 	
 	// TLE method
 	public boolean isInterleave_TLE(String s1, String s2, String s3) {
-        if (s3.length() != s1.length() + s2.length()) {
+		if (s1.length() == 0) 
+            return s2.equals(s3);
+        if (s2.length() == 0)
+            return s1.equals(s3);
+        if (s3.length() != s1.length() + s2.length())
             return false;
+        
+        boolean flag1 = false;
+        boolean flag2 = false;
+        if (s1.charAt(0) == s3.charAt(0)) {
+            flag1 = isInterleave(s1.substring(1), s2, s3.substring(1));
+        }
+        if (s2.charAt(0) == s3.charAt(0)) {
+            flag2 = isInterleave(s1, s2.substring(1), s3.substring(1));
         }
         
-        return check(s1, s2, s3, 0, 0, 0);
-    }
-    
-    public boolean check(String s1, String s2, String s3, int i, int j, int k) {
-        if (i == s1.length() && j == s2.length() && k == s3.length()) {
-            return true;
-        }
-        
-        if (i <= s1.length() && j <= s2.length() && k < s3.length()) {
-            boolean flag = false;
-            if (i < s1.length() && s1.charAt(i) == s3.charAt(k)) {
-                flag = check(s1, s2, s3, i + 1, j, k + 1);
-                if (flag) {
-                    return true;
-                }
-            }
-            
-            if (j < s2.length() && s2.charAt(j) == s3.charAt(k)) {
-                flag = check(s1, s2, s3, i, j + 1, k + 1);
-                if (flag) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return flag1 || flag2;
     }
 }

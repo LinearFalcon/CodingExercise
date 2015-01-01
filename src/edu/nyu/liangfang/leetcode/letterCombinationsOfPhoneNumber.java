@@ -19,13 +19,12 @@ public class letterCombinationsOfPhoneNumber {
 		table.put('9', "wxyz");
 
 		List<String> list = new LinkedList<String>();
-		String currentStr = "";
-		generate(table, list, currentStr, digits.length(), 0, digits);
+		generate(table, list, "", 0, digits);
 		return list;        
 	}
 
-	private void generate(Hashtable<Character, String> table, List<String> list, String currentStr, int digitLength, int index, String digits) {
-		if (index >= digitLength) {
+	private void generate(Hashtable<Character, String> table, List<String> list, String currentStr, int index, String digits) {
+		if (index >= digits.length()) {
 			list.add(currentStr);
 			return;
 		}
@@ -33,7 +32,7 @@ public class letterCombinationsOfPhoneNumber {
 		char letter = digits.charAt(index);
 		String possibilities = table.get(letter);
 		for (int i = 0; i < possibilities.length(); i++) {
-			generate(table, list, currentStr + possibilities.charAt(i), digitLength, index + 1, digits);
+			generate(table, list, currentStr + possibilities.charAt(i), index + 1, digits);
 		}
 		
 	}

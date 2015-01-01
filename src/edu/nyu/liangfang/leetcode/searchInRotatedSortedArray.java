@@ -1,67 +1,33 @@
 package edu.nyu.liangfang.leetcode;
 
 public class searchInRotatedSortedArray {
-	// simple one
-	public int search_v1(int[] A, int target) {
-        return search(A, target, 0, A.length - 1);
-    }
-    
-    public int search_v2(int[] A, int target, int start, int end) {
-        if (start > end) {
-            return -1;
-        }
-        
-        int mid = (start + end) / 2;
-        if (A[mid] == target) {
-            return mid;
-        } else if (A[start] <= A[mid]) {			// must have equals to deal with {3, 1} situation
-            if (target < A[mid] && target >= A[start]) {
-                return search_v2(A, target, start, mid - 1);
-            } else {
-                return search_v2(A, target, mid + 1, end);
-            }
-        } else {
-            if (target <= A[end] && target > A[mid]) {
-                return search_v2(A, target, mid + 1, end);
-            } else {
-                return search_v2(A, target, start, mid - 1);
-            }
-        }
-    }
-	
-	// assume no duplicate in array and A is sorted
+	// assume no duplicate
 	public int search(int[] A, int target) {
-        
-        return search(A, target, 0, A.length - 1);
-    }
-    
-    private int search(int[] A, int target, int start, int end) {
-        if (start > end)
-            return -1;
-        
-        int mid = (start + end) / 2;
-        int midVal = A[mid];
-        if (midVal == target) {
-            return mid;
-        } else {
-            if (A[start] <= midVal && A[end] >= midVal) {
-                if (target < midVal)
-                    return search(A, target, start, mid - 1);
-                else
-                    return search(A, target, mid + 1, end);
-            } else if (A[start] > midVal) {
-                if (target > midVal && target <= A[end])
-                    return search(A, target, mid + 1, end);
-                else
-                    return search(A, target, start, mid - 1);
-            } else if (A[end] < midVal) {
-                if (target < midVal && target >= A[start])
-                    return search(A, target, start, mid - 1);
-                else
-                    return search(A, target, mid + 1, end);
+		int low = 0;
+        int high = A.length - 1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (A[mid] == target) {				// first check equals to A[mid]
+                return mid;
+            } else {
+                if (A[mid] > A[low]) {			// check if A[low to mid] is in increasing order
+                    if (target >= A[low] && target < A[mid]) {
+                        high = mid - 1;
+                    } else {
+                        low = mid + 1;
+                    }
+                } else if (A[mid] < A[low]) {	// check if A[mid to high] is in increasing order
+                    if (target > A[mid] && target <= A[high]) {
+                        low = mid + 1;
+                    } else {
+                        high = mid - 1;
+                    }
+                } else {						// must deal with equals independently, if A[mid] == A[low], we can only search right part since no duplicate
+                    low = mid + 1;
+                }
             }
         }
-        return 0;
+        return -1;
     }
         
 }

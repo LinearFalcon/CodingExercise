@@ -1,28 +1,38 @@
 package edu.nyu.liangfang.leetcode.main;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
-import edu.nyu.liangfang.leetcode.WordLadder;
+import edu.nyu.liangfang.codefactory.palindromePairs;
+import edu.nyu.liangfang.codefactory.stringPair;
 
 
 // Main class - Entrance
 public class MainFunction {	
 	public static void main(String[] args) {
 		
-		WordLadder obj = new WordLadder();
+		palindromePairs obj = new palindromePairs();
 
-//		HashSet<String> set = new HashSet<String>();
-//		set.add("hot");
-//		set.add("dot");
-//		set.add("dog");
-//		set.add("lot");
-//		set.add("log");
-//		set.add("ait");
-//        System.out.println(obj.ladderLength_DFS("hit", "cog", set));
+//		char[][] b = {{'X','X','X','O','X','X','X','O'},
+//					  {'X','O','O','X','X','O','O','X'},
+//					  {'X','X','O','X','X','O','O','X'},
+//					  {'X','O','X','X','X','O','X','X'}};
+//		for (int i = 0; i < b.length; i++) {
+//			for (int j = 0; j < b[0].length; j++) {
+//				System.out.print(b[i][j] + " ");
+//			}
+//			System.out.println();
+//		}
 		
-		String s = "sd df";
-		String[] arr = s.split("\\W+");
-		System.out.println(arr[1]);
+//		TreeNode n = new TreeNode(1);
+//		n.left = new TreeNode(2);
+//		n.left.right = new TreeNode(4);
+//		n.right = new TreeNode(5);
+//		n.right.right = new TreeNode(6);
+//		obj.printIterative(n);
+		
+		
+		
 	}
 	
 }

@@ -7,12 +7,13 @@ public class binaryTreeUpsideDown {
         TreeNode parentRight = null;	// initialize null
         TreeNode p = root;
         while (p != null) {
-            TreeNode Left = p.left; // store p.left first - start point of next loop
-            p.left = parentRight;
-            parentRight = p.right;
+        	TreeNode right = p.right;	// store p.left and p.right first
+            TreeNode left = p.left;
             p.right = parent;
             parent = p;
-            p = Left;
+            p.left = parentRight;
+            parentRight = right;
+            p = left;
         }
         return parent;
     }

@@ -41,50 +41,25 @@ class Solution2 {
 
 
 public class flattenBinaryTreeToLinkedList {
-	public void flatten(TreeNode root) {
-        compute(root);
-    }
-    
-    private TreeNode compute(TreeNode node) {
-        if (node == null) 
-            return null;
-        
-        TreeNode leftSubtree = compute(node.left);
-        TreeNode rightSubtree = compute(node.right);
-        if (node.left != null) {
-            node.left = null;
-            node.right = leftSubtree;
-            TreeNode point = leftSubtree;
-            while (point.right != null) {
-                point = point.right;
-            }
-            point.right = rightSubtree;
-        } 
-        return node;
-        
-    }
-      
-    // iterative solution
-    // Go down through the left, when right is not null, push right to stack.
+    // iterative solution - stack to achieve pre-order traversal, then use 'last'
     public void flatten_iterative(TreeNode root) {
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        TreeNode p = root;
- 
-        while(p != null || !stack.empty()){
- 
-            if(p.right != null){
-                stack.push(p.right);
+    	if (root == null) return;
+        Stack<TreeNode> st = new Stack<TreeNode>();
+        TreeNode last = null;
+        st.push(root);
+        
+        while (!st.isEmpty()) {
+            TreeNode node = st.pop();
+            if (last != null) {
+                last.left = null;
+                last.right = node;
             }
- 
-            if(p.left != null){
-                p.right = p.left;
-                p.left = null;
-            }else if(!stack.empty()){
-                TreeNode temp = stack.pop();
-                p.right=temp;
-            }
- 
-            p = p.right;
+            last = node;
+            
+            if (node.right != null)
+                st.push(node.right);
+            if (node.left != null)
+                st.push(node.left);
         }
     }
 }

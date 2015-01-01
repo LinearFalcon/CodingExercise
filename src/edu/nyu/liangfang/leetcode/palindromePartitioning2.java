@@ -1,7 +1,10 @@
 package edu.nyu.liangfang.leetcode;
 import java.util.Hashtable;
 
-
+/*
+状态转移方程式：minPalNumFrom[i] = Math.min( minPalNumFrom[i], minPalNumFrom[j+1] + 1 );  
+minPalNumFrom，是在min cut情况下的最少palindrome数
+*/
 public class palindromePartitioning2 {
 	// Better solution
 	public int minCut(String s) {

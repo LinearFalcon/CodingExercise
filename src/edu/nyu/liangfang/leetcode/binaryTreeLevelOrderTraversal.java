@@ -17,7 +17,7 @@ public class binaryTreeLevelOrderTraversal {
             return;
         }
         
-        if (result.size() < level + 1) {
+        if (result.size() <= level) {
             result.add(new LinkedList<Integer>());
         }
         
@@ -42,7 +42,7 @@ public class binaryTreeLevelOrderTraversal {
             TreeNode node = nodeQueue.poll();
             int level = levelQueue.poll();
             
-            while (list.size() < level + 1) {
+            while (list.size() <= level) {
                 list.add(new LinkedList<Integer>());
             }
             list.get(level).add(node.val);

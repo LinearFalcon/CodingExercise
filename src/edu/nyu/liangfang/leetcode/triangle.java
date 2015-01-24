@@ -23,6 +23,33 @@ public class triangle {
     }
 	
 	
+	// DP solution Top Down - iterative
+	public int minimumTotal_TopDown(List<List<Integer>> triangle) {
+        if (triangle.size() == 0) return 0;
+        if (triangle.size() == 1) return (triangle.get(0)).get(0);		// Must deal with 1 level independently, since for loop starts from i = 1
+        
+        int[][] sum = new int[triangle.size()][triangle.size()];
+        sum[0][0] = (triangle.get(0)).get(0);
+        int min = Integer.MAX_VALUE;
+        for (int i = 1; i < triangle.size(); i++) {
+            for (int j = 0; j <= i; j++) {
+                if (j == 0) {
+                    sum[i][j] = (triangle.get(i)).get(0) + sum[i - 1][0];
+                } else if (j == i) {
+                    sum[i][j] = (triangle.get(i)).get(j) + sum[i - 1][j - 1];
+                } else {
+                    sum[i][j] = (triangle.get(i)).get(j) + Math.min(sum[i - 1][j - 1], sum[i - 1][j]);
+                }
+                
+                if (i == triangle.size() - 1) {			// find min in the last level - leaves
+                    min = Math.min(min, sum[i][j]);
+                }
+            }
+        }
+        
+        return min;
+    }
+	
 	// DP solution Top Down - O(n) time , n is number of nodes  O(N^2) space  N is number of last row
 	public int minimumTotal_sol1(List<List<Integer>> triangle) {
         if (triangle.size() == 0) {

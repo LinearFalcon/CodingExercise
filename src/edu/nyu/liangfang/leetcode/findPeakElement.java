@@ -1,5 +1,6 @@
 package edu.nyu.liangfang.leetcode;
 
+// You may imagine that num[-1] = num[n] = -∞
 public class findPeakElement {
 	// Best O(lgn) solution
 	// 这个题目要求时间复杂度为O(log(N))，可以利用二分查找来做，只是这里更新搜索区间的时候不太一样：如果到mid的前一步是上坡而mid的下一步是下坡，

@@ -29,8 +29,8 @@ class TrieTree {
     
     public String prefix() {
         TrieNode curr = root;
-        if (curr.fullWord) {
-            return "";
+        if (curr.fullWord) {		// if there is a word is emtpy word, then fullWord of root will be set to true,
+            return "";				// so we just need to return ""
         }
         
         StringBuilder sb = new StringBuilder();

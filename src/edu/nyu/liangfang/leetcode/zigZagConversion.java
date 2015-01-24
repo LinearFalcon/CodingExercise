@@ -1,6 +1,5 @@
 package edu.nyu.liangfang.leetcode;
 
-import java.util.Arrays;
 
 public class zigZagConversion {
 	// most simple solution

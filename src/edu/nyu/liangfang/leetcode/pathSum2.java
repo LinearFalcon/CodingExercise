@@ -1,10 +1,40 @@
 package edu.nyu.liangfang.leetcode;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class pathSum2 {
+	// simple version
 	public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> rst = new ArrayList<List<Integer>>();
+        List<Integer> curr = new ArrayList<Integer>();
+        compute(rst, curr, root, sum);
+        return rst;
+    }
+    
+    public void compute(List<List<Integer>> rst, List<Integer> curr, TreeNode root, int sum) {
+        if (root == null) return;
+        sum -= root.val;
+        
+        if (root.left == null && root.right == null) {
+            if (sum == 0) {
+                curr.add(root.val);
+                rst.add(new ArrayList<Integer>(curr));
+                curr.remove(curr.size() - 1);
+            }
+            return;
+        }
+        
+        curr.add(root.val);
+        compute(rst, curr, root.left, sum);
+        compute(rst, curr, root.right, sum);
+        curr.remove(curr.size() - 1);
+    }
+	
+	
+	// my version
+	public List<List<Integer>> pathSum_me(TreeNode root, int sum) {
         List<List<Integer>> list = new LinkedList<List<Integer>>();
         List<Integer> path = new LinkedList<Integer>();
         

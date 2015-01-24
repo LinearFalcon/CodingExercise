@@ -45,8 +45,4 @@ public class sortList {
         return dummy.next;
     }
     
-    /*
-     * Quick Sort
-     */
-    
 }

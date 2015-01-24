@@ -17,13 +17,14 @@ public class readNCharactersGivenRead4II {
                 eof = true;
             }
             
-            int chars = Math.min(n - count, readNum);	// how many characters to read this time
-            for (int i = offset; i < offset + chars; i++) {	// copy from buffer to destination buf
-                buf[count] = buffer[i];
+            int len = Math.min(n - count, readNum);	// how many characters to read this time
+            for (int i = 0; i < len; i++) {     // copy from buffer to destination buf
+                buf[count] = buffer[offset + i];
                 count++;
             }
-            offset = (offset + chars) % 4;		// reassign offset and bufRemain
-            bufRemain = readNum - chars;
+            
+            offset = (offset + len) % 4;		// reset offset and bufRemain, it's "offset + len", not "offset + readNum"!!
+            bufRemain = readNum - len;
         }
         
         return count;

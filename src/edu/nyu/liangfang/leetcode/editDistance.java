@@ -5,7 +5,7 @@ public class editDistance {
         int len1 = word1.length();
         int len2 = word2.length();
         // len1+1, len2+1, because finally return dp[len1][len2]
-        // dp[i][j] means the edit distance between two strings with 
+        // dp[i][j] means the min edit distance between two strings with 
         // length i and j, i.e., word1[0,...,i-1] and word2[0,...,j-1].
         int[][] dp = new int[len1 + 1][len2 + 1];
         

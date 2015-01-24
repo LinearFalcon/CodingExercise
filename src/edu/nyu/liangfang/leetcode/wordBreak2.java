@@ -18,7 +18,7 @@ public class wordBreak2 {
         List<String> result = new ArrayList<String>();
         if (s.length() == 0) {
             result.add("");
-            return result;		// can move this line
+            return result;		
         }
         
         for (int i = s.length() - 1; i >= 0; i--) {

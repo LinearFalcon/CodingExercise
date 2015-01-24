@@ -6,10 +6,10 @@ public class maximumSubArray {
 	public int maxSubArray_recursion(int[] A) {
         int[] largestSum = {Integer.MIN_VALUE};
         
-        compute(A, largestSum, 0);
+        compute(A, largestSum, 0);	
         return largestSum[0];
     }
-    
+	// compute return largest sum of subsarray starting from index start
     private int compute(int[] A, int[] largestSum, int start) {
         if (start >= A.length)
             return 0;
@@ -21,7 +21,8 @@ public class maximumSubArray {
         return currentLargest;
     }
     
-    // O(n) space, iterative version
+    
+    //---------------- O(n) space, iterative version ------------------
     public int maxSubArray_iterative(int[] A) {
         if (A == null || A.length == 0) {
             return 0;

@@ -1,11 +1,12 @@
 package edu.nyu.liangfang.leetcode;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 
 public class subsets {
-	// DP solution
+	// DP solution - recursion - No duplicate
 	public List<List<Integer>> subsets(int[] S) {
         Arrays.sort(S);
         return getSubsets(S, S.length);
@@ -30,34 +31,21 @@ public class subsets {
     }
     
     
-    // version 2
-    public List<List<Integer>> subsets_V2(int[] S) {
-        List<List<Integer>> result = new LinkedList<List<Integer>>();
-        getSubsetsOfLength(S, S.length, result);
-        return result;
-    }
-    
-    public List<List<Integer>> getSubsetsOfLength(int[] S, int n, List<List<Integer>> result) {
-        List<List<Integer>> currList = new LinkedList<List<Integer>>();
-        if (n == 0) {
-            currList.add(new LinkedList<Integer>());
-            result.add(new LinkedList<Integer>());
-            return currList;
-        }
+    // iterative version
+    public List<List<Integer>> subsets_iterative(int[] S) {
+        Arrays.sort(S);
+        List<List<Integer>> rst = new ArrayList<List<Integer>>();
         
-        List<List<Integer>> prev = getSubsetsOfLength(S, n - 1, result);
-        for (List<Integer> list : prev) {
-            for (int i = 0; i < S.length; i++) {
-                int num = S[i];
-                List<Integer> tmp = new LinkedList<Integer>(list);
-                if (tmp.isEmpty() || num > tmp.get(tmp.size() - 1)) {
-                    tmp.add(num);
-                    currList.add(tmp);
-                }
+        rst.add(new ArrayList<Integer>());		  // add a empty set first !!!
+        for (int i = 0; i < S.length; i++) {
+            int resultSize = rst.size();
+            for (int j = 0; j < resultSize; j++) {      // 只用clone上一次的排在rst前面的subset，然后加入S[i]变成新的subset
+                List<Integer> clone = new ArrayList<Integer>(rst.get(j));
+                clone.add(S[i]);
+                rst.add(clone);
             }
         }
         
-        result.addAll(currList);
-        return currList;
+        return rst;
     }
 }

@@ -13,8 +13,8 @@ public class generateParentheses {
 	}
 	
 	public void findParen(int n, int leftNum, int rightNum, String curr, List<String> result) {
-	    if (leftNum <= n && rightNum <= n) {	// must make sure this to avoid infinite loop
-	        if (rightNum > leftNum) {		// this condition avoid invalid parentheses
+	    if (leftNum <= n && rightNum <= n) {		// must make sure this to avoid infinite loop!!
+	        if (rightNum > leftNum) {	// this condition avoid invalid parentheses
 	            return;
 	        }
 	        if (leftNum == n && rightNum == n) {

@@ -8,24 +8,21 @@ public class addBinary {
 	 * #2: 
 	 */
 	public String addBinaryFun2(String a, String b) {
-	    int m = a.length();
-	    int n = b.length();
-	    int carry = 0;
-	    String res = "";
-	    // the final length of the result depends on the bigger length between a and b, 
-	    // (also the value of carry, if carry = 1, add "1" at the head of result, otherwise)
-	    int maxLen = Math.max(m, n);
-	    for (int i = 0; i < maxLen; i++) {
-	        // start from last char of a and b
-	        // notice that left side is int and right side is char
-	        // so we need to  minus the decimal value of '0'
-	        int p = i < m ? a.charAt(m - 1 - i) - '0' : 0;
-	        int q = i < n ? b.charAt(n - 1 - i) - '0' : 0;
-	        int tmp = p + q + carry;
-	        carry = tmp / 2;
-	        res = tmp % 2 + res;
-	    }
-	    return (carry == 0) ? res : "1" + res;
+		StringBuilder sb = new StringBuilder();
+        int carry = 0;
+        int p = a.length() - 1;
+        int q = b.length() - 1;
+        
+        while (p >= 0 || q >= 0 || carry > 0) {
+            int pValue = (p < 0 ? 0 : a.charAt(p) - '0');
+            int qValue = (q < 0 ? 0 : b.charAt(q) - '0');
+            int sum = pValue + qValue + carry;
+            sb.insert(0, sum % 2);
+            carry = sum / 2;
+            p--;
+            q--;
+        }
+        return sb.toString();
 	}
 	
 	

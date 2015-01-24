@@ -19,11 +19,11 @@ public class subsets2 {
     }
     
     public void getSubsets(int[] num, List<List<Integer>> result, List<Integer> curr, int pos) {
-        // add subset of this layer
+        // add subset of this layer - 因为是要输出所有的subset，所以任何中间subset都首先加入到result里面
         result.add(new LinkedList<Integer>(curr));
         
         for (int i = pos; i < num.length; i++) {
-            if (i == pos || num[i] != num[i - 1]) {	 	// avoid duplicate
+            if (i == pos || num[i] != num[i - 1]) {	 	// sorted数组 + recursion里面的if判断保证了遍历所有可能且不重复
                 curr.add(num[i]);
                 getSubsets(num, result, curr, i + 1);
                 curr.remove(curr.size() - 1);			// important
@@ -36,7 +36,7 @@ public class subsets2 {
 	public List<List<Integer>> subsetsWithDup_table(int[] num) {
         Arrays.sort(num);
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-        List<Integer> keys = new ArrayList<Integer>();
+        List<Integer> keys = new ArrayList<Integer>();				// MUST !!!
         // count frequency of each number
         for (int i = 0; i < num.length; i++) {
             if (map.containsKey(num[i])) {

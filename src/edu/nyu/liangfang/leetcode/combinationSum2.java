@@ -7,28 +7,26 @@ import java.util.List;
 public class combinationSum2 {
 	// DFS + avoid adding same list
 	public List<List<Integer>> combinationSum2(int[] num, int target) {
-        List<List<Integer>> result = new LinkedList<List<Integer>>();
-        List<Integer> currList = new LinkedList<Integer>();
+        List<List<Integer>> rst = new LinkedList<List<Integer>>();
+        List<Integer> tmp = new LinkedList<Integer>();
         Arrays.sort(num);
-        find(num, target, result, currList, 0, 0);
-        return result;
+        generate(num, target, rst, tmp, 0, 0);
+        return rst;
     }
     
-    public void find(int[] num, int target, List<List<Integer>> result, List<Integer> currList, int sum, int start) {
-        if (sum == target) {
-            result.add(currList);
+    public void generate(int[] num, int target, List<List<Integer>> rst, List<Integer> tmp, int sum, int start) {
+    	if (sum == target) {
+            rst.add(new LinkedList<Integer>(tmp));
             return;
         }
         
         for (int i = start; i < num.length; i++) {
-            if (i == start || num[i] != num[i - 1]) {
-                if (sum + num[i] > target) {
-                    break;
-                }
-                
-                List<Integer> tmp = new LinkedList<Integer>(currList);
-                tmp.add(num[i]);
-                find(num, target, result, tmp, sum + num[i], i + 1);
+            if (i == start || num[i] != num[i - 1]) {		// similar to question subsets II; 
+                if (sum + num[i] > target) break;			// pruning unnecessary recursion call
+            
+                tmp.add(num[i]);							// if num[i] == num[i - 1], we ignore it since this situation has been considered in previous recursion
+                generate(num, target, rst, tmp, sum + num[i], i + 1);
+                tmp.remove(tmp.size() - 1);
             }
         }
     }

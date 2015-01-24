@@ -17,7 +17,19 @@ Given n = 3, there are a total of 5 unique BST's.
  */
 
 public class uniqueBinarySearchTree {
+	// Recursion version 1
 	public int numTrees(int n) {
+        if (n == 0) return 1;
+        
+        int num = 0;
+        for (int i = 1; i <= n; i++) {
+            num += numTrees(i - 1) * numTrees(n - i);
+        }
+        return num;
+    }
+	
+	// Recursion version 2
+	public int numTrees_2(int n) {
         return numTrees(1, n);
     }
     

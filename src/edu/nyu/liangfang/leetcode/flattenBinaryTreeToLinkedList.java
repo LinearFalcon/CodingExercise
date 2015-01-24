@@ -17,7 +17,7 @@ class Solution2 {
 		} 
 		lastNode = root;
      
-		TreeNode right = root.right;
+		TreeNode right = root.right;	// MUST! Because after flatten(root.left), root.right will be pointed to original root.left
 		flatten_PreOrder(root.left);		
 		flatten_PreOrder(right);
 	}

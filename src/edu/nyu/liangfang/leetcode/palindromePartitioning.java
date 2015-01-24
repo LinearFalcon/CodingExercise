@@ -7,29 +7,45 @@ import java.util.List;
 public class palindromePartitioning {
 	// AC solution - just simple DFS
 	public List<List<String>> partition(String s) {
-	    List<List<String>> result = new LinkedList<List<String>>();
-	    List<String> curr = new LinkedList<String>();
-	    getPartition(s, result, curr);
-	    return result;
+        List<List<String>> rst = new LinkedList<List<String>>();
+        List<String> tmp = new LinkedList<String>();
+        
+        generate(s, rst, tmp);
+        return rst;
+    }
+    
+    public void generate(String s, List<List<String>> rst, List<String> tmp) {
+        if (s.length() == 0) {
+            rst.add(new LinkedList<String>(tmp));
+            return;
+        }
+        
+        for (int i = 1; i <= s.length(); i++) {
+            String sub = s.substring(0, i);
+            if (isPalindrome(sub)) {
+                tmp.add(sub);
+                generate(s.substring(i), rst, tmp);
+                tmp.remove(tmp.size() - 1);
+            }
+        }
+    }
+	
+    private boolean isPalindrome(String s) {
+		if (s.length() == 0)
+			return true;
+
+		int first = 0;
+		int second = s.length() - 1;
+		for (int i = 0; i < s.length() / 2; i++) {
+			if (s.charAt(first) != s.charAt(second)) {
+				return false;
+			}
+			first++;
+			second--;
+		}
+		return true;
 	}
-	
-	public void getPartition(String s, List<List<String>> result, List<String> curr) {
-	    if (s.length() == 0) {
-	        result.add(curr);
-	        return;
-	    }            
-	    
-	    for (int i = 1; i <= s.length(); i++) {
-	        String sub = s.substring(0, i);
-	        List<String> tmp = new LinkedList<String>(curr);
-	        if (isPalindrome(sub)) {
-	            tmp.add(sub);
-	            getPartition(s.substring(i), result, tmp);
-	        } 
-	    }
-	}
-	
-	
+    
 	// TLE solution - Takes more time !!!
 	public List<List<String>> partition_DP(String s) {
 		List<List<String>> result = new LinkedList<List<String>>();
@@ -68,21 +84,5 @@ public class palindromePartitioning {
 			
 		}
 		
-	}
-
-	private boolean isPalindrome(String s) {
-		if (s.length() == 0)
-			return true;
-
-		int first = 0;
-		int second = s.length() - 1;
-		for (int i = 0; i < s.length() / 2; i++) {
-			if (s.charAt(first) != s.charAt(second)) {
-				return false;
-			}
-			first++;
-			second--;
-		}
-		return true;
 	}
 }

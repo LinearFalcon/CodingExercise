@@ -1,7 +1,7 @@
 package edu.nyu.liangfang.leetcode;
 
 public class reverseLinkedList2 {
-	// recent version
+	// recent version - m and n is mth and nth, not index
 	public ListNode reverseBetween(ListNode head, int m, int n) {
         ListNode dummy = new ListNode(0);	// usually there is a dummy head 
         dummy.next = head;

@@ -30,7 +30,29 @@ public class combinations {
     }
     
 	// --------------------- another one -------------------------
-	public List<List<Integer>> combine(int n, int k) {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> rst = new LinkedList<List<Integer>>();
+        List<Integer> tmp = new LinkedList<Integer>();
+        generate(n, k, 1, rst, tmp);
+        return rst;
+    }
+    
+    public void generate(int n, int k, int start, List<List<Integer>> rst, List<Integer> tmp) {
+        if (tmp.size() == k) {
+            rst.add(new LinkedList<Integer>(tmp));
+            return;
+        }
+        
+        for (int i = start; i <= n; i++) {
+            tmp.add(i);
+            generate(n, k, i + 1, rst, tmp);
+            tmp.remove(tmp.size() - 1);
+        }
+    }
+    
+    
+    // ----------------- DP version -----------------
+    public List<List<Integer>> combine_dp(int n, int k) {
         List<List<Integer>> result = new LinkedList<List<Integer>>();
         if (k > n || n < 1) {
             return result;

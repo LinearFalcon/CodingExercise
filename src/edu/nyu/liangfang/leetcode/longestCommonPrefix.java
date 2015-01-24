@@ -28,7 +28,7 @@ public class longestCommonPrefix {
     }
 	
 	
-	
+	// version 2
 	public String fun(String[] strs) {
 		int index = 0;					// initial position
 		boolean endFlag = false;

@@ -12,24 +12,32 @@ public class divideTwoIntegers {
 	   One thing needs to be mentioned is that we need to convert the integer to long type. 
 	   Otherwise the Math.abs() value of Integer.MIN_VALUE will be quite strange.
 	 */
+	
 	public int divide(int dividend, int divisor) {
-        // must convert to long before take Math.abs to avoid overflow
-        long p = Math.abs((long)dividend);  
-        long q = Math.abs((long)divisor);
-        
-        int result = 0;
-        while (p >= q) {		// when p == q, we still need to proceed this loop
-            int count = 0;
-            while (p >= (q << count)) {
-                count++;
+        boolean negative = (dividend > 0 && divisor < 0) || (dividend < 0 && divisor > 0);
+
+        long a = Math.abs((long)dividend);
+        long b = Math.abs((long)divisor);
+        long ans = 0;
+
+        while (a >= b) {
+            int shift = 0;
+            while ((b << shift) <= a) {
+                shift++;
             }
-            p -= q << (count - 1);
-            result += 1 << (count - 1);
+            ans += (long)1 << (shift-1);	// MUST first cast 1 to long, or if input (Integer.MIN_VALUE, -1) will cause overflow,
+            a = a - (b << (shift-1));		// and ans will become negative
         }
         
-        if ((dividend > 0 && divisor < 0) || (dividend < 0 && divisor > 0))
-            return -result;
-        else
-            return result;
+        if (negative && -ans < Integer.MIN_VALUE) return Integer.MAX_VALUE;
+        if (!negative && ans > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+        return negative ? -(int)ans : (int)ans;
     }
+	
+
+	// edge condition test
+	public static void main(String[] args) {
+		divideTwoIntegers o = new divideTwoIntegers();
+		System.out.println(o.divide(Integer.MIN_VALUE, -1));
+	}
 }

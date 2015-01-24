@@ -2,6 +2,9 @@ package edu.nyu.liangfang.leetcode;
 import java.util.Hashtable;
 
 /*
+Given a string s, partition s such that every substring of the partition is a palindrome.
+Return the minimum cuts needed for a palindrome partitioning of s.
+
 状态转移方程式：minPalNumFrom[i] = Math.min( minPalNumFrom[i], minPalNumFrom[j+1] + 1 );  
 minPalNumFrom，是在min cut情况下的最少palindrome数
 */
@@ -16,7 +19,7 @@ public class palindromePartitioning2 {
 		int[] minPalNumFrom = new int[len + 1];        // min palindrome number of substring [i, len] under the min cut
 		boolean[][] matrix = new boolean[len][len]; // means whether substring [i,j] is palindrome
 		
-		// initialize minCutFrom as worst situation
+		// initialize minPalNumFrom as worst situation
 		for (int i = 0; i <= len; i++) {
 		    minPalNumFrom[i] = len - i;
 		}

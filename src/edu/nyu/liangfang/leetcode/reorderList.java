@@ -34,41 +34,38 @@ public class reorderList {
         }
     }
 	
-	// O(n) time O(1) space (no extra space)
+	// O(n) time O(1) space (no extra space!!)
 	public void reorderList_noExtraSpace(ListNode head) {
         if (head == null) return;
         
-        ListNode dummy = new ListNode(0);
+        ListNode dummy = new ListNode(0);	// MUST use dummy to make slow always point to middle one (odd number) or last of first half (even number)
         dummy.next = head;
-        ListNode slow = dummy;
-        ListNode fast = dummy;
+        
+        ListNode slow = dummy, fast = dummy;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
-        
         ListNode head2 = slow.next;
         slow.next = null;
         
         // reverse second half
-        ListNode pre = null;
-        ListNode point = head2;
-        while (point != null) {
-            ListNode mid = point;
-            point = point.next;
-            mid.next = pre;
-            pre = mid;
+        ListNode prev = null;
+        while (head2 != null) {
+            ListNode tmp = head2;
+            head2 = head2.next;
+            tmp.next = prev;
+            prev = tmp;
         }
-        ListNode l2 = pre;
-        ListNode l1 = head;
         
-        // merge two lists
-        while (l1 != null && l2 != null) {
-            ListNode tmp = l2.next;
-            l2.next = l1.next;
-            l1.next = l2;
-            l1 = l2.next;
-            l2 = tmp;
+        ListNode p = head;
+        ListNode q = prev;
+        while (p != null && q != null) {
+            ListNode tmp = p;
+            p = p.next;
+            tmp.next = q;
+            q = q.next;
+            tmp.next.next = p;
         }
     }
 	

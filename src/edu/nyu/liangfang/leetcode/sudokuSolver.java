@@ -31,7 +31,7 @@ public class sudokuSolver {
 				}
 			}
 		}
-		return true;
+		return true;	// at last all empty cells are filled so here should return true
 	}
 
 	private boolean isValidFill(char[][] board, int i, int j, char numStr) {

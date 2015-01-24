@@ -35,4 +35,38 @@ public class regularExpressionMatch {
             return isMatch(s, p.substring(2));  
         }
 	}
+	
+	public boolean isMatch_DP(String s, String p) {    // assume p is valid input, no invalid string like "*abc"        
+		int sLen = s.length();
+        int pLen = p.length();
+        boolean[][] dp = new boolean[sLen + 1][pLen + 1];   // dp[i][j] means isMatch( s[0,i), p[0,j) ), i and j is number not index
+        
+        dp[0][0] = true;
+        for (int j = 1; j <= pLen; j++) {
+            if (p.charAt(j - 1) == '*') {
+                dp[0][j] = dp[0][j - 2];
+            }
+        }
+        
+        for (int i = 1; i <= sLen; i++) {
+            for (int j = 1; j <= pLen; j++) {
+                if (p.charAt(j - 1) != '*') {
+                    dp[i][j] = (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '.') && dp[i - 1][j - 1];
+                } else {			// 检查p后面这两个char：x*是否能匹配s
+                    dp[i][j] |= dp[i][j - 2];	// 双层循环遍历所有情况，所以当p当前char是'*'的时候，只需要or前面两种情况
+                    if (s.charAt(i - 1) == p.charAt(j - 2) || p.charAt(j - 2) == '.') {
+                        dp[i][j] |= dp[i - 1][j];
+                    }
+                }
+            }
+        }
+        
+        return dp[sLen][pLen];
+    }
+	
+	
+	public static void main(String[] args) {
+		regularExpressionMatch o = new regularExpressionMatch();
+		System.out.println(o.isMatch_DP("", ".*"));
+	}
 }

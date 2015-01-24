@@ -19,7 +19,7 @@ class Meeting {
 // Time: O(nlgn)
 public class minNumberOfConferenceRoom {
 	public int minNumberOfRoom(Meeting[] meetings) {
-		int minNum = 0;
+		int numOfRoom = 0;
 		PriorityQueue<Long> startTime = new PriorityQueue<Long>();
 		PriorityQueue<Long> endTime = new PriorityQueue<Long>();
 		
@@ -38,7 +38,7 @@ public class minNumberOfConferenceRoom {
 			} else if (start < end) {
 				startTime.poll();
 				room++;
-				minNum = Math.max(minNum, room);
+				numOfRoom = Math.max(numOfRoom, room);
 			} else {
 				endTime.poll();
 				room--;
@@ -48,7 +48,7 @@ public class minNumberOfConferenceRoom {
 		// actually it's possible that endTime priority queue is not empty,
 		// but it doesn't matter since we only care about max room value during this process
 		
-		return minNum;
+		return numOfRoom;
 	}
 	
 	// test

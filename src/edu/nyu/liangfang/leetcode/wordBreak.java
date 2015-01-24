@@ -9,7 +9,7 @@ public class wordBreak {
 	 * canBreak[x] means whether [0,x) substring can be segmented
 	 * 
 	 * canBreak[i] can be true if S[0,i) is in dict
-	 * 					    or if canBreak[0, k) == true and S[k, i) is in dict, 0 <= k < i
+	 * 					    or if there exists canBreak[0, k) == true and S[k, i) is in dict, 0 <= k < i
 	 * 
 	 */
 	public boolean wordBreak_Sol1(String s, Set<String> dict) {

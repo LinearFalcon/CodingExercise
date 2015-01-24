@@ -1,6 +1,8 @@
 package edu.nyu.liangfang.leetcode;
 
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 class Point {
 	 int x;
@@ -11,6 +13,44 @@ class Point {
 
 
 public class maxPointsOnLine {
+	// my version
+	public int maxPoints_v2(Point[] points) {
+        int max = 0;
+        
+        for (int i = 0; i < points.length; i++) {
+            Map<Float, Integer> map = new HashMap<Float, Integer>();
+            int dup = 1;			// at least there is one point p itself
+            
+            Point p = points[i];
+            for (int j = i + 1; j < points.length; j++) {
+                Point q = points[j];
+                float slope;
+                
+                if (p.x == q.x && p.y == q.y) {
+                    dup++;
+                    continue;
+                } else if (p.x == q.x) {
+                    slope = Float.MAX_VALUE;
+                } else {
+                    slope = (float)(0.0 + (float)(p.y - q.y) / (float)(p.x - q.x));
+                }
+                
+                if (!map.containsKey(slope)) {			// count how many other points is on the line with slope
+                    map.put(slope, 1);
+                } else { 
+                    map.put(slope, map.get(slope) + 1);
+                }
+            }
+            
+            max = Math.max(max, dup);				// it's possible all other points are in the same position as point p, 
+            for (int num : map.values()) {			// so map is empty, we need to first use 'dup' to update max !!!
+                max = Math.max(max, dup + num);
+            }
+        }
+        return max;
+    }
+	
+	// answer
 	public int maxPoints(Point[] points) {
 
         int max = 0;	
@@ -24,7 +64,7 @@ public class maxPointsOnLine {
         	table.put(Float.MIN_VALUE, 1);
 
         	// 因为如果当前点points[i]在最长那条line上，那么对于这条line上的其他点，就没有必要再与i做重复计算，所以
-        	// 可以适当tuning，从i + 1开始，不过time仍然是 O(n^2)
+        	// 可以适当pruning，从i + 1开始，不过time仍然是 O(n^2)
             for (int j = i + 1; j < points.length; j++) {
                 float slope;
                 
@@ -43,7 +83,7 @@ public class maxPointsOnLine {
                 }
                                 
                 if (!table.containsKey(slope)) {
-                	table.put(slope, 2);
+                	table.put(slope, 2);		// point p and point q, so should put 2 rather than 1
                 } else {
                 	table.put(slope, table.get(slope) + 1);
                 }                

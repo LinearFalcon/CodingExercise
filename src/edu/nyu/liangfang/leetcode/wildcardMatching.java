@@ -16,7 +16,7 @@ public class wildcardMatching {
 			} else if (j < p.length() && p.charAt(j) == '*') {	// if p's head is '*', assign star and mark
 				star = j++;					// must increment j here, but not i, since we try to firstly ignore the star, if not work, then come back
 				mark = i;
-			} else if (star != -1) {		// if p's head is not '*' and also does not match s's current head, but we have previous star
+			} else if (star != -1) {		// if p's current char is not '*' and also does not match s's current char, we go back to previous star
 				mark++;
 				i = mark;					// 每次无法匹配且前面有星的时候，就用star从mark的地方匹配一个（所以先++mark），然后接着while loop
 				j = star + 1;

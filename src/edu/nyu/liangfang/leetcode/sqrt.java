@@ -6,11 +6,11 @@ public class sqrt {
         if (x == 0) {
             return 0;
         }
-        long start = 1;
-        long end = x;
-        while (start <= end) {		// must contain equals condition, or 2 will fail
+        long start = 1;				// MUST use long here!
+        long end = x;				// MUST use long here!
+        while (start <= end) {		// must contain equals condition, or 2 will fail; Binary Search also require equals
             long mid = (start + end) / 2;
-            long prod = mid * mid;
+            long prod = mid * mid;			
             if (prod == x) {
                 return (int)mid;
             } else if (prod < x) {

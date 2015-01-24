@@ -25,7 +25,7 @@ public class uniqueBinarySearchTree2 {
 	public List<TreeNode> generate(int start, int end) {
         List<TreeNode> result = new LinkedList<TreeNode>();
         if (start > end) {
-            result.add(null);		// must add null!!!
+            result.add(null);				// must add null!!! Or if n = 1, the output will be an empty list, since we create root inside the three for loops
             return result;
         }
         

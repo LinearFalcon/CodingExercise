@@ -5,16 +5,16 @@ import java.util.Hashtable;
 public class jumpGame2 {
 	// Best solution
 	/*
-	 * We use "last" to keep track of the maximum distance that has been reached
-	 * by using the minimum steps "ret", whereas "curr" is the maximum distance
-	 * that can be reached by using "ret+1" steps. Thus,
+	 * We use "last" to keep track of the maximum index that has been reached
+	 * by using the minimum steps "step", whereas "curr" is the maximum distance
+	 * that can be reached by using "step+1" steps. Thus,
 	 * curr = max(i+A[i]) where 0 <= i <= last.
 	 */
 	public int jump_best(int[] A) {
         // assume A can always been reached, if not, should check if (i > curr) and return -1
         int step = 0;
-        int last = 0;
-        int curr = 0;
+        int last = 0;	// max index that can be reached using 'step' steps
+        int curr = 0;	// max index that can be reached by 'step + 1' steps
         for (int i = 0; i < A.length; i++) {
             if (i > last) {
                 last = curr;

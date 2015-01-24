@@ -8,7 +8,7 @@ public class reverseInteger {
             x = -x;
         }
         
-        long num = 0;
+        long num = 0;		// use long here
         while (x > 0) {
             int mod = x % 10;
             x = x / 10;

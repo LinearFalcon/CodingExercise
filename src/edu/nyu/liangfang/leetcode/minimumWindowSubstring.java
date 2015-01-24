@@ -37,7 +37,7 @@ public class minimumWindowSubstring {
                             }
                             start++;
                             foundNum--;
-                            break;
+//                            break;	// don't need
                         }
                     }
                 }

@@ -26,7 +26,7 @@ public class integerToRoman {
                         sb.append(table[i]);
                     }
                 }
-                num = num % scale;
+                num = num % scale;		// MUST!!!
             }
             scale = scale / 10;
         }

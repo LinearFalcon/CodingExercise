@@ -31,7 +31,7 @@ public class MainFunction {
 //		n.right.right = new TreeNode(6);
 //		obj.printIterative(n);
 		
-		
+		System.out.println(true | false);
 		
 	}
 	

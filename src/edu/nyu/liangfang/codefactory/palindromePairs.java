@@ -25,7 +25,7 @@ public class palindromePairs {
 		}
 		
 		for (String word : words) {	// iterate over each string
-			for (int i = 0; i < word.length(); i++) {
+			for (int i = 0; i < word.length(); i++) {			// if assume no empty string in words, then i starts from 1
 				String sub1 = word.substring(0, i);
 				String sub2 = word.substring(i);
 				

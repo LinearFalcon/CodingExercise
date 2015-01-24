@@ -1,4 +1,5 @@
 package edu.nyu.liangfang.leetcode;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -7,31 +8,35 @@ import java.util.List;
 
 public class permutations2 {
 	// DFS
-	public List<List<Integer>> permuteUnique_1(int[] num) {
-        List<List<Integer>> result = new LinkedList<List<Integer>>();
-        List<Integer> curr = new LinkedList<Integer>();
-        boolean[] visited = new boolean[num.length];
+	public List<List<Integer>> permuteUnique(int[] num) {
+        List<List<Integer>> rst = new ArrayList<List<Integer>>();
+        if (num.length == 0) return rst;
         
-        Arrays.sort(num);   	// must sort array first
-        getPerm(num, result, curr, visited);
-        return result;
+        Arrays.sort(num);       // must sort array first
+        boolean[] visited = new boolean[num.length];
+        List<Integer> curr = new ArrayList<Integer>();
+        
+        generate(num, rst, curr, visited);
+        
+        return rst;
     }
     
-    public void getPerm(int[] num, List<List<Integer>> result, List<Integer> curr, boolean[] visited) {
+    public void generate(int[] num, List<List<Integer>> rst, List<Integer> curr, boolean[] visited) {
         if (curr.size() == num.length) {
-            result.add(curr);
+            rst.add(new ArrayList<Integer>(curr));
             return;
         }
         
         for (int i = 0; i < num.length; i++) {
-            List<Integer> tmp = new LinkedList<Integer>(curr);
             // 只有当当前数字没有被访问过且它的前一个数字不相同或者相同但是访问过了，才能添加这个数字
             if (visited[i] || (i > 0 && num[i] == num[i - 1] && !visited[i - 1])) {
                 continue;
             }
+            
+            curr.add(num[i]);
             visited[i] = true;
-            tmp.add(num[i]);
-            getPerm(num, result, tmp, visited);
+            generate(num, rst, curr, visited);
+            curr.remove(curr.size() - 1);
             visited[i] = false;
         }
     }

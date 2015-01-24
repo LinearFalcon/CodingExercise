@@ -1,29 +1,30 @@
 package edu.nyu.liangfang.leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class romanToInteger {
 	public int romanToInt(String s) {
-        int[] table = new int[256];
-        table['I'] = 1;
-        table['V'] = 5;
-        table['X'] = 10;
-        table['L'] = 50;
-        table['C'] = 100;
-        table['D'] = 500;
-        table['M'] = 1000;
+		Map<Character, Integer> map = new HashMap<Character, Integer>();
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
         
         int curr = 0;
-        int prev = Integer.MAX_VALUE;
-        int sum = 0;
+        int pre = Integer.MAX_VALUE;
+        int rst = 0;
         for (int i = 0; i < s.length(); i++) {
-            curr = table[s.charAt(i)];
-            if (curr <= prev) {
-                sum += curr;
-            } else {
-                sum -= prev;
-                sum += curr - prev;
+            curr = map.get(s.charAt(i));
+            if (curr > pre) {
+                rst -= 2 * pre;
             }
-            prev = curr;
+            rst += curr;
+            pre = curr;
         }
-        return sum;
+        return rst;
     }
 }

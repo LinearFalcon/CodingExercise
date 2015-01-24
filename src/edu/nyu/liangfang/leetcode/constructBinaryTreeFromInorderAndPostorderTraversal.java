@@ -13,7 +13,7 @@ public class constructBinaryTreeFromInorderAndPostorderTraversal {
         TreeNode root = new TreeNode(rootNum);
         
         int rootIndex = 0;
-        for (int i = instart; i < inend; i++) {
+        for (int i = instart; i <= inend; i++) {
             if(inorder[i] == rootNum) {
                 rootIndex = i;
                 break;

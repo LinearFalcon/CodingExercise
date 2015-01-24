@@ -5,7 +5,7 @@ import java.util.List;
 
 public class textJustification {
 	public List<String> fullJustify(String[] words, int L) {
-        ArrayList<String> result = new ArrayList<String>(); 
+        List<String> result = new ArrayList<String>(); 
         if (words == null || words.length == 0) {
             return result;
         }

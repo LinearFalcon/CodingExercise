@@ -2,12 +2,13 @@ package edu.nyu.liangfang.leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class threeSum {
 	
 	// O(n^2) time complexity
-	public ArrayList<ArrayList<Integer>> threeSumNoHash(int[] num) {
-		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+	public List<List<Integer>> threeSumNoHash(int[] num) {
+		List<List<Integer>> result = new ArrayList<List<Integer>>();
 		if (num.length < 3)
 			return result;	
 		Arrays.sort(num);				// must sort first
@@ -22,7 +23,7 @@ public class threeSum {
 				int c = num[right];
 				int sum = a + b +c;
 				if (sum == 0) {
-					ArrayList<Integer> set = new ArrayList<Integer>();
+					List<Integer> set = new ArrayList<Integer>();
 					set.add(a);
 					set.add(b);
 					set.add(c);

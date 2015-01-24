@@ -6,7 +6,7 @@ public class longestValidParentheses {
 	
 	/*
 	 * Keep a stack storing index of unmatched parentheses
-	 * Scan once, and each time update dpgth when match happens
+	 * Scan once, and each time update max when match happens
 	 * Complexity: O(n)
 	 */
 	public int longestValidParenthesesSol(String s) {

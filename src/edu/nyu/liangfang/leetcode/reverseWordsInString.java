@@ -1,44 +1,27 @@
 package edu.nyu.liangfang.leetcode;
-import java.util.Stack;
 
 public class reverseWordsInString {
 	public String reverseWords(String s) {
-        char start = ' ';
-        char point = ' ';
-        Stack<String> stack = new Stack<String>();
-        StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
+        s = s.trim();
+        
+        int begin = -1;
         for (int i = 0; i < s.length(); i++) {
-            point = s.charAt(i);
-            if (start == ' ' || start == '\t') {
-                if (point != ' ' && point != '\t') {
-                    sb = new StringBuilder();
-                    sb.append(point);
-                    start = point;
-                }
+            char ch = s.charAt(i);
+            if (ch != ' ') {
+                if (begin == -1) begin = i;
             } else {
-                if (point == ' ' || point == '\t') {
-                    stack.push(sb.toString());
-                    start = ' ';
-                } else {
-                    sb.append(point);
+                if (begin != -1) {
+                    sb.insert(0, s.substring(begin, i)).insert(0, " ");
+                    begin = -1;
                 }
             }
         }
-        if (start != ' ' && start != '\t') {
-            stack.push(sb.toString());
-        }
         
-        StringBuilder result = new StringBuilder();
-        boolean justBegin = true;
-        while (!stack.empty()) {
-        	if (!justBegin) {
-        		result.append(' ');
-        	} else {
-        		justBegin = false;
-        	}
-            result.append(stack.pop());
-        }
-        return result.toString();
+        if (begin != -1)			// MUST check! If input is empty string, should not have sb.insert(...)!
+            sb.insert(0, s.substring(begin));
+        
+        return sb.toString();
     }
 	
 	// short solution

@@ -56,7 +56,7 @@ public class scrambleString {
 			return false;
 		}
      
-		if( s1.length() == 0 || s1.equals(s2)) {
+		if(s1.equals(s2)) {
 			return true;
 		}
      

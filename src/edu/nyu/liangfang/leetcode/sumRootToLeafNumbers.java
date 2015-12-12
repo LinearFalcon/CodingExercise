@@ -48,7 +48,6 @@ public class sumRootToLeafNumbers {
         }
     }
     
-    
     // iterative version
     public int sumNumbers_iterative(TreeNode root) {
         if (root == null) return 0;
@@ -79,4 +78,6 @@ public class sumRootToLeafNumbers {
         }
         return sum;
     }
+    // iterative
+    // 用 printBSTPath 里面的iterative方法
 }

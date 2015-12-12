@@ -6,7 +6,7 @@ import java.util.Hashtable;
  *  For "1234", after computing branch 1234-234-34-4-"", we get 1 and table.get(4) == table.get(34) == 1;
  *  Then in later compute, we don't need to recursion to compute other half of the tree, just retrieve value from hashtable.
  */
-public class decodeWays {
+public class dp {
 	// DP - Iterative, most efficient
 	public int numDecodings(String s) {
         if (s == null || s.length() == 0) {
@@ -65,3 +65,4 @@ public class decodeWays {
         return num;
     }
 }
+

@@ -13,9 +13,7 @@ public class linkedListCycle {
             }
         }
         
-        if (p2 != null && p2.next != null) 
-        	return true;
-        else 
-        	return false;
+        if (p2 != null && p2.next != null) return true;
+        else return false;
     }
 }

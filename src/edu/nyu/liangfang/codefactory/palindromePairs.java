@@ -60,10 +60,7 @@ public class palindromePairs {
 		}
 		return true;
 	}
-	
-	
-	
-	// test
+
 	public static void main(String[] args) {
 		palindromePairs obj = new palindromePairs();
 		List<String> list = new ArrayList<String>();

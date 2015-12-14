@@ -21,31 +21,30 @@ public class plusOne {
 	
 	
 	 public int[] plusOne2(int[] digits) {
-	        int last = digits.length - 1;
-	        int carry = 0;
-	        boolean allNine = true;
-	        int index = -1;
-	        for (int i = last; i >= 0; i--) {
-	            if (digits[i] != 9) {
-	                index = i;
-	                allNine = false;
-	                break;
-	            }
-	        }
-	        
-	        if (allNine) {
-	            int[] res = new int[digits.length + 1];
-	            res[0] = 1;
-	            for (int i = 1; i <= digits.length; i++) {
-	                res[i] = 0;
-	            }
-	            return res;
-	        } else {
-	            for (int i = digits.length - 1; i > index; i--) {
-	                digits[i] = 0;
-	            } 
-	            digits[index]++;
-	            return digits;
-	        }
+		 if (digits == null || digits.length == 0)
+			 return null;
+
+		 boolean notExceed = false;
+		 int i = digits.length - 1;
+		 while (i >= 0) {
+			 if (digits[i] < 9) {
+				 digits[i]++;
+				 notExceed = true;
+				 break;
+			 }
+			 digits[i] = 0;
+			 i--;
+		 }
+
+		 if (!notExceed) {
+			 if (i < 0) {
+				 int[] newDigits = new int[digits.length + 1];
+				 newDigits[0] = 1;
+				 return newDigits;
+			 } else {
+				 digits[i]++;
+			 }
+		 }
+		 return digits;
 	    }
 }

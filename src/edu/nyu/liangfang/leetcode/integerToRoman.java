@@ -8,7 +8,7 @@ public class integerToRoman {
         int scale = 1000;
         for (int i = 6; i >= 0; i -= 2) {
             int digitNum = num / scale;
-            if (digitNum != 0) {
+            if (digitNum != 0) {            // MUST!!!!!!
                 if (digitNum < 4) {
                     for (int j = 0; j < digitNum; j++) {
                         sb.append(table[i]);
@@ -26,7 +26,7 @@ public class integerToRoman {
                         sb.append(table[i]);
                     }
                 }
-                num = num % scale;		// MUST!!!
+                num = num % scale;		// MUST!!! Different level with 'scale = scale / 10'
             }
             scale = scale / 10;
         }

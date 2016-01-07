@@ -1,50 +1,45 @@
 package edu.nyu.liangfang.leetcode;
 
-public class sqrt {
+public class sqrt {     
 	 // Iterative method
     public int sqrt_iterative(int x) {
-        if (x == 0) {
-            return 0;
+        if (x <= 1) 
+            return x;
+        
+        long start = 1;     // Use long!!!
+        long end = x;
+        while (end - start >= 2) {
+            long half = (start + end) / 2;
+            long prod = half * half;
+            if (prod == x) return (int)half;
+            else if (prod < x) start = half;
+            else end = half;
         }
-        long start = 1;				// MUST use long here!
-        long end = x;				// MUST use long here!
-        while (start <= end) {		// must contain equals condition, or 2 will fail; Binary Search also require equals
-            long mid = (start + end) / 2;
-            long prod = mid * mid;			
-            if (prod == x) {
-                return (int)mid;
-            } else if (prod < x) {
-                start = mid + 1;
-            } else {
-                end = mid - 1;
-            }
-        }
-        return (int)end;	// Attention!!!!!!!!
+        return (int)start;     // before return, convert to int!!!
     }
 	
 	
 	
 	// Recursion
-	public int sqrt(int x) {
-        if (x == 0)
-            return 0;
-        return (int)sqrt(x, 1, x);
+	public int mySqrt_rec(int x) {
+        if (x <= 1) 
+            return x;
+        return sqrt(1, x - 1, x);
     }
     
 	// 必须用long，以防止给的x太大导致int溢出
-    private long sqrt(long x, long start, long end) {
-        if (end - start == 1) {	
-            return start;
-        } 
+    private int sqrt(long start, long end, long target) {
+        if (end - start < 2) 
+            return (int)start;
         
-        long mid = (start + end) / 2;
-        long prod = mid * mid;
-        if (prod == x) {
-            return mid;
-        } else if (prod < x) {
-            return sqrt(x, mid, end);
+        long half = (start + end) / 2;
+        long prod = half * half;
+        if (prod == target) {
+            return (int)half;
+        } else if (prod < target) {
+            return sqrt(half, end, target);
         } else {
-            return sqrt(x, start, mid);
+            return sqrt(start, half, target);
         }
     }
     

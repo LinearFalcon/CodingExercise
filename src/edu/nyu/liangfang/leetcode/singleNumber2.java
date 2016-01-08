@@ -30,4 +30,19 @@ public class singleNumber2 {
 
         return res;
     }
+
+    // simple solution
+    public int singleNumber2_mine(int[] nums) {
+        int res = 0;
+        for (int i = 0; i < 32; i++) {
+            int sum = 0;
+            for (int j = 0; j < nums.length; j++) {
+                sum += (nums[j] >> i) & 1;
+            }
+            if (sum % 3 != 0) {
+                res |= (1 << i);
+            }
+        }
+        return res;
+    }
 }

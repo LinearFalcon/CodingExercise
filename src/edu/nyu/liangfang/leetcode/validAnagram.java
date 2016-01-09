@@ -1,8 +1,6 @@
 public class validAnagram {
     public boolean isAnagram(String s, String t) {
-        if (s.length() == 0) 
-            return t.length() == 0;
-        else if (s.length() != t.length())
+        if (s.length() != t.length())
             return false;
         
         int[] count = new int[26];

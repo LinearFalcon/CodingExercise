@@ -1,22 +1,15 @@
 package edu.nyu.liangfang.leetcode;
 
 public class bestTimeToBuyAndSellStock {
-	// O(n) time
+	// O(n) time, O(1) space
 	public int maxProfit(int[] prices) {
-        if (prices.length == 0) {
-            return 0;
-        }
-        int len = prices.length;
         int min = Integer.MAX_VALUE;
-        int maxProfit = 0;
-        for (int i = 0; i < len; i++) {
-            if (prices[i] < min) {
-                min = prices[i];
-            }
-            maxProfit = Math.max(maxProfit, prices[i] - min);
+        int profit = 0;
+        for (int p : prices) {
+            if (p < min) min = p;
+            profit = Math.max(p - min, profit);
         }
-        
-        return maxProfit;
+        return profit;
     }
 	
 	

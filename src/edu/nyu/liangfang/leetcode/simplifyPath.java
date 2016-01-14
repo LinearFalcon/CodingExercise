@@ -5,27 +5,24 @@ import java.util.List;
 
 public class simplifyPath {
 	public String simplifyPath(String path) {
-        String[] dirs = path.split("/");    // will produce empty string, slash doesn't need to be escaped
-        List<String> list = new ArrayList<String>();
-        for (int i = 0; i < dirs.length; i++) {        	
-            if (dirs[i].length() == 0) {		// deal with input like "/ac///b"
-                continue;
-            }
-            if (dirs[i].equals("..")) {		// must use String.equals rather than "=="!!!
-                if (!list.isEmpty()) {
-                    list.remove(list.size() - 1);
+        String[] arr = path.split("/");        
+        List<String> list = new ArrayList();
+        
+        for (String s : arr) {
+            if (s.length() != 0) {              // in case "///a/c/"
+                if (s.equals("..")) {
+                    if (!list.isEmpty())
+                        list.remove(list.size() - 1);
+                } else if (!s.equals(".")) {
+                   list.add(s);
                 }
-            } else if (!dirs[i].equals(".")) {		
-                list.add(dirs[i]);
             }
         }
-                
-        String result = "/";
-        for (int i = 0; i < list.size(); i++) {
-            result += list.get(i);
-            if (i != list.size() - 1)
-                result += "/";
+        
+        StringBuilder sb = new StringBuilder();
+        for (String dir : list) {
+            sb.append("/").append(dir);
         }
-        return result;
+        return sb.length() == 0 ? "/" : sb.toString();
     }
 }

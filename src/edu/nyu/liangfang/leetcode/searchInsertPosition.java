@@ -1,13 +1,18 @@
 package edu.nyu.liangfang.leetcode;
 
 public class searchInsertPosition {
-	public int searchInsert(int[] A, int target) {
-		if (A.length == 0 || A[0] >= target)
-            return 0;
-        for (int i = 0; i < A.length - 1; i++) {
-            if (target > A[i] && target <= A[i + 1])	//compare target to adjacent two elements, so biggest i can only A.length - 2
-                return i + 1;
+	public int searchInsert(int[] nums, int target) {
+        int low = 0, high = nums.length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] == target) 
+            	return mid;
+            else if (target < nums[mid]) 
+            	high = mid - 1;
+            else 
+            	low = mid + 1;
         }
-        return A.length;
+        return low;
     }
 }

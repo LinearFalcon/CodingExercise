@@ -21,7 +21,7 @@ public class generateParentheses {
 	            result.add(curr);
 	            return;
 	        }
-	        
+	        		// check here if rihtNum > leftNum, then do not call recursion, save time.
 	        findParen(n, leftNum + 1, rightNum, curr + "(", result);
 	        findParen(n, leftNum, rightNum + 1, curr + ")", result);
 	    }

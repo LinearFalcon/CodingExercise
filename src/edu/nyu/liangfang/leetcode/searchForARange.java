@@ -1,7 +1,42 @@
 package edu.nyu.liangfang.leetcode;
 
 public class searchForARange {
-	// O(lgn) method
+    // O(lgn) method - just found left and right boundary
+    public int[] searchRange_boundary(int[] nums, int target) {
+        int[] res = {-1, -1};
+        if (nums.length == 0) return res;
+        
+        int low = 0, high = nums.length - 1;
+        while (low <= high) {
+            int pos = (low + high) / 2;
+            if (target <= nums[pos]) {
+                high = pos - 1;
+            } else {
+                low = pos + 1;
+            }
+        }
+        int start = low;
+        
+        low = 0;
+        high = nums.length - 1;
+        while (low <= high) {
+            int pos = (low + high) / 2;
+            if (target >= nums[pos]) {
+                low = pos + 1;
+            } else {
+                high = pos - 1;
+            }
+        }
+        int end = high;
+        
+        if (start <= end) {     // Have to check first, because we might not find target in nums!
+            res[0] = start;
+            res[1] = end;
+        }
+        return res;
+    }
+
+	// O(lgn) method - too long
 	public int[] searchRange(int[] A, int target) {
         int[] res = {-1, -1};
         if (A == null || A.length == 0) {

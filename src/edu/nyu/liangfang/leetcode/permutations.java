@@ -4,54 +4,52 @@ import java.util.List;
 
 
 public class permutations {
-	// V1
-	public List<List<Integer>> permute(int[] num) {
-        return createPerm(num, num.length - 1);
+	// V1 - backtracking
+	public List<List<Integer>> permute(int[] nums) {
+        return getPerm(nums, nums.length - 1);
     }
     
-    public List<List<Integer>> createPerm(int[] num, int index) {
-        List<List<Integer>> result = new LinkedList<List<Integer>>();
-        if (index < 0) {
-            result.add(new LinkedList<Integer>());
+    private List<List<Integer>> getPerm(int[] nums, int end) {
+        List<List<Integer>> result = new ArrayList();
+        if (end < 0) {
+            result.add(new ArrayList<Integer>());       // MUST add an empty list to result at this edge case!
             return result;
         }
         
-        List<List<Integer>> prev = createPerm(num, index - 1);
-        int curr = num[index];
-        for (List<Integer> subList : prev) {
-            for (int i = 0; i <= subList.size(); i++) {
-                List<Integer> tmp = new LinkedList<Integer>(subList);
-                tmp.add(i, curr);
-                result.add(tmp);
+        List<List<Integer>> prev = getPerm(nums, end - 1);
+        for (List l : prev) {
+            for (int i = 0; i <= l.size(); i++) {       // new number can be inserted to any position
+                List<Integer> clone = new ArrayList(l);
+                clone.add(i, nums[end]);
+                result.add(clone);
             }
         }
         return result;
     }
 	
     // V2
-	public List<List<Integer>> permute_v2(int[] num) {
-        int[] isChosen = new int[num.length];
-        List<List<Integer>> result = new LinkedList<List<Integer>>();
-        getPerm(num, result, isChosen, new LinkedList<Integer>());
-        return result;
+	public List<List<Integer>> permute_v2(int[] nums) {
+        List<List<Integer>> res = new ArrayList();
+        List<Integer> curr = new ArrayList();
+        boolean[] isChosen = new boolean[nums.length];
+        getPerm(res, curr, nums, isChosen);
+        return res;
     }
     
-    private void getPerm(int[] num, List<List<Integer>> result, int[] isChosen, List<Integer> currList) {
-        if (currList.size() == num.length) {
-            result.add(currList);
+    private void getPerm(List<List<Integer>> res, List<Integer> curr, int[] nums, boolean[] isChosen) {
+        if (curr.size() == nums.length) {
+            res.add(curr);
             return;
         }
         
-        for (int i = 0; i < num.length; i++) {
-            if (isChosen[i] == 0) {
-                isChosen[i] = 1;
-                currList.add(num[i]);
-                List<Integer> clone = new LinkedList<Integer>(currList);
-                getPerm(num, result, isChosen, clone);
-                
-                isChosen[i] = 0;
-                currList.remove(currList.size() - 1);
+        for (int i = 0; i < nums.length; i++) {
+            if (!isChosen[i]) {
+                List<Integer> newCurr = new ArrayList(curr);
+                newCurr.add(nums[i]);
+                isChosen[i] = true;
+                getPerm(res, newCurr, nums, isChosen);
+                isChosen[i] = false;                    // remember to reset isChosen array
             }
-        }
+        } 
     }
 }

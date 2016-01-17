@@ -7,7 +7,7 @@ public class bestTimeToBuyAndSellStock {
         int profit = 0;
         for (int p : prices) {
             if (p < min) min = p;
-            profit = Math.max(p - min, profit);
+            profit = Math.max(p - min, profit);     // a little bit slower than if...else due to a possible unnecessary assignment
         }
         return profit;
     }

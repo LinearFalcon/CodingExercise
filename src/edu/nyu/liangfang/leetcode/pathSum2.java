@@ -35,35 +35,25 @@ public class pathSum2 {
 	
 	// my version
 	public List<List<Integer>> pathSum_me(TreeNode root, int sum) {
-        List<List<Integer>> list = new LinkedList<List<Integer>>();
-        List<Integer> path = new LinkedList<Integer>();
-        
-        if (root == null)
-            return list;
-        
-        int currentSum = 0;
-        compute(root, list, path, currentSum, sum);
-        return list;
+        List<List<Integer>> rst = new LinkedList<>();
+        List<Integer> curr = new LinkedList<>();
+        compute(root, rst, curr, 0, sum);
+        return rst;
     }
     
-    private void compute(TreeNode root, List<List<Integer>> list, List<Integer> path, int currentSum, int sum) {
-        List<Integer> tmp = new LinkedList<Integer>(path);
+    private void compute(TreeNode node, List<List<Integer>> rst, List<Integer> curr, int currSum, int sum) {
+        if (node == null) return;
+        else if (node.left == null && node.right == null) {
+            currSum += node.val;
+            curr.add(node.val);
+            if (currSum == sum) rst.add(new LinkedList<Integer>(curr));
+            curr.remove(curr.size() - 1);
+            return;
+        }
         
-        if (root.left == null && root.right == null) {
-            if (currentSum + root.val == sum) {
-                tmp.add(root.val);
-                list.add(tmp);
-                return;
-            }
-        }
-            
-        currentSum += root.val;
-        tmp.add(root.val);
-        if (root.left != null) {
-            compute(root.left, list, tmp, currentSum, sum);
-        }
-        if (root.right != null) {
-            compute(root.right, list, tmp, currentSum, sum);
-        }
+        curr.add(node.val);
+        compute(node.left, rst, curr, currSum + node.val, sum);
+        compute(node.right, rst, curr, currSum + node.val, sum);
+        curr.remove(curr.size() - 1);
     }
 }

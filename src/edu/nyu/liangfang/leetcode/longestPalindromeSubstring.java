@@ -1,6 +1,28 @@
 package edu.nyu.liangfang.leetcode;
 
 public class longestPalindromeSubstring {
+    // My current version
+    public String longestPalindrome1(String s) {
+        String res = "";
+        for (int i = 0; i < s.length(); i++) {
+            String tmp1 = getPalin(s, i, i);
+            String tmp2 = getPalin(s, i, i + 1);
+            String longer = tmp1.length() > tmp2.length() ? tmp1 : tmp2;
+            res = longer.length() > res.length() ? longer : res;
+        }
+        return res;
+    }
+    
+    private String getPalin(String s, int left, int right) {
+        while (left >= 0 && right < s.length()) {
+            if (s.charAt(left) != s.charAt(right))
+                break;
+            left--;
+            right++;
+        }
+        return s.substring(left + 1, right);
+    }
+
 	/*
 	 *  isPalindrome[i][j]: whether substring start from i and end at j is palindrome
 	 	isPalindrome[i][j] =  true if:
@@ -8,7 +30,7 @@ public class longestPalindromeSubstring {
 	 	
 	 	Complexity: O(n^2) time and O(n^2) space
 	 */
-	public String longestPalindrome(String s) {
+	public String longestPalindrome2(String s) {
         int len = s.length();
         boolean[][] isPalindrome = new boolean[len][len];
         int max = Integer.MIN_VALUE;
@@ -64,5 +86,4 @@ public class longestPalindromeSubstring {
         }
         return s.substring(start + 1, end);
     }
-	
 }

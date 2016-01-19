@@ -18,6 +18,7 @@ Given n = 3, your program should return all 5 unique BST's shown below.
 
 public class uniqueBinarySearchTree2 {
 	public List<TreeNode> generateTrees(int n) {
+        if (n == 0) return new LinkedList<TreeNode>();  // for edge case input 0
         return generate(1, n);
     }
     

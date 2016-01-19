@@ -28,19 +28,15 @@ public class uniqueBinarySearchTree {
         return num;
     }
 	
-	// Recursion version 2
-	public int numTrees_2(int n) {
-        return numTrees(1, n);
-    }
-    
-    private int numTrees(int start, int end) {
-        if (start >= end)
-            return 1;
-        
-        int sum = 0;
-        for (int i = start; i <= end; i++) {
-            sum += numTrees(start, i - 1) * numTrees(i + 1, end);
+	// Iterative version
+	public int numTrees_iterative(int n) {
+        int[] mem = new int[n + 1];
+        mem[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= i - 1; j++) {
+                mem[i] += mem[j] * mem[i - 1 - j];
+            }
         }
-        return sum;
+        return mem[n];
     }
 }

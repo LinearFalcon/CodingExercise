@@ -21,6 +21,9 @@ public class maximumProductSubarray {
         return res;
     }
 	
+
+
+    
 	// O(n^2)
 	public int maxProduct_brutalforce(int[] A) {
         int max = Integer.MIN_VALUE;

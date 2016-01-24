@@ -7,41 +7,23 @@ import java.util.PriorityQueue;
 public class Merge_K_SortedList {
 	// O(N * lgK) - N total number of nodes, for each node, adding them to priority queue takes O(lgK)
 	public ListNode mergeKLists(List<ListNode> lists) {
-        if (lists.size() == 0) {
-            return null;
-        }
-        
-        PriorityQueue<ListNode> queue = new PriorityQueue<ListNode>(lists.size(),
-            new Comparator<ListNode>() {
-                public int compare(ListNode a, ListNode b) {
-                    return a.val - b.val;
-                }    
-        });
-        
-        for (ListNode node : lists) {
-            if (node != null) {
-                queue.add(node);
+        if (lists.length == 0) return null;
+        Queue<ListNode> queue = new PriorityQueue<>(lists.length, new Comparator<ListNode>() {
+            public int compare(ListNode n1, ListNode n2) {
+                return n1.val - n2.val;
             }
-        }
-        
+        });
         ListNode dummy = new ListNode(0);
         ListNode tail = dummy;
+        
+        for (ListNode n : lists) {
+            if (n != null) queue.offer(n);
+        }
         while (!queue.isEmpty()) {
-/*            ListNode least = queue.peek();	 Cannot just operate the node, or the priority queue
-            tail.next = least;                   will not reflect correct least node!!!!!!
-            least = least.next;
+            ListNode node = queue.poll();
+            tail.next = node;
             tail = tail.next;
-            if (least == null) {
-                queue.remove(least);
-            }
-            */
-            ListNode least = queue.poll();
-            tail.next = least;
-            least = least.next;
-            tail = tail.next;
-            if (least != null) {
-                queue.add(least);
-            }
+            if (node.next != null) queue.offer(node.next);
         }
         return dummy.next;
     }

@@ -13,4 +13,10 @@ public class houseRobber {
         }
         return Math.max(rob, notRob);
     }
+
+    // Solution 2
+    /* Three states:
+        robbed[i] -> max that robbed i
+        notRob[i] -> 
+    */
 }

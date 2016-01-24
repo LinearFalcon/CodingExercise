@@ -6,20 +6,14 @@ package edu.nyu.liangfang.leetcode;
 public class palindromeNumber {
 	// reverse number and compare
 	public boolean isPalindrome(int x) {
-        if (x < 0) {
-            return false;
-        }
+        if (x < 0) return false;
         
-        return x == reverse(x);
-    }
-    
-    public int reverse(int x) {
-        int rst = 0;
-        while (x != 0) {
-            rst = rst * 10 + x % 10;
-            x = x / 10;
+        long reverse = 0, orig = (long) x;      // Use long in case overflow
+        while (orig > 0) {
+            reverse = reverse * 10 + orig % 10;
+            orig /= 10;
         }
-        return rst;
+        return x == reverse;
     }
 	
 	public boolean isPalindrome_iterative(int x) {

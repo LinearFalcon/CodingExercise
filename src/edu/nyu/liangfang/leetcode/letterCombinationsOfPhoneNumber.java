@@ -5,7 +5,29 @@ import java.util.List;
 
 
 public class letterCombinationsOfPhoneNumber {
+	// current version
 	public List<String> letterCombinations(String digits) {
+        String[] map = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        List<String> rst = new ArrayList<>();
+        if (digits.length() != 0) compute(digits, 0, "", rst, map);
+        return rst;
+    }
+    
+    private void compute(String digits, int index, String curr, List<String> rst, String[] map) {
+        if (index == digits.length()) {
+            rst.add(curr);
+            return;
+        }
+        
+        String mapping = map[digits.charAt(index) - '0'];
+        for (int i = 0; i < mapping.length(); i++) {
+            compute(digits, index + 1, curr + mapping.charAt(i), rst, map);
+        }
+    }
+
+
+	// ---------------------- previous version ---------------------- 
+	public List<String> letterCombinations2(String digits) {
 		Hashtable<Character, String> table = new Hashtable<Character, String>();
 		table.put('0', "");
 		table.put('1', "");

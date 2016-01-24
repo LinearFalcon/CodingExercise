@@ -2,22 +2,19 @@ package edu.nyu.liangfang.leetcode;
 
 public class addTwoNumber {
 	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        int n1;
-        int n2;
+        ListNode dummy = new ListNode(-1);
+        ListNode tail = dummy;
         int carry = 0;
-        ListNode point = new ListNode(0);
-        ListNode dummyhead = point;
-        while (l1 != null || l2 != null || carry != 0) {
-            n1 = (l1 != null) ? l1.val : 0;
-            n2 = (l2 != null) ? l2.val : 0;
-            int sum = n1 + n2 + carry;
+        while (l1 != null || l2 != null) {
+            int sum = (l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + carry;
+            tail.next = new ListNode(sum % 10);
             carry = sum / 10;
-            sum = sum % 10;
-            point.next = new ListNode(sum);
-            point = point.next;
+            tail = tail.next;
+            
             if (l1 != null) l1 = l1.next;
             if (l2 != null) l2 = l2.next;
         }
-        return dummyhead.next;
+        if (carry != 0) tail.next = new ListNode(carry);
+        return dummy.next;
     }
 }

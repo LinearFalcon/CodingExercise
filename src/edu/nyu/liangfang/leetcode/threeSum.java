@@ -5,6 +5,32 @@ import java.util.Arrays;
 import java.util.List;
 
 public class threeSum {
+	// latest compact version
+	public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> rst = new LinkedList<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            int remaining = -nums[i];
+            int left = i + 1, right = nums.length - 1;
+            while (left < right) {
+                if (nums[left] + nums[right] == remaining) {
+                    List<Integer> list = new LinkedList<>();
+                    list.add(nums[i]);
+                    list.add(nums[left]);
+                    list.add(nums[right]);
+                    rst.add(list);
+                    do { left++; } while (left < right && nums[left] == nums[left - 1]);
+                    do { right--; } while (left < right && nums[right] == nums[right + 1]);
+                } else if (nums[left] + nums[right] < remaining) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+        return rst;
+    }
 	
 	// O(n^2) time complexity
 	public List<List<Integer>> threeSumNoHash(int[] num) {
@@ -23,12 +49,12 @@ public class threeSum {
 				int c = num[right];
 				int sum = a + b +c;
 				if (sum == 0) {
-					List<Integer> set = new ArrayList<Integer>();
-					set.add(a);
-					set.add(b);
-					set.add(c);
+					List<Integer> list = new ArrayList<Integer>();
+					list.add(a);
+					list.add(b);
+					list.add(c);
 
-					result.add(set);
+					result.add(list);
 
 					do {
 						left++;

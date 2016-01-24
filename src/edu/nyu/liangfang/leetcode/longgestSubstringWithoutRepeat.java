@@ -10,8 +10,31 @@ import java.util.Set;
  */
 
 public class longgestSubstringWithoutRepeat {
-	// simple method
-	public int lengthOfLongestSubstring(String s) {
+    // latest version
+    public int lengthOfLongestSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+        int res = 0;
+        int left = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (set.contains(s.charAt(i))) {
+                res = Math.max(res, i - left);
+                while (s.charAt(left) != s.charAt(i)) {
+                    set.remove(s.charAt(left));
+                    left++;
+                }
+                left++;
+            } else {
+                set.add(s.charAt(i));
+            }
+        }
+        res = Math.max(res, s.length() - left);
+        return res;
+    }
+
+
+
+	// v2 method
+	public int lengthOfLongestSubstring2(String s) {
 		Set<Character> set = new HashSet<Character>();
         int start = 0;
         int max = 0;
@@ -34,73 +57,5 @@ public class longgestSubstringWithoutRepeat {
         }
         max = Math.max(max, s.length() - start);	// last substring should also be checked
         return max;
-    }
-	
-	
-	
-	// method 2
-	public int lengthOfLongestSubstring_v2(String s) {
-        if (s.length() < 2) {
-            return s.length();
-        }
-        
-        int p = 0; 
-        int q = 1;
-        int[] pos = new int[256];
-        Arrays.fill(pos, -1);
-        pos[s.charAt(0)] = 0;
-        int max = Integer.MIN_VALUE;
-        
-        while (q < s.length()) {
-            char qchar = s.charAt(q);
-            if (pos[qchar] != -1) {
-                max = Math.max(max, q - p);
-                int repeatIndex = pos[qchar];
-                for (int i = p; i <= repeatIndex; i++) {
-                    pos[s.charAt(i)] = -1;
-                }
-                p = repeatIndex + 1;
-            }
-            
-            pos[qchar] = q;
-            q++;
-        }
-        max = Math.max(max, q - p);
-        
-        return max;
-    }
-	
-	// algorithm is same as v2
-	public int lengthOfLongestSubstring_v1(String s) {
-		List<Character> subList = new ArrayList<Character>();
-		int biggestLength = 0;
-
-		int count = 0;
-		for (int i = 0; i < s.length(); i++) {	
-			char tmp = s.charAt(i);
-			if (!subList.contains(tmp)) {
-				count++;
-				subList.add(tmp);
-			} else {
-				if (count > biggestLength) {
-					biggestLength = count;
-				}
-				int index_of_repeat = subList.indexOf(tmp);
-				count = count - index_of_repeat - 1;
-				
-				for (int j = 0; j <= index_of_repeat; j++ ) {
-					subList.remove(0);
-				}
-				
-				i--;
-			}
-		}
-		
-		// Consider the ending situation: longest substring is the last substring !!!!!!
-		if (count > biggestLength) {
-			biggestLength = count;
-		}
-
-		return biggestLength;
     }
 }

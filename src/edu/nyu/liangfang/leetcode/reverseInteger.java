@@ -2,24 +2,16 @@ package edu.nyu.liangfang.leetcode;
 
 public class reverseInteger {
 	public int reverse(int x) {
-		boolean isNegative = false;
-        if (x < 0) {
-            isNegative = true;
-            x = -x;
-        }
+		boolean isNegative = x < 0 ? true : false;
+        if (x < 0) x = -x;
         
-        long num = 0;		// use long here
-        while (x > 0) {
-            int mod = x % 10;
-            x = x / 10;
-            num = num * 10 + mod;
+        long num = (long) x;        // Use long to avoid overflow
+        long newNum = 0;
+        while (num > 0) {
+            newNum = newNum * 10 + num % 10;
+            num /= 10;
         }
-        
-        num = isNegative ? -num : num;
-        if (num <= (long)Integer.MAX_VALUE && num >= (long)Integer.MIN_VALUE) {
-            return (int)num;
-        } else {
-            return 0;
-        }
+        if (newNum > (long) Integer.MAX_VALUE || -newNum < (long) Integer.MIN_VALUE) return 0;
+        return (int)(isNegative ? -newNum : newNum);
     }
 }

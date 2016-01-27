@@ -1,7 +1,30 @@
 package edu.nyu.liangfang.leetcode;
 
 public class medianOfTwoSortedArrays {
-	// binary search solution O(lg(m+n))
+	// Concise version
+	public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.length, n = nums2.length;
+        return (getKth(nums1, 0, nums2, 0, (m + n + 1) / 2) + getKth(nums1, 0, nums2, 0, (m + n + 2) / 2)) / 2.0;
+    }
+    
+    private double getKth(int[] nums1, int aStart, int[] nums2, int bStart, int k) {
+        if (aStart > nums1.length - 1) return nums2[bStart + k - 1];
+        if (bStart > nums2.length - 1) return nums1[aStart + k - 1];
+        if (k == 1) return Math.min(nums1[aStart], nums2[bStart]);
+        
+        int aMid = Integer.MAX_VALUE, bMid = Integer.MAX_VALUE;
+        if (aStart + k / 2 - 1 < nums1.length) aMid = nums1[aStart + k / 2 - 1];
+        if (bStart + k / 2 - 1 < nums2.length) bMid = nums2[bStart + k / 2 - 1];
+        
+        if (aMid < bMid) {
+            return getKth(nums1, aStart + k / 2, nums2, bStart, k - k / 2);
+        } else {
+            return getKth(nums1, aStart, nums2, bStart + k / 2, k - k / 2);
+        }
+    }
+
+
+	// ---------------- binary search solution O(lg(m+n)) ----------------
 	public double findMedianSortedArrays_solution2(int A[], int B[]) {
 		int m = A.length;
 	    int n = B.length;
@@ -20,12 +43,9 @@ public class medianOfTwoSortedArrays {
 	   	int bLen = bEnd - bStart + 1;
 	     
 	   	// Handle special cases
-	   	if (aLen == 0)
-	   		return B[bStart + k];
-	   	if (bLen == 0)
-	   		return A[aStart + k];
-	   	if (k == 0)
-	   		return A[aStart] < B[bStart] ? A[aStart] : B[bStart];
+	   	if (aLen == 0) return B[bStart + k];
+	   	if (bLen == 0) return A[aStart + k];
+	   	if (k == 0) return A[aStart] < B[bStart] ? A[aStart] : B[bStart];
 	    
 	   	int aMid = aLen * k / (aLen + bLen); // a's middle count
 	   	int bMid = k - aMid - 1; // b's middle count	must minus 1
@@ -49,7 +69,7 @@ public class medianOfTwoSortedArrays {
 	   	return findIndexK(A, B, k, aStart, aEnd, bStart, bEnd);
 	}
 	
-	// --------------------- O(m+n) Parse A and B from start at the same time to find median --------------------- 
+	// -------------- O(m+n) Parse A and B from start at the same time to find median ------------
 	public double findMedianSortedArrays_solution1(int A[], int B[]) {
         int i = 0;
         int j = 0;

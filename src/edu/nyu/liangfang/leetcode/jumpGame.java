@@ -6,15 +6,12 @@ import java.util.Queue;
 public class jumpGame {
 	// most simple method
 	public boolean canJump(int[] A) {
-        int index = 0;
-        int maxReach = 0;
-        while (index <= maxReach && index < A.length) {
-            if (A[index] + index > maxReach) {
-                maxReach = A[index] + index;
-            }
-            index++;
+        int point = 0, end = 0;
+        while (point <= end && point < nums.length) {
+            end = Math.max(end, point + nums[point]);
+            point++;
         }
-        return maxReach >= A.length - 1;
+        return end >= nums.length - 1;
     }
 	
 	// O(n) solution, just scan from head and judge if we can jump to 

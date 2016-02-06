@@ -26,7 +26,7 @@ public class combinations {
     }
     
     
-    // ----------------- DP version -----------------
+    // ----------------- V2 -----------------
     public List<List<Integer>> combine_dp(int n, int k) {
         List<List<Integer>> result = new LinkedList<List<Integer>>();
         if (k > n || n < 1) {

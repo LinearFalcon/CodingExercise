@@ -12,7 +12,7 @@ public class fourSum {
         for (int i = 0; i < nums.length - 3; i++) {
             if (i > 0 && nums[i] == nums[i - 1]) continue;
 
-            // These two lines are used to trim, it can decrease time cose
+            // These two lines are used to trim, it can decrease time cost
             // if (nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target) break;
             // if (nums[i] + nums[nums.length - 1] + nums[nums.length - 2] + nums[nums.length - 3] < target) continue;
 
@@ -47,7 +47,7 @@ public class fourSum {
         List<List<Integer>> rst = new LinkedList<>();
         if (nums.length < 4) return rst;
         
-        // Arrays.sort(nums);
+       // Arrays.sort(nums);
         Map<Integer, List<List<Integer>>> map = new HashMap<>();
         for (int i = 0; i < nums.length - 1; i++) {
             for (int j = i + 1; j < nums.length; j++) {
@@ -66,10 +66,9 @@ public class fourSum {
                 for (List<Integer> l : l1) {
                     for (List<Integer> m : l2) {
                         if (noDuplicate(l, m)) {
-                            List<Integer> list = new ArrayList<>(l);
-                            list.addAll(m);
+                            List<Integer> list = new ArrayList<>(Arrays.asList(nums[l.get(0)], nums[l.get(1)], nums[m.get(0)], nums[m.get(1)]));
                             Collections.sort(list);
-                            set.add(list);          // set dedup seems not correct
+                            set.add(list);
                         }
                     }
                 }
@@ -77,8 +76,7 @@ public class fourSum {
         }
         
         for (List<Integer> l : set) {
-            List<Integer> tmp = new ArrayList<>();
-            for (int i = 0; i < 4; i++) tmp.add(nums[l.get(i)]);
+            List<Integer> tmp = new ArrayList<>(Arrays.asList(l.get(0), l.get(1), l.get(2), l.get(3)));
             rst.add(tmp);
         }
         return rst;

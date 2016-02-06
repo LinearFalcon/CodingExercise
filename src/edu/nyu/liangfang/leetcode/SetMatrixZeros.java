@@ -1,6 +1,12 @@
 package edu.nyu.liangfang.leetcode;
 
 public class SetMatrixZeros {
+    // Simple method, use one boolean to store weather first column contains 0
+    // Then scan from down right to left top, so as to avoid change first column and first
+    // row which will affect others  -- you can check discuss
+
+
+
 	public void setZeroes(int[][] matrix) {			// O(1) space ********
 		int row = matrix.length;
         int col = matrix[0].length;
@@ -16,7 +22,6 @@ public class SetMatrixZeros {
         	if (matrix[0][i] == 0) {
         		firstRowHasZero = true;
         	}
-        		
         }
         
         for (int i = 0; i < row; i++) {

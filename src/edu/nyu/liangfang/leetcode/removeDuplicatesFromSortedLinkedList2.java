@@ -10,22 +10,17 @@ package edu.nyu.liangfang.leetcode;
 public class removeDuplicatesFromSortedLinkedList2 {
 	// best short method
 	public ListNode deleteDuplicates(ListNode head) {
-//      ListNode dummy = null;			cannot assign a int variable to null; also do not assign a object to null and then call its members
-      ListNode dummy = new ListNode(Integer.MAX_VALUE);		// use max int value as dummy head value
-      dummy.next = head;
-      ListNode prev = dummy;
-      ListNode point = head;
-      ListNode tail = dummy;	// tail of the current list that has been removed duplicates
-      
-      while (point != null) {
-          if ( (point.val != prev.val) && (point.next == null ? true : point.val != point.next.val) ) {
-              tail.next = point;
-              tail = tail.next;
-          } 
-          point = point.next;
-          prev = prev.next;
-      }
-      tail.next = null;			// important!!!!!!
+      ListNode dummy = new ListNode(0);
+        ListNode pre = null, curr = head, tail = dummy;
+        while (curr != null) {
+            if ((curr == head || curr.val != pre.val) && (curr.next == null || curr.val != curr.next.val)) {
+                tail.next = curr;
+                tail = tail.next;
+            }
+            pre = curr;
+            curr = curr.next;
+        }
+      tail.next = null;			        // important!!!!!! or testcase [1,2,2] will output [1,2,2]
       return dummy.next;
 	}
 	

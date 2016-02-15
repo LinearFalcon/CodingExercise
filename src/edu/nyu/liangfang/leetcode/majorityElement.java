@@ -12,8 +12,9 @@ public class majorityElement {
             }
             
             if (count == 0) {
-                majNum = nums[i];
+                majNum = nums[i + 1];
                 count = 1;
+                i++;
             }
         }
         return majNum;

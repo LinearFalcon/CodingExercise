@@ -5,8 +5,31 @@ import java.util.List;
 
 
 public class combinationSum {
-	// v1: most simple method
-	public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    // latest version
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> rst = new ArrayList<>();
+        List<Integer> curr = new ArrayList<>();
+        compute(candidates, rst, curr, target, 0);
+        return rst;
+    }
+    
+    private void compute(int[] arr, List<List<Integer>> rst, List<Integer> curr, int target, int index) {
+        if (target == 0) {
+            rst.add(new ArrayList<Integer>(curr));
+            return;
+        }
+        
+        for (int i = index; i < arr.length; i++) {
+            if (target < arr[i]) break;             // trim is important!
+            curr.add(arr[i]);
+            compute(arr, rst, curr, target - arr[i], i);
+            curr.remove(curr.size() - 1);
+        }
+    }
+
+	// v2
+	public List<List<Integer>> combinationSum_v2(int[] candidates, int target) {
         List<List<Integer>> result = new LinkedList<List<Integer>>();
         List<Integer> curr = new LinkedList<Integer>();
         Arrays.sort(candidates);
@@ -30,70 +53,6 @@ public class combinationSum {
             tmp.add(candidates[i]);
             
             findComb(candidates, target, result, tmp, i, sum + candidates[i]);
-        }
-    }
-	
-	
-	// -------------- version 2 ----------------
-	public List<List<Integer>> solution_v2(int[] candidates, int target) {  
-		Arrays.sort(candidates);  								// sort candidates array first
-		List<List<Integer>> result = new LinkedList<List<Integer>>();
-		List<Integer> currentList = new LinkedList<Integer>();
-		int sum = 0;											// intermediate sum of chosen candidates number
-		int iterateStart = 0;									// each time, only need to iterate from this position, for avoiding adding repeated list like {2,1} and {1,2}
-		compute(result, currentList, candidates, sum, target, iterateStart);
-		return result;
-	}
-
-	private void compute(List<List<Integer>> result, List<Integer> currentList, int[] candidates, int sum, int target, int iterateStart) {
-		for (int i = iterateStart; i < candidates.length; i++) {
-			List<Integer> cloneList = new LinkedList<Integer>(currentList);
-			cloneList.add(candidates[i]);
-			if (sum + candidates[i] == target) {
-				result.add(cloneList);
-				return;
-			} else if (sum + candidates[i] > target) {
-				return;
-			} else {
-				compute(result, cloneList, candidates, sum + candidates[i], target, i);
-			}
-		}
-	}
-	
-	
-	// ------------------ version 3 --------------------
-	public List<List<Integer>> combinationSum_v3(int[] candidates, int target) {
-        List<List<Integer>> result = new LinkedList<List<Integer>>();
-        List<Integer> curr = new LinkedList<Integer>();
-        Arrays.sort(candidates);
-        find(candidates, target, result, curr, 0 ,0);
-        return result;
-    }
-    
-    public void find(int[] candidates, int target, List<List<Integer>> result, 
-            List<Integer> curr, int index, int sum) {
-        if (sum == target) {
-                result.add(curr);
-                return;
-        } 
-        if (index >= candidates.length) {		// avoid index out of bound
-            return;
-        }
-        
-        int num = candidates[index];
-        int remain = target - sum;
-        
-        for (int i = 0; i <= remain / num; i++) {
-            List<Integer> tmp = new LinkedList<Integer>(curr);
-            for (int j = 0; j < i; j++) {
-                tmp.add(num);
-            }
-            
-            int newIndex = index + 1;
-            int newSum = sum + i * num;
-            if (newSum <= target) {
-            	find(candidates, target, result, tmp, newIndex, newSum);
-            }
         }
     }
 }

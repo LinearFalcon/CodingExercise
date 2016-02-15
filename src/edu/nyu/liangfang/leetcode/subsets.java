@@ -31,7 +31,7 @@ public class subsets {
     }
     
     
-    // iterative version
+    // iterative version - faster
     public List<List<Integer>> subsets_iterative(int[] S) {
         Arrays.sort(S);
         List<List<Integer>> rst = new ArrayList<List<Integer>>();

@@ -3,13 +3,35 @@ import java.util.Stack;
 
 
 public class longestValidParentheses {
+    // slow solution with two stacks, almost 20ms
+    public int longestValidParentheses1(String s) {
+        Stack<Integer> indexSt = new Stack<>();
+        
+        for (int i = 0; i < s.length(); i++) {
+            if (!indexSt.isEmpty() && s.charAt(indexSt.peek()) == '(' && s.charAt(i) == ')') {
+                indexSt.pop();
+            } else {
+                indexSt.push(i);
+            }
+        }
+        
+        if (indexSt.isEmpty()) return s.length();
+        int max = 0, end = s.length();
+        while (!indexSt.isEmpty()) {
+            int index = indexSt.pop();
+            if (end - index - 1 > max) max = end - index - 1;
+            end = index;
+        }
+        if (end != 0 && end > max) max = end;
+        return max;
+    }
 	
 	/*
 	 * Keep a stack storing index of unmatched parentheses
 	 * Scan once, and each time update max when match happens
 	 * Complexity: O(n)
 	 */
-	public int longestValidParenthesesSol(String s) {
+	public int longestValidParentheses2(String s) {
 		Stack<Integer> st = new Stack<Integer>();   // only store index of unmatched parentheses
         int max = 0;
         for (int i = 0; i < s.length(); i++) {

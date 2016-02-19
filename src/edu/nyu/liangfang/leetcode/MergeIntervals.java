@@ -8,88 +8,30 @@ import java.util.List;
 // Interval class defined in InsertInterval.java
 
 public class MergeIntervals {
-	// 简单方法
 	public List<Interval> merge(List<Interval> intervals) {
-        List<Interval> result = new LinkedList<Interval>();
-        if (intervals.size() == 0) {
-            return result;
-        }
+        List<Interval> rst = new ArrayList<>();
+        if (intervals.size() == 0) return rst;
         
         Collections.sort(intervals, new Comparator<Interval>() {
-            public int compare(Interval o1, Interval o2) {
-                if (o1.start == o2.start) {
-                    return o1.end - o2.end;
-                } else {
-                    return o1.start - o2.start;
-                }
-            } 
+            public int compare(Interval a, Interval b) {
+                if (a.start == b.start) return a.end - b.end;
+                else return a.start - b.start;
+            }
         });
         
-        int least = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-
-        int index = 0;
-        while (index < intervals.size()) {
-            Interval o = intervals.get(index);
-            // 只有在发现这个interval跟之前的不重叠时，
-            // 才把之前计算好的重叠的interval加进result
-            if (index > 0 && o.start > max) {
-                result.add(new Interval(least, max));
-                least = o.start;
-                max = o.end;
-            } else {
-                least = Math.min(least, o.start);	// 关键之处，重叠部分只用计算最小值和最大值
-                max = Math.max(max, o.end);
+        int start = intervals.get(0).start, end = intervals.get(0).end;
+        for (int i = 1; i < intervals.size(); i++) {
+            Interval ele = intervals.get(i);
+            if (intervals.get(i).start > end) {
+                rst.add(new Interval(start, end));
+                start = ele.start;
+                end = ele.end;
+            } else {                                      // 关键之处，重叠部分只用计算最小值和最大值
+                start = Math.min(start, ele.start);
+                end = Math.max(end, ele.end);
             }
-            index++;
         }
-        result.add(new Interval(least, max));
-        return result;
-       
+        rst.add(new Interval(start, end));
+        return rst;
     }
-	
-	
-	
-	public ArrayList<Interval> merge_complex(ArrayList<Interval> intervals) {
-		int length = intervals.size();
-		if (length < 2)
-			return intervals;
-		
-		Collections.sort(intervals, new Comparator<Interval>() {	// use comparator to sort ArrayList
-			@Override
-			public int compare(Interval o1, Interval o2) {
-				if (o1.start == o2.start) {
-					return o1.end - o2.end;
-				} else {
-					return o1.start - o2.start;
-				}
-			}	
-		});
-		
-		ArrayList<Interval> result = new ArrayList<Interval>();
-		Interval pre = intervals.get(0);
-		int i = 1;
-		
-		while (i < length) {					// Use outer while loop to process repeated situation
-			while (i < length && pre.end < intervals.get(i).start) {
-				
-				result.add(pre);
-				pre = intervals.get(i);
-				i++;
-			}	
-			if (i >= length)		// If i >= length, then should add last pre into result
-				result.add(pre);
-			else {
-				while(i < length && pre.end >= intervals.get(i).start) {
-					pre.start = Math.min(pre.start, intervals.get(i).start);
-					pre.end = Math.max(pre.end, intervals.get(i).end);
-					i++;
-				}
-				if (i >= length)    // If i >= length, then should add last pre into result
-					result.add(pre);
-			}
-		}
-		return result;
-	}
-
 }

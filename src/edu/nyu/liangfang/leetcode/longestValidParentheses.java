@@ -3,7 +3,7 @@ import java.util.Stack;
 
 
 public class longestValidParentheses {
-    // slow solution with two stacks, almost 20ms
+    // slow solution with one stack, almost 20ms
     public int longestValidParentheses1(String s) {
         Stack<Integer> indexSt = new Stack<>();
         
@@ -23,6 +23,24 @@ public class longestValidParentheses {
             end = index;
         }
         if (end != 0 && end > max) max = end;
+        return max;
+    }
+
+    // Best DP method
+    public int longestValidParentheses_best(String s) {
+        if (s.length() < 2) return 0;
+        int[] dp = new int[s.length() + 1];
+        int max = 0;
+        for (int i = s.length() - 2; i >= 0; i--) {
+            int nextWrap = i + dp[i + 1] + 1;
+            if (s.charAt(i) == '(' && nextWrap < s.length()) {
+                if (s.charAt(nextWrap) == ')') {
+                    dp[i] = dp[i + 1] + 2;
+                    dp[i] += dp[i + dp[i]];
+                    if (dp[i] > max) max = dp[i];
+                }
+            }
+        }
         return max;
     }
 	
@@ -51,7 +69,7 @@ public class longestValidParentheses {
     }
 	
 	/*
-	
+	网上参考方法
 dp[i]表示以index i开头的最长valid parentheses长度
 
 先初始化dp[s.length() - 1] = 0
@@ -88,40 +106,4 @@ dp[i] =
         }
         return max;
     }
-	
-	
-	// naive solution
-	public int longestValidParenthesesSol1(String s) {
-        if (s.length() <= 1)
-            return 0;
-        
-        int max = 0;
-        for (int i = 0; i < s.length(); i++) {
-            // compute max length of valid parenthese of string starting at index i
-            if (s.charAt(i) == '(') {
-                Stack<Character> st = new Stack<Character>();
-                int count = 0;
-                for (int j = i; j < s.length(); j++) {
-                    count++;
-                    char ch = s.charAt(j);
-                    if (st.isEmpty()) {
-                        st.push(ch);
-                    } else if (st.peek() == '(' && ch == ')') {
-                        st.pop();
-                    } else {
-                        st.push(ch);
-                    }
-                    
-                    if (st.isEmpty()) {
-                        if (count > max) {
-                            max = count;
-                        }
-                    }
-                }
-            }
-        }
-        return max;
-    }
-	
-	
 }

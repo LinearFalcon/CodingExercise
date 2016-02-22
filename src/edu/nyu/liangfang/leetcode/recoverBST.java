@@ -1,7 +1,49 @@
 package edu.nyu.liangfang.leetcode;
 import java.util.ArrayList;
 
+// v1
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution_v2 {
+    private TreeNode prev = null;
+    private TreeNode left = null;
+    private TreeNode right = null;
+    private boolean firstMet = true;
+    
+    public void recoverTree(TreeNode root) {
+        dfs(root);
+        
+        int tmp = left.val;
+        left.val = right.val;
+        right.val = tmp;
+    }  
 
+    private void dfs(TreeNode root) {
+        if (root == null) return;
+        
+        dfs(root.left);
+        if (prev != null && root.val < prev.val) {
+            if (firstMet) {
+                right = root;
+                left = prev;
+                firstMet = false;
+            } else {
+                right = root;
+            }
+        }
+        prev = root; 
+        dfs(root.right);
+    }
+}
+
+// v2
 public class recoverBST {
 	// constant space method
 	public void recoverTree(TreeNode root) {

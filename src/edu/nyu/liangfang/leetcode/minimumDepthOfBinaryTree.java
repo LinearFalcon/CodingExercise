@@ -21,6 +21,26 @@ public class minimumDepthOfBinaryTree {
         
         return 1 + Math.min(getMin(node.left), getMin(node.right));
     }
+
+    // DFS
+    public int minDepth(TreeNode root) {
+        if (root == null) return 0;
+        int[] minDepth = {Integer.MAX_VALUE};
+        compute(root, 0, minDepth);
+        return minDepth[0];
+    }
+    
+    private void compute(TreeNode root, int dep, int[] minDepth) {
+        dep++;
+        if (dep >= minDepth[0]) return;
+        if (root.left == null && root.right == null) {
+            if (dep < minDepth[0]) minDepth[0] = dep;
+            return;
+        }
+        
+        if (root.left != null) compute(root.left, dep, minDepth);
+        if (root.right != null) compute(root.right, dep, minDepth);
+    }
 	
 	
 	// BFS

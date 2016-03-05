@@ -6,7 +6,7 @@ package edu.nyu.liangfang.leetcode;
  * either subarrays and therefore such worst case degenerates to the order of O(n).
  */
 public class findMinimumInRotatedSortedArray2 {
-	// Simple iterative code
+	// compare low
 	public int findMin(int[] num) {
         int left = 0; 
         int right = num.length - 1;
@@ -23,40 +23,16 @@ public class findMinimumInRotatedSortedArray2 {
         }
         return num[left];
     }
-	
-	
-	
-	// My AC code - too complicated
-	public int findMin2(int[] num) {
-        return findMin(num, 0, num.length - 1);
-    }
-    
-    public int findMin(int[] num, int left, int right) {
-        int mid = (left + right) / 2;
-        if (mid == left || mid == right) {
-            return Math.min(num[left], num[right]);
+
+    // compare high
+    public int findMin2(int[] nums) {
+        int low = 0, high = nums.length - 1;
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] > nums[high]) low = mid + 1;
+            else if (nums[mid] < nums[high]) high = mid;
+            else high--;
         }
-        
-        if (num[left] < num[mid]) {
-            if (num[mid] <= num[right]) {
-                return num[left];
-            } else {
-                return findMin(num, mid + 1, right);
-            }
-        } else if (num[left] == num[mid]) {
-            if (num[mid] < num[right]) {
-                return num[left];
-            } else if (num[mid] > num[right]) {
-                return findMin(num, mid + 1, right);
-            } else {
-                return Math.min(findMin(num, left, mid), findMin(num, mid, right)); 	// eg, [1, 1, 1, 0, 1] or [1, 0, 1, 1, 1], cannot determine, must compute both half
-            }
-        } else {
-            if (num[mid - 1] <= num[mid]) {
-                return findMin(num, left, mid - 1);
-            } else {
-                return num[mid];
-            }
-        }
+        return nums[high];
     }
 }

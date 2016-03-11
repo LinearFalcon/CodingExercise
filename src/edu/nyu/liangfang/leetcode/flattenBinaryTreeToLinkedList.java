@@ -4,7 +4,7 @@ import java.util.Stack;
 
 // Simple flatten method
 class Solution2 {
-	private TreeNode lastNode = null;		
+	private TreeNode lastNode = null;		    // 如果不用全局变量，就必须传lastNode as array，否则lastNode没有变化
  
 	public void flatten_PreOrder(TreeNode root) {
 		if (root == null) {

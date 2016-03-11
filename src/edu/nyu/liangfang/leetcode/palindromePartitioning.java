@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class palindromePartitioning {
-	// AC solution - just simple DFS
+	// AC solution - just simple DFS and backtracking
 	public List<List<String>> partition(String s) {
         List<List<String>> rst = new LinkedList<List<String>>();
         List<String> tmp = new LinkedList<String>();
@@ -46,43 +46,32 @@ public class palindromePartitioning {
 		return true;
 	}
     
-	// TLE solution - Takes more time !!!
-	public List<List<String>> partition_DP(String s) {
-		List<List<String>> result = new LinkedList<List<String>>();
-		if (s.length() == 0) {
-			return result;
-		}
-		List<String> tmp = new LinkedList<String>();
-		Hashtable<String, Boolean> palindromeTable = new Hashtable<String, Boolean>();  // store palindrome string already checked
-		getPartitions(result, s, tmp, palindromeTable);
-		return result;
-	}
-
-	private void getPartitions(List<List<String>> result, String remaining, List<String> tmp, Hashtable<String, Boolean> palindromeTable) {
-		if (remaining.length() == 0) {
-			result.add(tmp);
-			return;
-		}
-		
-		for (int i = 1; i <= remaining.length(); i++) {			// must start from 1 !
-			LinkedList<String> clone = new LinkedList<String>(tmp);		// must not pass tmp itself, because it will be modified during recursion
-			String partition = remaining.substring(0, i);
-			if (palindromeTable.containsKey(partition)) {				// check if already checked this situation
-				if (palindromeTable.get(partition)) {
-					clone.add(partition); 
-					getPartitions(result, remaining.substring(i), clone, palindromeTable);
-				}
-			} else {
-				if (!isPalindrome(partition)) {
-					palindromeTable.put(partition, false);
-				} else {
-					palindromeTable.put(partition, true);
-					clone.add(partition);
-					getPartitions(result, remaining.substring(i), clone, palindromeTable);
-				}
-			}
-			
-		}
-		
-	}
+	// --------- TLE solution ---------
+	public List<List<String>> partition_tle(String s) {
+        List<List<String>> rst = new ArrayList<>();
+        rst.add(new ArrayList<String>());
+        for (int i = 1; i <= s.length(); i++) {
+            String sub = s.substring(0, i);
+            if (isPalin(sub)) {
+                for (List<String> list : partition(s.substring(i))) {
+                    List<String> curr = new ArrayList<>();
+                    curr.add(sub);
+                    curr.addAll(list);
+                    rst.add(curr);
+                }
+            }
+        }
+        return rst;
+    }
+    
+    public boolean isPalin(String s) {
+        int left = 0, right = s.length() - 1;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right))
+                return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
 }

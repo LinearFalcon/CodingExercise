@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 public class NonNullIterator<E> implements Iterator<E> {
 
-    private Iterator<E> iterator;
+    private Iterator<E> iterator;       // some element will be null
     private E next = null;	// next to store and determine if has next!
 
     public NonNullIterator(Iterator<E> iterator) {

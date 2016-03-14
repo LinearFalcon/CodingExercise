@@ -35,9 +35,4 @@ public class inorderTraversalIterator implements Iterator<Integer> {
 		}
 	}
 
-	@Override
-	public void remove() {
-		throw new UnsupportedOperationException("Not supported!");
-	}
-
 }

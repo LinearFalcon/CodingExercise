@@ -1,4 +1,5 @@
 package edu.nyu.liangfang.leetcode;
+
 import java.util.LinkedList;
 
 /*
@@ -14,10 +15,10 @@ Have you considered these scenarios?
 */
 
 public class strStr {
-	// Mine
-	public int strStr_simple(String haystack, String needle) {
+    // Mine
+    public int strStr_simple(String haystack, String needle) {
         int len = needle.length();
-        if (len == 0) return 0;									// MUST have needle.length() == 0 check !!
+        if (len == 0) return 0;                                    // MUST have needle.length() == 0 check !!
         for (int i = 0; i <= haystack.length() - len; i++) {
             if (haystack.charAt(i) == needle.charAt(0) && haystack.substring(i, i + len).equals(needle))
                 return i;
@@ -25,8 +26,8 @@ public class strStr {
         return -1;
     }
 
-	// Best clean solution
-	public int strStr_clean(String haystack, String needle) {
+    // Best clean solution
+    public int strStr_clean(String haystack, String needle) {
         for (int i = 0; ; i++) {
             for (int j = 0; ; j++) {
                 if (j == needle.length()) return i;
@@ -35,13 +36,13 @@ public class strStr {
             }
         }
     }
-	
-	// O(1) space solution
-	public int strStr(String haystack, String needle) {
-		if (needle.length() == 0) {
+
+    // O(1) space solution
+    public int strStr(String haystack, String needle) {
+        if (needle.length() == 0) {
             return 0;
         }
-        
+
         for (int i = 0; i <= haystack.length() - needle.length(); i++) {
             if (needle.charAt(0) == haystack.charAt(i)) {
                 boolean found = true;
@@ -51,7 +52,7 @@ public class strStr {
                         break;
                     }
                 }
-                
+
                 if (found) {
                     return i;
                 }

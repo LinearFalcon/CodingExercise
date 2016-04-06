@@ -4,7 +4,7 @@ public class maximumProductOfWordLengths {
     // TLE, O(n^2 * L), L is average length of word
     public int maxProduct(String[] words) {
         if (words.length <= 1) return 0;
-        
+
         Set<Character> set = new HashSet<>();
         int maxProd = 0;
         for (int i = 0; i < words.length - 1; i++) {

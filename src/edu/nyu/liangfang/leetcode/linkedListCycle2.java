@@ -10,7 +10,7 @@ public class linkedListCycle2 {
                 break;
             }
         }
-        
+
         if (!meet) return null;
         slow = head;
         while (slow != fast) {

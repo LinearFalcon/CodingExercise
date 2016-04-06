@@ -1,8 +1,8 @@
 package edu.nyu.liangfang.leetcode;
 
 public class MergeSortedArray {
-	public void merge(int nums1[], int m, int num2[], int n) {
-		int p = m - 1, q = n - 1;
+    public void merge(int nums1[], int m, int num2[], int n) {
+        int p = m - 1, q = n - 1;
         int pointer = m + n - 1;
         while (pointer >= 0) {
             if (p < 0) nums1[pointer] = nums2[q--];

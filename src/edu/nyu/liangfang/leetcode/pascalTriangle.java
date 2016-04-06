@@ -4,12 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class pascalTriangle {
-	public List<List<Integer>> generate(int numRows) {
+    public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> result = new LinkedList<List<Integer>>();
         if (numRows < 1) {
             return result;
         }
-        
+
         for (int i = 0; i < numRows; i++) {
             List<Integer> list = new LinkedList<Integer>();
             if (i == 0) {
@@ -25,7 +25,7 @@ public class pascalTriangle {
                 result.add(list);
             }
         }
-        
+
         return result;
     }
 }

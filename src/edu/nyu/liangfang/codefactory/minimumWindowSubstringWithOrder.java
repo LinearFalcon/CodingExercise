@@ -11,50 +11,49 @@ import java.util.Set;
 // 只要不是都是一样的字符，start直接等于当前 i + 1
 // Attention: 如果pattern里面没有duplicate，每次shrink完就只用把start置为 i + 1；当前程序还考虑pattern有重复char   有bug！！！！
 public class minimumWindowSubstringWithOrder {
-	public int minWindow(String s, String p) {
-		if (s.length() == 0) return 0;
-		
-		Set<Character> set = new HashSet<Character>();
-		for (int i = 0; i < p.length(); i++) {
-			set.add(p.charAt(i));
-		}
-		boolean allSame = set.size() == 1;
-		
-		int minLen = Integer.MAX_VALUE;
-		int start = 0;
-		int foundNum = 0;
-		for (int i = 0; i < s.length(); i++) {
-			if (s.charAt(i) == p.charAt(foundNum)) {
-				foundNum++;
-				if (foundNum == p.length()) {
-					while (s.charAt(start) != p.charAt(0)) {
-						start++;
-					}
-		
-					minLen = Math.min(minLen, i - start + 1);
-					
-					if (!allSame) {
-						start = i + 1;
-						foundNum = 0;
-					} else {
-						start++;
-						while (s.charAt(start) != p.charAt(0)) {
-							start++;
-						}
-						foundNum--;
-					}
-				}
-			}
-		}
-		return minLen;
-	}
-	
-	
-	
-	// test
-	public static void main(String[] args) {
-		minimumWindowSubstringWithOrder o = new minimumWindowSubstringWithOrder();
+    public int minWindow(String s, String p) {
+        if (s.length() == 0) return 0;
+
+        Set<Character> set = new HashSet<Character>();
+        for (int i = 0; i < p.length(); i++) {
+            set.add(p.charAt(i));
+        }
+        boolean allSame = set.size() == 1;
+
+        int minLen = Integer.MAX_VALUE;
+        int start = 0;
+        int foundNum = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == p.charAt(foundNum)) {
+                foundNum++;
+                if (foundNum == p.length()) {
+                    while (s.charAt(start) != p.charAt(0)) {
+                        start++;
+                    }
+
+                    minLen = Math.min(minLen, i - start + 1);
+
+                    if (!allSame) {
+                        start = i + 1;
+                        foundNum = 0;
+                    } else {
+                        start++;
+                        while (s.charAt(start) != p.charAt(0)) {
+                            start++;
+                        }
+                        foundNum--;
+                    }
+                }
+            }
+        }
+        return minLen;
+    }
+
+
+    // test
+    public static void main(String[] args) {
+        minimumWindowSubstringWithOrder o = new minimumWindowSubstringWithOrder();
 //		System.out.println(o.minWindow("UAXXBAUB", "AB"));
-		System.out.println(o.minWindow("UAXSSXSXAAUB", "XXA"));				// 有bug!!!
-	}
+        System.out.println(o.minWindow("UAXSSXSXAAUB", "XXA"));                // 有bug!!!
+    }
 }

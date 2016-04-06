@@ -2,6 +2,7 @@
 class MyStack_1 {
     Queue<Integer> q = new LinkedList<Integer>();
     int top;
+
     // Push element x onto stack.
     public void push(int x) {
         q.add(x);
@@ -31,6 +32,7 @@ class MyStack_1 {
 // Push is O(n), Pop is O(1)
 class MyStack_2 {
     Queue<Integer> q = new LinkedList<Integer>();
+
     // Push element x onto stack.
     public void push(int x) {
         q.add(x);

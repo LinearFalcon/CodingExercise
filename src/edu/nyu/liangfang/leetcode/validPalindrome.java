@@ -8,7 +8,7 @@ public class validPalindrome {
             if (Character.isLetterOrDigit(s.charAt(i)))
                 sb.append(s.charAt(i));
         }
-        
+
         String str = sb.toString().toLowerCase();
         int i = 0, j = str.length() - 1;
         while (i < j) {
@@ -20,19 +20,19 @@ public class validPalindrome {
     }
 
     // v2
-	public boolean isPalindrome_v2(String s) {
+    public boolean isPalindrome_v2(String s) {
         if (s.length() == 0) return true;
-        
+
         int low = 0, high = s.length() - 1;
         while (low < high) {
             while (!Character.isLetterOrDigit(s.charAt(low)) && low < high) {
                 low++;
             }
-            
+
             while (!Character.isLetterOrDigit(s.charAt(high)) && low < high) {
                 high--;
             }
-            
+
             if (Character.toLowerCase(s.charAt(low)) != Character.toLowerCase(s.charAt(high))) {
                 return false;
             }
@@ -41,5 +41,5 @@ public class validPalindrome {
         }
         return true;
     }
-	
+
 }

@@ -1,4 +1,5 @@
 package edu.nyu.liangfang.codefactory;
+
 import java.util.concurrent.Semaphore;
 
 /*
@@ -21,53 +22,53 @@ volatile cause busy waiting, but how to avoid busy waiting?
 
 // No busy waiting version - Semaphore
 public class multithreadPrint {
-	private Semaphore sem1 = new Semaphore(1);
-	private Semaphore sem2 = new Semaphore(0);
-	
-	public void functionFoo() throws InterruptedException {
-		while(true){   
-			sem1.acquire();
-			System.out.print("Foo");
-			sem2.release();
-		}
-	}
+    private Semaphore sem1 = new Semaphore(1);
+    private Semaphore sem2 = new Semaphore(0);
+
+    public void functionFoo() throws InterruptedException {
+        while (true) {
+            sem1.acquire();
+            System.out.print("Foo");
+            sem2.release();
+        }
+    }
 
 
-	public void functionBar() throws InterruptedException {
-		while(true) {
-			sem2.acquire();
-			System.out.println("Bar");
-			sem1.release();
-		}
-	}
-	
-	
-	public static void main(String[] args) {
-		final multithreadPrint obj = new multithreadPrint();
-		
-		Thread t1 = new Thread(new Runnable() {
-			public void run() {
-				try {
-					obj.functionFoo();
-				} catch (InterruptedException e) {
-					
-				}
-			}
-		});
-		
-		Thread t2 = new Thread(new Runnable() {
-			public void run() {
-				try {
-					obj.functionBar();
-				} catch (InterruptedException e) {
-					
-				}
-			}
-		});
-		
-		t1.start();
-		t2.start();
-	}
+    public void functionBar() throws InterruptedException {
+        while (true) {
+            sem2.acquire();
+            System.out.println("Bar");
+            sem1.release();
+        }
+    }
+
+
+    public static void main(String[] args) {
+        final multithreadPrint obj = new multithreadPrint();
+
+        Thread t1 = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    obj.functionFoo();
+                } catch (InterruptedException e) {
+
+                }
+            }
+        });
+
+        Thread t2 = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    obj.functionBar();
+                } catch (InterruptedException e) {
+
+                }
+            }
+        });
+
+        t1.start();
+        t2.start();
+    }
 }
 
 

@@ -1,8 +1,8 @@
 package edu.nyu.liangfang.leetcode;
 
 public class validNumber {
-	
-	public boolean isNumber(String s) {
+
+    public boolean isNumber(String s) {
         String str = s.trim();
         if (str.isEmpty()) {    // trim leading and tailing whitespace
             return false;
@@ -10,7 +10,7 @@ public class validNumber {
         if (str.charAt(0) == '+' || str.charAt(0) == '-') {  // ignore leading sign bit 
             str = str.substring(1);
         }
-        
+
         // find position of dot and e
         int dot = -1;
         int ee = -1;
@@ -19,7 +19,7 @@ public class validNumber {
                 dot = i;
             } else if (ee == -1 && str.charAt(i) == 'e') {
                 ee = i;
-                if (i + 1 < str.length() && (str.charAt(i + 1) == '+' || str.charAt(i + 1) == '-')) {	// ignore possible sign bit after 'e'
+                if (i + 1 < str.length() && (str.charAt(i + 1) == '+' || str.charAt(i + 1) == '-')) {    // ignore possible sign bit after 'e'
                     i++;
                 }
             } else {
@@ -30,7 +30,7 @@ public class validNumber {
                 }
             }
         }
-        
+
         //xxx.xxexx
         String startStr, midStr, lastStr;
         if (dot == -1 && ee == -1) {    //xxx

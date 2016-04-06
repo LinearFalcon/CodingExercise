@@ -7,28 +7,28 @@ import java.util.Random;
  比如[2,1,2,1,5,4,5,5]必须返回[4,6,7]中的随机的一个数字，要求O(1)space。
  */
 public class randomMaximum {
-	public int randomMax(int[] arr) {
-		if (arr.length == 0) return -1;
-		
-		int count = 0;
-		int ret = 0;
-		int max = Integer.MIN_VALUE;
-		for (int i = 0; i < arr.length; i++) {
-			if (arr[i] > max) {
-				max = arr[i];
-				count = 1;
-				ret = i;
-			} else if (arr[i] == max) {
-				count++;
-				Random rd = new Random();
-				if (rd.nextInt(count) == count - 1) {
-					ret = i;
-				}
-			}
-		}
-		return ret;
-	}
-	
+    public int randomMax(int[] arr) {
+        if (arr.length == 0) return -1;
+
+        int count = 0;
+        int ret = 0;
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+                count = 1;
+                ret = i;
+            } else if (arr[i] == max) {
+                count++;
+                Random rd = new Random();
+                if (rd.nextInt(count) == count - 1) {
+                    ret = i;
+                }
+            }
+        }
+        return ret;
+    }
+
 	/*
 	 * Reservoir Sampling
 	 * 根据题目所给例子，碰到第一个5，返回index 4的概率是1，

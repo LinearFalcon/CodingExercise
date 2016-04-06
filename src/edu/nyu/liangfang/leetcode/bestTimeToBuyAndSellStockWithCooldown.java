@@ -12,14 +12,14 @@ public class bestTimeToBuyAndSellStockWithCooldown {
     */
     public int maxProfit(int[] prices) {
         if (prices.length == 0) return 0;
-        
+
         int[] hold = new int[prices.length];
         int[] cooldown = new int[prices.length];
         int[] empty = new int[prices.length];
         hold[0] = -prices[0];
         cooldown[0] = 0;
         empty[0] = 0;
-        
+
         for (int i = 1; i < prices.length; i++) {
             hold[i] = Math.max(hold[i - 1], empty[i - 1] - prices[i]);
             cooldown[i] = hold[i - 1] + prices[i];

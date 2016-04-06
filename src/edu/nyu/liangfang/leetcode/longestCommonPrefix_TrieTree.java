@@ -4,16 +4,18 @@ class TrieNode {
     char c;
     TrieNode[] links;
     boolean fullWord;
+
     public TrieNode(char c) {
         this.c = c;
         this.links = new TrieNode[26];
         this.fullWord = false;
     }
 }
+
 // Assume all lowercase
 class TrieTree {
     TrieNode root = new TrieNode('\0');
-    
+
     public void insert(String word) {
         TrieNode curr = root;
         for (int i = 0; i < word.length(); i++) {
@@ -26,13 +28,13 @@ class TrieTree {
         }
         curr.fullWord = true;
     }
-    
+
     public String prefix() {
         TrieNode curr = root;
-        if (curr.fullWord) {		// if there is a word is emtpy word, then fullWord of root will be set to true,
-            return "";				// so we just need to return ""
+        if (curr.fullWord) {        // if there is a word is emtpy word, then fullWord of root will be set to true,
+            return "";                // so we just need to return ""
         }
-        
+
         StringBuilder sb = new StringBuilder();
         while (true) {
             int count = 0;

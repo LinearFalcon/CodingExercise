@@ -3,9 +3,9 @@ package edu.nyu.liangfang.leetcode;
 import java.util.Arrays;
 
 public class threeSumCloset {
-	public int threeSumClosest(int[] num, int target) {
+    public int threeSumClosest(int[] num, int target) {
         Arrays.sort(num);
-        
+
         int minDist = Integer.MAX_VALUE;
         int closetSum = 0;
         for (int i = 0; i < num.length - 2; i++) {
@@ -23,7 +23,7 @@ public class threeSumCloset {
                 } else {
                     return target;
                 }
-                
+
                 if (Math.abs(sum - target) < minDist) {
                     minDist = Math.abs(sum - target);
                     closetSum = sum;

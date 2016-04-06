@@ -8,8 +8,8 @@ public class bestTimeToBuyAndSellStock2 {
      二，在1买入，2卖出同时买入，3卖出同时买入，4卖出；
      这两种操作下，收益是一样的。
      */
-	// 只计算上升子序列差值
-	public int maxProfit(int[] prices) {
+    // 只计算上升子序列差值
+    public int maxProfit(int[] prices) {
         int profit = 0;
         for (int i = 0; i < prices.length; i++) {
             if (i > 0 && prices[i] > prices[i - 1])

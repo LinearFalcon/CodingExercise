@@ -7,7 +7,7 @@ public class longestIncreasingSubsequence {
         int res = 1;
         for (int i = 0; i < nums.length; i++) {
             for (int j = 0; j < i; j++) {
-                if (nums[j] < nums[i]) 
+                if (nums[j] < nums[i])
                     lisEndAt[i] = Math.max(lisEndAt[i], 1 + lisEndAt[j]);
             }
             res = Math.max(res, lisEndAt[i]);

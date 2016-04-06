@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class romanToInteger {
-	public int romanToInt(String s) {
-		Map<Character, Integer> map = new HashMap<Character, Integer>();
+    public int romanToInt(String s) {
+        Map<Character, Integer> map = new HashMap<Character, Integer>();
         map.put('I', 1);
         map.put('V', 5);
         map.put('X', 10);
@@ -13,7 +13,7 @@ public class romanToInteger {
         map.put('C', 100);
         map.put('D', 500);
         map.put('M', 1000);
-        
+
         int curr = 0;
         int pre = Integer.MAX_VALUE;
         int rst = 0;

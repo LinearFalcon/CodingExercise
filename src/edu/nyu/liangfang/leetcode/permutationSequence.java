@@ -10,13 +10,13 @@ public class permutationSequence {
         StringBuilder sb = new StringBuilder();
 
         List<Integer> digits = new ArrayList<>();
-        for (int i = 1; i <=n; i++) 
+        for (int i = 1; i <= n; i++)
             digits.add(i);
-        
+
         int fac = 1;
-        for (int i = 1; i <= n; i++) 
+        for (int i = 1; i <= n; i++)
             fac *= i;
-        
+
         for (int i = n; i > 0; i--) {
             fac /= i;
             int index = (k - 1) / fac;
@@ -27,20 +27,20 @@ public class permutationSequence {
         return sb.toString();
     }
 
-	// O(n) solution
-	public String getPermutation_quick(int n, int k) {
+    // O(n) solution
+    public String getPermutation_quick(int n, int k) {
         List<Integer> num = new ArrayList<Integer>();
         // fill num with 1 to n in order
         for (int i = 1; i <= n; i++) {
             num.add(i);
         }
-        
+
         // compute n factorial
         int mod = 1;
         for (int i = 1; i <= n; i++) {
             mod = mod * i;
         }
-        
+
         // change k to index
         k--;
         String result = "";
@@ -56,8 +56,8 @@ public class permutationSequence {
         }
         return result;
     }
-	
-	// TLE solution 1
+
+    // TLE solution 1
     public String getPermutation_tle1(int n, int k) {
         boolean[] chosen = new boolean[n + 1];
         int[] count = {0};
@@ -65,7 +65,7 @@ public class permutationSequence {
         dfs(chosen, n, k, count, "", 0, target);
         return target[0];
     }
-    
+
     public void dfs(boolean[] chosen, int n, int k, int[] count, String curr, int level, String[] target) {
         if (count[0] > k) return;
         else if (level == n) {
@@ -73,7 +73,7 @@ public class permutationSequence {
             if (count[0] == k) target[0] = curr;
             return;
         }
-        
+
         for (int i = 1; i <= n; i++) {
             if (!chosen[i]) {
                 chosen[i] = true;
@@ -83,31 +83,31 @@ public class permutationSequence {
         }
     }
 
-	// TLE solution 2
-	public String getPermutation_tle2(int n, int k) {
+    // TLE solution 2
+    public String getPermutation_tle2(int n, int k) {
         List<String> perm = new ArrayList<String>();
         perm = getAllPerm(n);
         Collections.sort(perm);
         return perm.get(k - 1);
     }
-    
+
     public List<String> getAllPerm(int n) {
-        
+
         if (n == 1) {
-        	List<String> perm = new ArrayList<String>();
+            List<String> perm = new ArrayList<String>();
             perm.add("1");
             return perm;
         }
-        
+
         List<String> perm = new ArrayList<String>();
         for (String str : getAllPerm(n - 1)) {
             for (int i = 0; i <= str.length(); i++) {
-            	StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new StringBuilder();
                 String left = str.substring(0, i);
                 String right = str.substring(i);
                 sb.append(left).append(String.valueOf(n)).append(right);
                 perm.add(sb.toString());
-                
+
             }
         }
         return perm;

@@ -1,7 +1,6 @@
 public class reconstructIntinerary {
 
 
-
     // TLE solution1 - brutal force scan
     public List<String> findItinerary(String[][] tickets) {
         String[] res = {""};
@@ -12,7 +11,7 @@ public class reconstructIntinerary {
         }
         return result;
     }
-    
+
     private void find(String[][] tickets, String curr, String[] res) {
         String dep = curr.substring(curr.length() - 3, curr.length());
         boolean isDest = true;
@@ -24,7 +23,7 @@ public class reconstructIntinerary {
                 tickets[i][0] = dep;
             }
         }
-        
+
         if ((isDest && curr.compareTo(res[0]) < 0) || res[0].length() == 0) {
             res[0] = curr;
         }
@@ -38,7 +37,7 @@ public class reconstructIntinerary {
             if (!map.containsKey(tickets[i][0])) map.put(tickets[i][0], new ArrayList<String>());
             map.get(tickets[i][0]).add(tickets[i][1]);
         }
-        
+
         String[] res = {""};
         find2(map, "JFK", res);
         List<String> result = new ArrayList<>();
@@ -47,12 +46,12 @@ public class reconstructIntinerary {
         }
         return result;
     }
-    
+
     private void find2(Map<String, List<String>> map, String curr, String[] res) {
         String dep = curr.substring(curr.length() - 3, curr.length());
         if (map.containsKey(dep) && map.get(dep).size() != 0) {
             List<String> list = map.get(dep);
-            for (int i = 0; i < list.size(); i++) {           
+            for (int i = 0; i < list.size(); i++) {
                 List<String> clone = new ArrayList<>(list);
                 String next = clone.get(i);
                 clone.remove(i);

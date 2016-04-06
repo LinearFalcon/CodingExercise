@@ -2,8 +2,8 @@ package edu.nyu.liangfang.leetcode;
 
 public class twoSum {
     // O(n) time O(n) space
-	public int[] twoSum(int[] numbers, int target) {				
-		Map<Integer, Integer> map = new HashMap<>();
+    public int[] twoSum(int[] numbers, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
         int[] res = new int[2];
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(nums[i])) {
@@ -15,6 +15,6 @@ public class twoSum {
         }
         return res;
     }
-	
+
 
 }

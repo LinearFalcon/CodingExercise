@@ -8,7 +8,7 @@ public class wordSearch {
         } else if (board == null || board.length == 0) {
             return false;
         }
-        
+
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if (check(board, i, j, word)) {
@@ -18,7 +18,7 @@ public class wordSearch {
         }
         return false;
     }
-    
+
     public boolean check(char[][] board, int row, int col, String word) {
         if (word.length() == 0) {
             return true;
@@ -27,7 +27,7 @@ public class wordSearch {
         } else if (board[row][col] != word.charAt(0)) {
             return false;
         }
-        
+
         board[row][col] = '\0';
         String s = word.substring(1);
         if (check(board, row - 1, col, s)) {
@@ -43,12 +43,12 @@ public class wordSearch {
         return false;
     }
 
-	// O(1) space method
-	public boolean exist2(char[][] board, String word) {
+    // O(1) space method
+    public boolean exist2(char[][] board, String word) {
         if (board.length == 0) {
             return false;
         }
-        
+
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if (board[i][j] == word.charAt(0)) {
@@ -60,21 +60,21 @@ public class wordSearch {
         }
         return false;
     }
-    
-    public boolean check2(char[][] board, int row, int col, 
-            String word, int index) {
-        if (index == word.length()) {		// The order of these three if statement is important,
-            return true;					// must first check if match first, then check if row or col exceed boundary
-        }									// then check if character matches
+
+    public boolean check2(char[][] board, int row, int col,
+                          String word, int index) {
+        if (index == word.length()) {        // The order of these three if statement is important,
+            return true;                    // must first check if match first, then check if row or col exceed boundary
+        }                                    // then check if character matches
         if (row < 0 || row >= board.length || col < 0 || col >= board[0].length) {
             return false;
         }
         if (board[row][col] != word.charAt(index)) {
             return false;
         }
-        
+
         char tmp = board[row][col];
-        board[row][col] = '\0';			// assume word would not contain such character, this is used to avoid matching same cell more than once
+        board[row][col] = '\0';            // assume word would not contain such character, this is used to avoid matching same cell more than once
         if (check(board, row + 1, col, word, index + 1)) {
             return true;
         }
@@ -88,13 +88,13 @@ public class wordSearch {
             return true;
         }
         board[row][col] = tmp;
-        
+
         return false;
     }
-	
-    
-	// ------------------------- visited matrix method, O(m*n) space -------------------------
-	public boolean exist_visited(char[][] board, String word) {
+
+
+    // ------------------------- visited matrix method, O(m*n) space -------------------------
+    public boolean exist_visited(char[][] board, String word) {
         int rowLen = board.length;
         int colLen = board[0].length;
         if (rowLen == 0 || colLen == 0 || word.length() == 0)
@@ -109,11 +109,11 @@ public class wordSearch {
         }
         return false;
     }
-    
+
     private boolean check(char[][] board, String word, int wordIndex, int row, int col, boolean[][] visited) {
         int rowLen = board.length;
         int colLen = board[0].length;
-        
+
         if (row < 0 || row >= rowLen || col < 0 || col >= colLen) {
             return false;
         } else if (visited[row][col]) {
@@ -123,7 +123,7 @@ public class wordSearch {
         } else if (wordIndex == word.length() - 1) {
             return true;
         }
-        
+
         visited[row][col] = true;
         if (check(board, word, wordIndex + 1, row - 1, col, visited))
             return true;
@@ -133,7 +133,7 @@ public class wordSearch {
             return true;
         if (check(board, word, wordIndex + 1, row, col + 1, visited))
             return true;
-        visited[row][col] = false;	// Must roll back to previous state
+        visited[row][col] = false;    // Must roll back to previous state
         return false;
     }
 }

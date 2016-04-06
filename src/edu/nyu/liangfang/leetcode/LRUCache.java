@@ -1,12 +1,13 @@
 package edu.nyu.liangfang.leetcode;
 
 import java.util.HashMap;
- 
+
 class Node {
     int key;
     int val;
     Node next;
     Node prev;
+
     Node(int key, int val) {
         this.key = key;
         this.val = val;
@@ -16,16 +17,16 @@ class Node {
 //If use linkedlist to store access order, it takes O(n) time to update 
 //when access one node, so we must declare a double linked list
 public class LRUCache {
-    private HashMap<Integer, Node> map;		// use map to implement O(1) get
+    private HashMap<Integer, Node> map;        // use map to implement O(1) get
     private int capacity;
-    private Node tail;	// use tail to achieve O(1) update when access one node
+    private Node tail;    // use tail to achieve O(1) update when access one node
     private Node head;
-    
+
     public LRUCache(int capacity) {
         this.capacity = capacity;
         map = new HashMap<Integer, Node>();
     }
-    
+
     public int get(int key) {
         if (map.containsKey(key)) {
             Node node = map.get(key);
@@ -35,7 +36,7 @@ public class LRUCache {
             return -1;
         }
     }
-    
+
     public void set(int key, int value) {
         if (map.containsKey(key)) {
             Node node = map.get(key);
@@ -62,16 +63,16 @@ public class LRUCache {
             }
         }
     }
-    
+
     // move node to the tail of the list
     public void moveToTail(Node node) {
-        if (node != tail) {			// if node is tail, don't need to update
+        if (node != tail) {            // if node is tail, don't need to update
             node.next.prev = node.prev;
 
-            if (node.prev != null) {	// if current head is node
+            if (node.prev != null) {    // if current head is node
                 node.prev.next = node.next;
-            } 
-            
+            }
+
             if (node.prev == null) { // if current head is node
                 head = head.next;
             }

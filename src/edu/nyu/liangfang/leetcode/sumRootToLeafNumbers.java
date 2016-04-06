@@ -10,10 +10,10 @@ public class sumRootToLeafNumbers {
         dfs(root, sum, 0);
         return sum[0];
     }
-    
+
     private void dfs(TreeNode node, int[] sum, int curr) {
         if (node == null) return;
-        
+
         curr += node.val;
         if (node.left == null && node.right == null) {
             sum[0] += curr;
@@ -23,18 +23,18 @@ public class sumRootToLeafNumbers {
         dfs(node.right, sum, curr * 10);
     }
 
-	// version 2
-	public int sumNumbers_2(TreeNode root) {
+    // version 2
+    public int sumNumbers_2(TreeNode root) {
         return dfs_2(root, 0);
     }
 
-    private int dfs_2(TreeNode root, int prev){
-        if(root == null) {
+    private int dfs_2(TreeNode root, int prev) {
+        if (root == null) {
             return 0;
         }
 
         int sum = root.val + prev * 10;
-        if(root.left == null && root.right == null) {
+        if (root.left == null && root.right == null) {
             return sum;
         }
 

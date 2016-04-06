@@ -3,9 +3,11 @@ class TrieNode {
     public char ch;
     public TrieNode[] map = new TrieNode[26];       // faster than using HashMap
     boolean hasWord = false;
+
     public TrieNode() {
         ch = '\0';
     }
+
     public TrieNode(char c) {
         ch = c;
     }
@@ -23,7 +25,7 @@ public class Trie {
         TrieNode node = root;
         for (int i = 0; i < word.length(); i++) {
             char ch = word.charAt(i);
-            if  (node.map[ch - 'a'] == null) 
+            if (node.map[ch - 'a'] == null)
                 node.map[ch - 'a'] = new TrieNode(ch);
             node = node.map[ch - 'a'];
         }

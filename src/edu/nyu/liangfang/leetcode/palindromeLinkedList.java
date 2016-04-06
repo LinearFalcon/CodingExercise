@@ -10,7 +10,7 @@ public class palindromeLinkedList {
         }
         if (right != null) left = left.next;
         if (halfLen == 0) return true;          // Always remember check edge case: no nodes or 1 nodes
-        
+
         ListNode pre = left, curr = left.next;
         while (curr != null) {
             ListNode tmp = curr;

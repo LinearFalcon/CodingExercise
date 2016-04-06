@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class spiralMatrix {
-	public List<Integer> spiralOrder(int[][] matrix) {
+    public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> result = new ArrayList<Integer>();
         if (matrix.length == 0) {
             return result;
         }
-        
+
         // current row and column number
         int row = matrix.length;
         int col = matrix[0].length;
-        
+
         int x = 0;
         int y = 0;
         while (row > 0 && col > 0) {
@@ -29,7 +29,7 @@ public class spiralMatrix {
                 }
                 break;
             }
-            
+
             // top 
             for (int i = 0; i < col - 1; i++) {
                 result.add(matrix[x][y++]);
@@ -46,7 +46,7 @@ public class spiralMatrix {
             for (int i = 0; i < row - 1; i++) {
                 result.add(matrix[x--][y]);
             }
-            
+
             x++;
             y++;
             row -= 2;

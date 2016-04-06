@@ -9,7 +9,7 @@ public class countAndSay {
             int count = 1;
             char pre = str.charAt(0);
             for (int j = 1; j < str.length(); j++) {
-                if (str.charAt(j) == str.charAt(j - 1)) 
+                if (str.charAt(j) == str.charAt(j - 1))
                     count++;
                 else {
                     tmp.append(count).append(pre);
@@ -24,15 +24,15 @@ public class countAndSay {
     }
 
     // past
-	public String countAndSay2(int n) {
-		int count = 1;
+    public String countAndSay2(int n) {
+        int count = 1;
         String str = "1";
-        
+
         while (count < n) {
             int num = 0;
             char prev = '\0';
-            StringBuilder newStr = new StringBuilder();		// when multiple concatenation of string,
-            for (int i = 0; i < str.length(); i++) {		// remember to use StringBuilder
+            StringBuilder newStr = new StringBuilder();        // when multiple concatenation of string,
+            for (int i = 0; i < str.length(); i++) {        // remember to use StringBuilder
                 if (i == 0) {
                     num = 1;
                     prev = str.charAt(i);
@@ -46,9 +46,9 @@ public class countAndSay {
             }
             newStr.append(String.valueOf(num)).append(prev);
             str = newStr.toString();
-            
+
             count++;
         }
-        return str;    
+        return str;
     }
 }

@@ -1,7 +1,7 @@
 class implementQueueUsingStacks {
     Stack<Integer> inSt = new Stack<Integer>();
     Stack<Integer> outSt = new Stack<Integer>();
-    
+
     // Push element x to the back of queue.
     public void push(int x) {
         inSt.push(x);

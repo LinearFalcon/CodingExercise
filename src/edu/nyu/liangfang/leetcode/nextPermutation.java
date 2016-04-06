@@ -3,8 +3,8 @@ package edu.nyu.liangfang.leetcode;
 import java.util.Arrays;
 
 public class nextPermutation {
-	// O(n) method, since the remaining subarray to right of index 'left' would be already in decreasing order
-	public void nextPermutation(int[] num) {
+    // O(n) method, since the remaining subarray to right of index 'left' would be already in decreasing order
+    public void nextPermutation(int[] num) {
         if (num.length == 0) {
             return;
         }
@@ -16,7 +16,7 @@ public class nextPermutation {
                 break;
             }
         }
-        
+
         if (left == -1) {
             reverse(num, 0, num.length - 1);
         } else {
@@ -26,14 +26,14 @@ public class nextPermutation {
                     break;
                 }
             }
-            
+
             int tmp = num[left];
             num[left] = num[right];
             num[right] = tmp;
             reverse(num, left + 1, num.length - 1);
         }
     }
-    
+
     public void reverse(int[] num, int beg, int end) {
         while (beg < end) {
             int tmp = num[beg];
@@ -43,13 +43,13 @@ public class nextPermutation {
             end--;
         }
     }
-	
-	// Time: O(nlgn) because of Array.sort() takes O(nlgn)
-	public void nextPermutation_simple(int[] num) {
-		if (num.length == 0) {
+
+    // Time: O(nlgn) because of Array.sort() takes O(nlgn)
+    public void nextPermutation_simple(int[] num) {
+        if (num.length == 0) {
             return;
         }
-        
+
         int left = -1;
         int right = -1;
         for (int i = num.length - 2; i >= 0; i--) {
@@ -58,7 +58,7 @@ public class nextPermutation {
                 break;
             }
         }
-        
+
         if (left == -1) {
             Arrays.sort(num);
         } else {
@@ -68,7 +68,7 @@ public class nextPermutation {
                     break;
                 }
             }
-            
+
             int tmp = num[left];
             num[left] = num[right];
             num[right] = tmp;

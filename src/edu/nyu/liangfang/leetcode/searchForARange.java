@@ -5,7 +5,7 @@ public class searchForARange {
     public int[] searchRange_boundary(int[] nums, int target) {
         int[] res = {-1, -1};
         if (nums.length == 0) return res;
-        
+
         int low = 0, high = nums.length - 1;
         while (low <= high) {
             int pos = (low + high) / 2;
@@ -16,7 +16,7 @@ public class searchForARange {
             }
         }
         int start = low;
-        
+
         low = 0;
         high = nums.length - 1;
         while (low <= high) {
@@ -28,7 +28,7 @@ public class searchForARange {
             }
         }
         int end = high;
-        
+
         if (start <= end) {     // Have to check first, because we might not find target in nums!
             res[0] = start;
             res[1] = end;
@@ -36,13 +36,13 @@ public class searchForARange {
         return res;
     }
 
-	// O(lgn) method - too long
-	public int[] searchRange(int[] A, int target) {
+    // O(lgn) method - too long
+    public int[] searchRange(int[] A, int target) {
         int[] res = {-1, -1};
         if (A == null || A.length == 0) {
             return res;
         }
-        
+
         int low = 0;
         int high = A.length - 1;
         int pos = 0;
@@ -64,9 +64,9 @@ public class searchForARange {
         if (res[0] == -1) {
             return res;
         }
-        
+
         // find the right boundary
-        low = pos; 
+        low = pos;
         high = A.length - 1;
         while (low <= high) {       // to finally put high at right boundary, we need equals condition
             int mid2 = (low + high) / 2;
@@ -77,7 +77,7 @@ public class searchForARange {
             }
         }
         res[1] = high;
-        
+
         // find the left boundary, same as right
         low = 0;
         high = pos;
@@ -90,23 +90,23 @@ public class searchForARange {
             }
         }
         res[0] = low;
-        
+
         return res;
     }
-	
-	
-	// Actually it costs O(n) time because of a linear search after we find one target
-	public int[] searchRange_On(int[] A, int target) {
+
+
+    // Actually it costs O(n) time because of a linear search after we find one target
+    public int[] searchRange_On(int[] A, int target) {
         int[] result = {-1, -1};
         compute(A, 0, A.length - 1, target, result);
         return result;
     }
-    
+
     private void compute(int[] A, int start, int end, int target, int[] result) {
         if (start > end) {
             return;
         }
-        
+
         int mid = (start + end) / 2;
         if (A[mid] < target) {
             compute(A, mid + 1, end, target, result);
@@ -129,7 +129,7 @@ public class searchForARange {
             }
             result[0] = i + 1;
             result[1] = j - 1;
-            
+
             return;
         }
     }

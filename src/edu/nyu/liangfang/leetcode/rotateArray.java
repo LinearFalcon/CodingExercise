@@ -1,7 +1,7 @@
 public class rotateArray {
     public void rotate_v1(int[] nums, int k) {
         if (nums.length == 0) return;
-        
+
         int n = k % nums.length;
         int[] store = new int[n];
         for (int i = 0; i < n; i++) {
@@ -15,5 +15,5 @@ public class rotateArray {
         }
     }
 
-    
+
 }

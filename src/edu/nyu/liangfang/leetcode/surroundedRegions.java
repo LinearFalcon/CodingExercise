@@ -5,12 +5,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class surroundedRegions {
-	// my compact version - Leetcode OJ sucks, stack over flow due to DFS
-	public void solve(char[][] board) {
+    // my compact version - Leetcode OJ sucks, stack over flow due to DFS
+    public void solve(char[][] board) {
         if (board.length == 0) return;
         int m = board.length;
         int n = board[0].length;
-        
+
         for (int i = 0; i < m; i++) {
             dfs(board, i, 0);
             dfs(board, i, n - 1);
@@ -19,7 +19,7 @@ public class surroundedRegions {
             dfs(board, 0, j);
             dfs(board, m - 1, j);
         }
-        
+
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (board[i][j] == 'O')
@@ -29,8 +29,8 @@ public class surroundedRegions {
             }
         }
     }
-    
-	// dfs - cause stack overflow
+
+    // dfs - cause stack overflow
     public void dfs(char[][] board, int row, int col) {
         if (board[row][col] == 'O') {
             board[row][col] = '#';
@@ -48,11 +48,10 @@ public class surroundedRegions {
             }
         }
     }
-	
-	
-	
-	/* AC version - look ahead one step */
-	public void solve2(char[][] board) {
+
+
+    /* AC version - look ahead one step */
+    public void solve2(char[][] board) {
         int row = board.length;
         if (row < 2) {
             return;
@@ -61,7 +60,7 @@ public class surroundedRegions {
         if (col < 2) {
             return;
         }
-        
+
         // search first column and last column
         for (int i = 0; i < row; i++) {
             if (board[i][0] == 'O') {
@@ -73,7 +72,7 @@ public class surroundedRegions {
                 dfs2(board, i, col - 1);
             }
         }
-        
+
         // search first and last row
         for (int j = 0; j < col; j++) {
             if (board[0][j] == 'O') {
@@ -85,7 +84,7 @@ public class surroundedRegions {
                 dfs2(board, row - 1, j);
             }
         }
-        
+
         // change all 'O' into 'X' and all '#' into 'O'
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
@@ -97,7 +96,7 @@ public class surroundedRegions {
             }
         }
     }
-    
+
     public void dfs2(char[][] board, int row, int col) {
         if (row > 1 && board[row - 1][col] == 'O') {
             board[row - 1][col] = '#';
@@ -116,48 +115,48 @@ public class surroundedRegions {
             dfs2(board, row, col + 1);
         }
     }
-	
-    
-	/* BFS:  time O(n^2)  space O(n^2) */
-	public void solve_BFS(char[][] board) {
-        if (board.length == 0) 
+
+
+    /* BFS:  time O(n^2)  space O(n^2) */
+    public void solve_BFS(char[][] board) {
+        if (board.length == 0)
             return;
-        
+
         boolean[][] visited = new boolean[board.length][board[0].length];
-        
+
         // for each unvisited 'O', BFS search all adjacent 'O' to see if these 'O's are surrounded
         // If so, set them to 'X' and mark all of them visited
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                if ((board[i][j] == 'O') && !visited[i][j]) {                	
+                if ((board[i][j] == 'O') && !visited[i][j]) {
                     check(board, i, j, visited);
                 }
             }
         }
     }
-    
+
     private void check(char[][] board, int i, int j, boolean[][] visited) {
         Queue<Integer> rowQ = new LinkedList<Integer>();
         Queue<Integer> colQ = new LinkedList<Integer>();
         ArrayList<Integer> rowList = new ArrayList<Integer>();
         ArrayList<Integer> colList = new ArrayList<Integer>();
-        
+
         visited[i][j] = true;
         rowList.add(i);
         colList.add(j);
-        
+
         rowQ.add(i);
         colQ.add(j);
         boolean hasPointOnEdge = false;
         while (!rowQ.isEmpty()) {
             int row = rowQ.poll();
             int col = colQ.poll();
-            
+
             // this 0 is on the edge of board
             if (row == 0 || row == board.length - 1 || col == 0 || col == board[0].length - 1) {
                 hasPointOnEdge = true;
             }
-            
+
             // add valid neighbors into queue, check four directions, cannot use 'else if' !!!!!!
             if (row != 0) {
                 if (!visited[row - 1][col] && board[row - 1][col] == 'O') {
@@ -167,7 +166,7 @@ public class surroundedRegions {
                     rowList.add(row - 1);
                     colList.add(col);
                 }
-            } 
+            }
             if (row != board.length - 1) {
                 if (!visited[row + 1][col] && board[row + 1][col] == 'O') {
                     rowQ.add(row + 1);
@@ -176,7 +175,7 @@ public class surroundedRegions {
                     rowList.add(row + 1);
                     colList.add(col);
                 }
-            } 
+            }
             if (col != 0) {
                 if (!visited[row][col - 1] && board[row][col - 1] == 'O') {
                     rowQ.add(row);
@@ -185,7 +184,7 @@ public class surroundedRegions {
                     rowList.add(row);
                     colList.add(col - 1);
                 }
-            } 
+            }
             if (col != board[0].length - 1) {
                 if (!visited[row][col + 1] && board[row][col + 1] == 'O') {
                     rowQ.add(row);

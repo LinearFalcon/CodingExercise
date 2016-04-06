@@ -1,4 +1,5 @@
 package edu.nyu.liangfang.leetcode;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,19 +18,19 @@ Given n = 3, your program should return all 5 unique BST's shown below.
  */
 
 public class uniqueBinarySearchTree2 {
-	public List<TreeNode> generateTrees(int n) {
+    public List<TreeNode> generateTrees(int n) {
         if (n == 0) return new LinkedList<TreeNode>();  // for edge case input 0
         return generate(1, n);
     }
-    
-	// the recursion function returns a list of tree node that each of them represents a unique BST
-	public List<TreeNode> generate(int start, int end) {
+
+    // the recursion function returns a list of tree node that each of them represents a unique BST
+    public List<TreeNode> generate(int start, int end) {
         List<TreeNode> result = new LinkedList<TreeNode>();
         if (start > end) {
-            result.add(null);				// must add null!!! Or if n = 1, the output will be an empty list, since we create root inside the three for loops
+            result.add(null);                // must add null!!! Or if n = 1, the output will be an empty list, since we create root inside the three for loops
             return result;
         }
-        
+
         for (int i = start; i <= end; i++) {
             for (TreeNode l : generate(start, i - 1)) {
                 for (TreeNode r : generate(i + 1, end)) {
@@ -40,7 +41,7 @@ public class uniqueBinarySearchTree2 {
                 }
             }
         }
-        
+
         return result;
     }
 }

@@ -1,10 +1,11 @@
 package edu.nyu.liangfang.leetcode;
+
 import java.util.Stack;
 
 
 public class validParenthese {
-	public boolean sol(String s) {
-		Stack<Character> st = new Stack<>();
+    public boolean sol(String s) {
+        Stack<Character> st = new Stack<>();
         for (int i = 0; i < s.length(); i++) {
             if (st.isEmpty()) {
                 st.push(s.charAt(i));
@@ -17,5 +18,5 @@ public class validParenthese {
             }
         }
         return st.isEmpty();
-	}
+    }
 }

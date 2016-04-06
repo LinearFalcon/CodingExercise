@@ -9,91 +9,91 @@ import java.util.concurrent.Semaphore;
  */
 
 public class H2O {
-	Object mutex = new Object();
-	int h_count = 0;
-	int o_count = 0;
-	Semaphore hSemaphore = new Semaphore(2);	// 保证只有不多于2个thread在call H()，多于2个的put to sleep
-	Semaphore oSemaphore = new Semaphore(1);	// 保证只有不多于1个thread在call O()，多于1个的put to sleep
-	
-	public void H() throws InterruptedException {
-		hSemaphore.acquire();
-		System.out.println("H");
-		
-		synchronized(mutex) {	
-			h_count++;
-			
-			if (h_count == 2 && o_count == 1) {
-				h_count = 0;
-				o_count = 0;
-				hSemaphore.release(2);
-				oSemaphore.release();
-				mutex.notifyAll();
-			} else {
-				mutex.wait();				// wait must be used with synchronized, here make sure this thread wait here 
-			}								// until "H2O" is met, means two threads call H() and one thread calls O()
-		}
-	}
-	
-	public void O() throws InterruptedException {
-		oSemaphore.acquire();
-		System.out.println("O");
-		
-		synchronized(mutex) {
-			o_count++;
-			
-			if (h_count == 2 && o_count == 1) {
-				h_count = 0;
-				o_count = 0;
-				hSemaphore.release(2);
-				oSemaphore.release();
-				mutex.notifyAll();
-			} else {
-				mutex.wait();
-			}
-		}
-	}
-	
-	// test
-	public static void main(String[] args) {
-		final H2O o = new H2O();
-		
-		Thread h1 = new Thread(new Runnable() {
-			public void run()  {
-				try {
-					o.H();
-				} catch (InterruptedException e) {
-				}
-			}
-		});
-		Thread h2 = new Thread(new Runnable() {
-			public void run()  {
-				try {
-					o.H();
-				} catch (InterruptedException e) {
-				}
-			}
-		});
-		Thread o1 = new Thread(new Runnable() {
-			public void run()  {
-				try {
-					o.O();
-				} catch (InterruptedException e) {
-				}
-			}
-		});
-		Thread o2 = new Thread(new Runnable() {
-			public void run()  {
-				try {
-					o.O();
-				} catch (InterruptedException e) {
-				}
-			}
-		});
-		
-		o1.start();
-		o2.start();
-		h1.start();
-		h2.start();
-	}
-	
+    Object mutex = new Object();
+    int h_count = 0;
+    int o_count = 0;
+    Semaphore hSemaphore = new Semaphore(2);    // 保证只有不多于2个thread在call H()，多于2个的put to sleep
+    Semaphore oSemaphore = new Semaphore(1);    // 保证只有不多于1个thread在call O()，多于1个的put to sleep
+
+    public void H() throws InterruptedException {
+        hSemaphore.acquire();
+        System.out.println("H");
+
+        synchronized (mutex) {
+            h_count++;
+
+            if (h_count == 2 && o_count == 1) {
+                h_count = 0;
+                o_count = 0;
+                hSemaphore.release(2);
+                oSemaphore.release();
+                mutex.notifyAll();
+            } else {
+                mutex.wait();                // wait must be used with synchronized, here make sure this thread wait here
+            }                                // until "H2O" is met, means two threads call H() and one thread calls O()
+        }
+    }
+
+    public void O() throws InterruptedException {
+        oSemaphore.acquire();
+        System.out.println("O");
+
+        synchronized (mutex) {
+            o_count++;
+
+            if (h_count == 2 && o_count == 1) {
+                h_count = 0;
+                o_count = 0;
+                hSemaphore.release(2);
+                oSemaphore.release();
+                mutex.notifyAll();
+            } else {
+                mutex.wait();
+            }
+        }
+    }
+
+    // test
+    public static void main(String[] args) {
+        final H2O o = new H2O();
+
+        Thread h1 = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    o.H();
+                } catch (InterruptedException e) {
+                }
+            }
+        });
+        Thread h2 = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    o.H();
+                } catch (InterruptedException e) {
+                }
+            }
+        });
+        Thread o1 = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    o.O();
+                } catch (InterruptedException e) {
+                }
+            }
+        });
+        Thread o2 = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    o.O();
+                } catch (InterruptedException e) {
+                }
+            }
+        });
+
+        o1.start();
+        o2.start();
+        h1.start();
+        h2.start();
+    }
+
 }

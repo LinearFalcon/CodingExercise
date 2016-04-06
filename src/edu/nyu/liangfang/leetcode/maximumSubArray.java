@@ -6,7 +6,7 @@ public class maximumSubArray {
         if (A == null || A.length == 0) {
             return 0;
         }
-        int[] maxSumEnd = new int[A.length];	// max sum of sub array ending at index i
+        int[] maxSumEnd = new int[A.length];    // max sum of sub array ending at index i
         maxSumEnd[0] = A[0];
         int max = A[0];
         for (int i = 1; i < A.length; i++) {

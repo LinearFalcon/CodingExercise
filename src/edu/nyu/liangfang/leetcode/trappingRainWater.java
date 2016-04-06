@@ -1,16 +1,16 @@
 package edu.nyu.liangfang.leetcode;
 
 public class trappingRainWater {
-	// version 1
-	public int trap(int[] A) {
+    // version 1
+    public int trap(int[] A) {
         if (A.length == 0) {
             return 0;
         }
-        
+
         int[] leftMax = new int[A.length];
         int[] rightMax = new int[A.length];
         int max = 0;
-        
+
         for (int i = 0; i < A.length; i++) {
             if (A[i] > max) {
                 max = A[i];
@@ -24,20 +24,20 @@ public class trappingRainWater {
             }
             rightMax[j] = max;
         }
-        
+
         int vol = 0;
         for (int k = 0; k < A.length; k++) {
             vol += Math.min(leftMax[k], rightMax[k]) - A[k];
         }
         return vol;
     }
-	
-	// version 2
-	public int trap_v2(int[] A) {
+
+    // version 2
+    public int trap_v2(int[] A) {
         if (A.length < 2) {
             return 0;
         }
-        
+
         // max left value of current index
         int[] maxL = new int[A.length];
         int max = 0;
@@ -47,7 +47,7 @@ public class trappingRainWater {
                 max = A[i];
             }
         }
-        
+
         // max right value of current index
         int[] maxR = new int[A.length];
         max = 0;
@@ -57,7 +57,7 @@ public class trappingRainWater {
                 max = A[i];
             }
         }
-        
+
         // compute volume of each index
         int total = 0;
         for (int i = 0; i < A.length; i++) {

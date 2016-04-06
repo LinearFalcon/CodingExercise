@@ -8,7 +8,7 @@ public class coinChange {
                 if (coin <= sum && minNum[sum - coin] != -1) {
                     if (minNum[sum] != -1)
                         minNum[sum] = Math.min(minNum[sum], 1 + minNum[sum - coin]);
-                    else 
+                    else
                         minNum[sum] = 1 + minNum[sum - coin];
                 }
             }

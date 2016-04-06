@@ -3,8 +3,8 @@ package edu.nyu.liangfang.leetcode;
 import java.util.Stack;
 
 public class evaluateReversePolishNotation {
-	// simple version
-	public int evalRPN(String[] tokens) {
+    // simple version
+    public int evalRPN(String[] tokens) {
         Stack<Integer> st = new Stack<Integer>();
         String operators = "+-*/";
         for (String s : tokens) {
@@ -12,7 +12,7 @@ public class evaluateReversePolishNotation {
                 st.push(Integer.valueOf(s));
                 continue;
             }
-            
+
             int b = st.pop();
             int a = st.pop();
             if (s.equals("+")) {
@@ -25,13 +25,13 @@ public class evaluateReversePolishNotation {
                 st.push(a / b);
             }
         }
-        
+
         return st.pop();
     }
-	
-	// original version
-	public int evalRPN_long(String[] tokens) {
-        
+
+    // original version
+    public int evalRPN_long(String[] tokens) {
+
         Stack<String> st = new Stack<String>();
         for (int i = 0; i < tokens.length; i++) {
             if (tokens[i].equals("+")) {

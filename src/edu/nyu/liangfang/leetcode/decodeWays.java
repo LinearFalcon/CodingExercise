@@ -1,11 +1,11 @@
 package edu.nyu.liangfang.leetcode;
 
 public class decodeWays {
-	// DP - Iterative, most efficient
-	public int numDecodings(String s) {
+    // DP - Iterative, most efficient
+    public int numDecodings(String s) {
         if (s.length() == 0) return 0;
         else if (s.charAt(0) == '0') return 0;
-        
+
         int[] mem = new int[s.length()];
         mem[0] = 1;
         for (int i = 1; i < s.length(); i++) {
@@ -22,12 +22,12 @@ public class decodeWays {
     // v2
     public int numDecodings_v2(String s) {
         if (s.length() == 0 || s.charAt(0) == '0') return 0;
-        
+
         Set<String> set = new HashSet<>();
         for (int i = 1; i <= 26; i++) {
             set.add(String.valueOf(i));
         }
-        
+
         int[] mem = new int[s.length()];
         mem[0] = 1;
         for (int i = 1; i < s.length(); i++) {

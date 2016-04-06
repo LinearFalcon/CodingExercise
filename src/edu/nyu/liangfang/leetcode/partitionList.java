@@ -8,7 +8,7 @@ public class partitionList {
         ListNode left = leftDummy;
         ListNode right = rightDummy;
         ListNode point = head;
-        
+
         while (point != null) {
             if (point.val < x) {
                 left.next = point;
@@ -25,7 +25,7 @@ public class partitionList {
     }
 
     // version 2
-	public ListNode partition(ListNode head, int x) {
+    public ListNode partition(ListNode head, int x) {
         if (head == null)
             return null;
         ListNode leftDummy = new ListNode(0);
@@ -33,7 +33,7 @@ public class partitionList {
         ListNode lpoint = leftDummy;
         ListNode rpoint = rightDummy;
         ListNode point = head;
-        
+
         while (point != null) {
             ListNode tmp = point;
             point = point.next;

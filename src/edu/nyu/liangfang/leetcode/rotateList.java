@@ -9,14 +9,14 @@ public class rotateList {
             p = p.next;
             len++;
         }
-        
+
         if (len <= 1) return head;
         k %= len;
         if (k == 0) return head;
-        
+
         ListNode dummy = new ListNode(0);
-        dummy.next = head; 
-        p = dummy; 
+        dummy.next = head;
+        p = dummy;
         ListNode q = dummy;
         for (int i = 0; i < k; i++) q = q.next;
         while (q.next != null) {
@@ -31,7 +31,7 @@ public class rotateList {
 
 
     // v2
-	public ListNode rotateRight_v2(ListNode head, int n) {
+    public ListNode rotateRight_v2(ListNode head, int n) {
         ListNode last = null;
         int length = 0;
         ListNode point = head;
@@ -40,7 +40,7 @@ public class rotateList {
             last = point;
             point = point.next;
         }
-        
+
         // n may be 0 or bigger than length
         if (n == 0 || head == null)
             return head;
@@ -49,7 +49,7 @@ public class rotateList {
             if (n == 0)
                 return head;
         }
-        
+
         ListNode newHead = head;
         ListNode newTail = head;
         for (int i = 0; i < length - n - 1; i++) {

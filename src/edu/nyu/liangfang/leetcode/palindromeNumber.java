@@ -4,10 +4,10 @@ package edu.nyu.liangfang.leetcode;
  */
 
 public class palindromeNumber {
-	// reverse number and compare
-	public boolean isPalindrome(int x) {
+    // reverse number and compare
+    public boolean isPalindrome(int x) {
         if (x < 0) return false;
-        
+
         long reverse = 0, orig = (long) x;      // Use long in case overflow
         while (orig > 0) {
             reverse = reverse * 10 + orig % 10;
@@ -15,12 +15,12 @@ public class palindromeNumber {
         }
         return x == reverse;
     }
-	
-	public boolean isPalindrome_iterative(int x) {
-        if (x < 0) 
+
+    public boolean isPalindrome_iterative(int x) {
+        if (x < 0)
             return false;
         int len = 1;
-        while ((int)(x / Math.pow(10, len)) != 0) {
+        while ((int) (x / Math.pow(10, len)) != 0) {
             len++;
         }
         int num = x;
@@ -28,11 +28,11 @@ public class palindromeNumber {
         while (num > 0 && powNum > 0) {
             powNum -= 2;
             int right = num % 10;
-            int left = (int)(num / Math.pow(10, powNum));
+            int left = (int) (num / Math.pow(10, powNum));
             if (left != right) {
                 return false;
             }
-            num = (num - (int)(left * Math.pow(10, powNum)) - right) / 10;
+            num = (num - (int) (left * Math.pow(10, powNum)) - right) / 10;
         }
         return true;
     }

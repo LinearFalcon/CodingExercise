@@ -1,10 +1,10 @@
 package edu.nyu.liangfang.leetcode;
 
 public class rotateImage {
-	public void rotate(int[][] matrix) {
+    public void rotate(int[][] matrix) {
         int level = matrix.length / 2;
         int n = matrix.length;
-        
+
         for (int i = 0; i < level; i++) {
             for (int j = i + 1; j < n - i; j++) {
                 int tmp = matrix[i][j];

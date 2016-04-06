@@ -4,11 +4,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class pascalTriangle2 {
-	// O(rowIndex) extra space solution - only store prev
-	public List<Integer> getRow(int rowIndex) {
+    // O(rowIndex) extra space solution - only store prev
+    public List<Integer> getRow(int rowIndex) {
         if (rowIndex < 0)
             return new LinkedList<Integer>();
-        
+
         List<Integer> prev = new LinkedList<Integer>();
         for (int i = 0; i <= rowIndex; i++) {
             List<Integer> curr = new LinkedList<Integer>();
@@ -23,22 +23,22 @@ public class pascalTriangle2 {
             }
             prev = curr;
         }
-        
+
         return prev;
     }
-    
-	
-	// O(n^2) space solution, depend on generateTriangle of question 1
-	public List<Integer> getRow2(int rowIndex) {
+
+
+    // O(n^2) space solution, depend on generateTriangle of question 1
+    public List<Integer> getRow2(int rowIndex) {
         return generate(rowIndex + 1).get(rowIndex);
     }
-    
+
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> result = new LinkedList<List<Integer>>();
         if (numRows < 1) {
             return result;
         }
-        
+
         for (int i = 0; i < numRows; i++) {
             List<Integer> list = new LinkedList<Integer>();
             if (i == 0) {
@@ -54,7 +54,7 @@ public class pascalTriangle2 {
                 result.add(list);
             }
         }
-        
+
         return result;
     }
 }

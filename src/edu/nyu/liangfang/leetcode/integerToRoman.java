@@ -1,9 +1,9 @@
 package edu.nyu.liangfang.leetcode;
 
 public class integerToRoman {
-	public String intToRoman(int num) {
-        char[] table = {'I', 'V', 'X', 'L', 'C', 'D' ,'M'};
-        
+    public String intToRoman(int num) {
+        char[] table = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
+
         StringBuilder sb = new StringBuilder();
         int scale = 1000;
         for (int i = 6; i >= 0; i -= 2) {
@@ -26,7 +26,7 @@ public class integerToRoman {
                         sb.append(table[i]);
                     }
                 }
-                num = num % scale;		// MUST!!! Different level with 'scale = scale / 10'
+                num = num % scale;        // MUST!!! Different level with 'scale = scale / 10'
             }
             scale = scale / 10;
         }

@@ -1,4 +1,5 @@
 package edu.nyu.liangfang.leetcode;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -32,30 +33,29 @@ public class longgestSubstringWithoutRepeat {
     }
 
 
-
-	// v2 method
-	public int lengthOfLongestSubstring2(String s) {
-		Set<Character> set = new HashSet<Character>();
+    // v2 method
+    public int lengthOfLongestSubstring2(String s) {
+        Set<Character> set = new HashSet<Character>();
         int start = 0;
         int max = 0;
-        
+
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
-            
+
             if (!set.contains(ch)) {
                 set.add(ch);
-            } else {				// find repeat, then shrink window
+            } else {                // find repeat, then shrink window
                 max = Math.max(max, i - start);
-                
+
                 while (s.charAt(start) != ch) {
                     set.remove(s.charAt(start));
                     start++;
                 }
-                /* set.remove(s.charAt(start)); */		// do not remove this!!! or you remove all occurrence of the repeated character, should keep one left 
+                /* set.remove(s.charAt(start)); */        // do not remove this!!! or you remove all occurrence of the repeated character, should keep one left
                 start++;
             }
         }
-        max = Math.max(max, s.length() - start);	// last substring should also be checked
+        max = Math.max(max, s.length() - start);    // last substring should also be checked
         return max;
     }
 }

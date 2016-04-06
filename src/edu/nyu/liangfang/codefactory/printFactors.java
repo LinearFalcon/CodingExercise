@@ -21,18 +21,18 @@ package edu.nyu.liangfang.codefactory;
 */
 
 public class printFactors {
-	public void findFactor(int n) {
+    public void findFactor(int n) {
         System.out.println("1 * " + n);
         helper(2, "", n);
-	}
+    }
 
 
-	public void helper(int start, String str, int n) {
+    public void helper(int start, String str, int n) {
         for (int i = start; i <= Math.sqrt(n); i++) {
-                if (n % i == 0 && n / i >= i) {
-                        System.out.println(str + i + " * " + n / i);
-                        helper(i, str + i + " * ", n / i);
-                }
+            if (n % i == 0 && n / i >= i) {
+                System.out.println(str + i + " * " + n / i);
+                helper(i, str + i + " * ", n / i);
+            }
         }
-	}
+    }
 }

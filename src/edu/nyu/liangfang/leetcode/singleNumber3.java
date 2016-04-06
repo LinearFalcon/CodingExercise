@@ -12,11 +12,11 @@ public class singleNumber3 {
         for (int num : nums) {
             diff ^= num;
         }
-        
+
         // generate a binary number with rightmost diff 1 as 1 and other digits zero
         // e.g: diff = 110, then diff ^ -diff = 010
-        diff &= -diff;  
-        
+        diff &= -diff;
+
         int[] res = {0, 0};     // must initialize as zero to XOR all other numbers
         for (int num : nums) {
             if ((num & diff) == 0) {

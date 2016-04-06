@@ -9,8 +9,8 @@ Your algorithm should use only constant space. You may not modify the values in 
  */
 
 public class swapNodesInPairs {
-	public ListNode swapPairs(ListNode head) {
-		ListNode dummy = new ListNode(0);
+    public ListNode swapPairs(ListNode head) {
+        ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode pre = dummy, curr = head;
         while (curr != null && curr.next != null) {
@@ -21,6 +21,6 @@ public class swapNodesInPairs {
             pre = curr;
             curr = curr.next;
         }
-        return dummy.next;       
-	}
+        return dummy.next;
+    }
 }

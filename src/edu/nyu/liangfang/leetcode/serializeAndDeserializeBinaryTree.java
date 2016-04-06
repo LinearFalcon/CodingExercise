@@ -1,5 +1,5 @@
-public class serializeAndDeserializeBinaryTree{
-	// Encodes a tree to a single string.
+public class serializeAndDeserializeBinaryTree {
+    // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         if (root == null) return "";
         Queue<TreeNode> queue = new LinkedList<>();
@@ -8,7 +8,7 @@ public class serializeAndDeserializeBinaryTree{
         sb.append(root.val).append(',');
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
-            
+
             if (node.left != null) {
                 queue.offer(node.left);
                 sb.append(node.left.val).append(',');
@@ -41,7 +41,7 @@ public class serializeAndDeserializeBinaryTree{
             TreeNode right = list[point].equals("#") ? null : new TreeNode(Integer.valueOf(list[point]));
             node.left = left;
             node.right = right;
-            
+
             if (left != null) queue.offer(left);
             if (right != null) queue.offer(right);
         }

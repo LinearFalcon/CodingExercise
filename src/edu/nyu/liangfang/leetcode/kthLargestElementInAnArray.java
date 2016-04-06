@@ -1,5 +1,5 @@
 public class kthLargestElementInAnArray {
-	// naive solution with sort - O(nlgn)
+    // naive solution with sort - O(nlgn)
     public int findKthLargest(int[] nums, int k) {
         Arrays.sort(nums);
         return nums[nums.length - k];
@@ -16,6 +16,7 @@ public class kthLargestElementInAnArray {
         }
         return queue.peek();
     }
+
     public int findKthLargest_minheap2(int[] nums, int k) {
         PriorityQueue<Integer> queue = new PriorityQueue<>();
         for (int n : nums) {
@@ -30,5 +31,5 @@ public class kthLargestElementInAnArray {
 
 
     // O(n) solution
-    
+
 }
